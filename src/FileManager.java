@@ -2,8 +2,6 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-//проверка работы гита
-//Vlad rediska
 public class FileManager {
 
     private static final String CLIENTFILE = "src/Clients.dat";
