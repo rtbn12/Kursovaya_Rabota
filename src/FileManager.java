@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class FileManager {
 
-    private static final String CLIENTFILE = "C:\\Users\\solod\\OneDrive\\Desktop\\OOP_kurs_work\\Kursovaya_Rabota\\src\\Clients.dat";
-    private static final String SELLERSFILE = "C:\\Users\\solod\\OneDrive\\Desktop\\OOP_kurs_work\\Kursovaya_Rabota\\src\\Sellers.dat";
-    private static final String PRODUCTFILE = "C:\\Users\\solod\\OneDrive\\Desktop\\OOP_kurs_work\\Kursovaya_Rabota\\src\\Products.dat";
+    private static final String CLIENTFILE = "src/Clients.dat";
+    private static final String SELLERSFILE = "src/Sellers.dat";
+    private static final String PRODUCTFILE = "src/Products.dat";
 
     public static <T extends User> void  saveUser(Map<String, T> users, String filename){
         try {
