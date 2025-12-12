@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+//проверка работы гита
 public class FileManager {
 
     private static final String CLIENTFILE = "src/Clients.dat";
@@ -12,7 +12,6 @@ public class FileManager {
     public static <T extends User> void  saveUser(Map<String, T> users, String filename){
         try {
             ObjectOutputStream ous = new ObjectOutputStream(new FileOutputStream(filename));
-
 
             ous.writeObject(users);
             ous.close();
