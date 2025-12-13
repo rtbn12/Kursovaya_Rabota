@@ -51,8 +51,8 @@ public class ProductManager {
             price = scanner.nextInt();
         }
 
-        System.out.print("\nВведите количество единиц товара, поступивших на склад:");
-        int quantity = scanner.nextInt();
+//        System.out.print("\nВведите количество единиц товара, поступивших на склад:");
+//        int quantity = scanner.nextInt();
 
 //        while(quantity<=0 || quantity > 15)
 //        {

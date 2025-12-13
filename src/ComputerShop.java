@@ -78,6 +78,7 @@ public class ComputerShop {
                             System.out.print("Введите номер интересующего действия:\n" +
                                     "1 - Регистрация\n" +
                                     "2 - Авторизация\n" +
+                                    "3 - Добавить товар\n"+
                                     "0 - Выход в главное меню\n" +
                                     "Ваш выбор:");
                             int choiceSeller;
@@ -91,6 +92,9 @@ public class ComputerShop {
                                         break;
                                     case 2:
                                         AccountManager.authorizationSeller();
+                                        break;
+                                    case 3:
+                                       ProductManager.registrationProduct();
                                         break;
                                     case 0:
                                         cycleSeller = false;
