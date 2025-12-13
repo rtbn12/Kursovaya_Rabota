@@ -41,7 +41,7 @@ public  class Product implements Serializable {
         return id;
     }
 
-    public String getName() {
+    public String getModel() {
         return model;
     }
 
@@ -135,6 +135,51 @@ public  class Product implements Serializable {
 
     public void setWarrantyMoths(int warrantyMoths) {
         this.warrantyMoths = warrantyMoths;
+    }
+
+
+
+
+
+    public void getMiniInfo()
+    {
+        System.out.println("\nId: " + getId());
+        System.out.println("Категория: " + getCategory());
+        System.out.println("Бренд: " + getBrand());
+        System.out.println("Модель: " + getModel());
+        System.out.println("Цена: " + getPrice());
+        System.out.println("Рейтинг: " + getRating());
+    }
+
+    public void getFullInfoForClient()
+    {
+        System.out.println("\nId: " + getId());
+        System.out.println("Категория: " + getCategory());
+        System.out.println("Бренд: " + getBrand());
+        System.out.println("Модель: " + getModel());
+        System.out.println("Цена: " + getPrice());
+        System.out.println("Страна-производитель: " + getCountryProduction());
+        System.out.println("Год релиза: " + getProductionDate());
+        System.out.println("Гарантийный срок: " + getWarrantyMoths() + " месяцев");
+        System.out.println("Рейтинг: " + getRating());
+        System.out.println("Описание: " + getDescription());
+    }
+
+    public void getFullInfoForSeller()
+    {
+
+        System.out.println("\nId: " + getId());
+        System.out.println("Категория: " + getCategory());
+        System.out.println("Бренд: " + getBrand());
+        System.out.println("Модель: " + getModel());
+        System.out.println("Цена: " + getPrice());
+        System.out.println("Страна-производитель: " + getCountryProduction());
+        System.out.println("Год релиза: " + getProductionDate());
+        System.out.println("Гарантийный срок: " + getWarrantyMoths() + " месяцев");
+        System.out.println("Рейтинг: " + getRating());
+        System.out.println("Дата добавления: " + getAddedDate());
+        System.out.println("Описание: " + getDescription());
+
     }
 
 }

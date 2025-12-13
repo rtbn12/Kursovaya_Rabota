@@ -121,15 +121,35 @@ public class ProductManager {
             description = scanner.nextLine();
         }
 
-        System.out.println("\nВведите срок предоставляемой гарантии на товар в целом количестве месяцев:");
-        int warrantyMoths = scanner.nextInt();
-        while (warrantyMoths<=0 || warrantyMoths>120)
+        int warrantyMoths = 0;
+
+        boolean warranty = true;
+        while (warranty)
         {
-            System.out.print("\nВы ввели некорректный срок гарантии!\n" +
-                    "Введите срок гарантии в месяцах заново!:");
-            warrantyMoths = scanner.nextInt();
+            System.out.print("\nВведите срок предоставляемой гарантии на товар в целом количестве месяцев:");
+            try {
+                warrantyMoths = scanner.nextInt();
+                while (warrantyMoths<=0 || warrantyMoths>120)
+                {
+                    System.out.print("\nВы ввели некорректный срок гарантии!\n" +
+                            "Введите срок гарантии в месяцах заново!:");
+                    warrantyMoths = scanner.nextInt();
+                }
+                warranty = false;
+            }catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение срока гарантии!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            }
+            catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
         }
 
+
+        
         System.out.print("\nРегистрация товара завершена успешно!");
 
         products.put(id,new Product(id,brand,model,countryProduction,productionDate,price,category,description,warrantyMoths));
