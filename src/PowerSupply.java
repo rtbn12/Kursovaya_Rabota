@@ -10,7 +10,7 @@ public class PowerSupply extends ComputerComponent{
     private String protections;     // Защиты (OCP, OVP, UVP, OPP, SCP)
 
 
-    public PowerSupply(String id, String brand, String model, int price, String interfaceType,
+    public PowerSupply(String id, String brand, String model, int price,
                        int powerConsumption, double voltage,String efficiency,String modularity,
                        int sataConnectors,int pcieConnectors,int cpuConnectors,String fanSize,
                        String protections, String dimensions, int weight,
@@ -18,7 +18,7 @@ public class PowerSupply extends ComputerComponent{
                        String description, int warrantyMoths) {
 
 
-        super(id, brand, model, price, interfaceType, powerConsumption, voltage, dimensions,
+        super(id, brand, model, price, "Нет", powerConsumption, voltage, dimensions,
                 weight, countryProduction, productionDate,"Блок питания", description, warrantyMoths);
 
 
@@ -99,7 +99,6 @@ public class PowerSupply extends ComputerComponent{
         System.out.println("Бренд: " + getBrand());
         System.out.println("Модель: " + getModel());
         System.out.println("Цена: " + getPrice() + " рублей");
-        System.out.println("Интерфейс подключения: " + getInterfaceType());
         System.out.println("Потребляемая мощность: " + getPowerConsumption());
         System.out.println("Рабочее напряжение: " + getVoltage() + " V");
         System.out.println("Сертификат эффективности: " + getEfficiency());
