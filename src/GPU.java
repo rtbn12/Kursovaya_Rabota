@@ -19,7 +19,8 @@ public class GPU extends ComputerComponent{
                String countryProduction, int productionDate, String description, int warrantyMoths) {
 
 
-        super(id, brand, model, price, "PCIe", powerConsumption, voltage, dimensions, weight, countryProduction, productionDate, "Видеокарта", description, warrantyMoths);
+        super(id, brand, model, price, "PCIe", powerConsumption, voltage, dimensions, weight,
+                countryProduction, productionDate, "Видеокарта", description, warrantyMoths);
 
 
         this.vramSize = vramSize;
