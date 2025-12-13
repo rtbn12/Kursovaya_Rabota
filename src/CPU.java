@@ -98,10 +98,6 @@ public class CPU extends ComputerComponent{
     }
 
 
-    @Override
-    public void getFullInfoForSeller() {
-        super.getFullInfoForSeller();
-    }
 
     @Override
     public void getFullInfoForClient() {
