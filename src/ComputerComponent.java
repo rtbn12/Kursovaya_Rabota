@@ -87,7 +87,7 @@ public class ComputerComponent extends Product{
     @Override
     public void getFullInfoForSeller() {
 
-        System.out.println("Дата добавления: " + getAddedDate());
+        System.out.println("\nДата добавления: " + getAddedDate());
 
     }
 }
