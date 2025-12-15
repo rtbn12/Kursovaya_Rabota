@@ -12,15 +12,15 @@ public class GPU extends ComputerComponent{
     private String videoOutput;     // типы видеовыходов
 
 
-    public GPU(String id, String brand, String model, int price, int vramSize,
+    public GPU(String id, String brand, String model, int price,String interfaceType, int vramSize,
                String memoryType,int cudaCores,double baseFrequency,double boostFrequency,
                int memoryBusWidth,String coolingType,int powerConnectors,String typePCIe,String videoOutput,
                int powerConsumption, double voltage, String dimensions, int weight,
-               String countryProduction, int productionDate, String description, int warrantyMoths) {
+               String countryProduction, int productionDate, String category, String description, int warrantyMoths) {
 
 
-        super(id, brand, model, price, "PCIe", powerConsumption, voltage, dimensions, weight,
-                countryProduction, productionDate, "Видеокарта", description, warrantyMoths);
+        super(id, brand, model, price,  interfaceType, powerConsumption, voltage, dimensions, weight,
+                countryProduction, productionDate,  category, description, warrantyMoths);
 
 
         this.vramSize = vramSize;

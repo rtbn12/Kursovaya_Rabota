@@ -16,12 +16,12 @@ public class Monitor extends Peripheral{
                    String connectionType, double cableLength,
                    boolean isWireless, boolean hasRGB,
                    String color, String countryProduction,
-                   int productionDate, int price,
+                   int productionDate,String category, int price,
                    String description, int warrantyMoths) {
 
 
         super(id, brand, model, connectionType, cableLength, isWireless, hasRGB,
-                color, countryProduction, productionDate, price, "Монитор", description, warrantyMoths);
+                color, countryProduction, productionDate, price,  category, description, warrantyMoths);
 
 
         this.screenSize = screenSize;

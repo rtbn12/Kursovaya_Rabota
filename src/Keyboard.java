@@ -14,14 +14,14 @@ public class Keyboard extends Peripheral{
                     String switchType, String layout, boolean hasNumpad,
                     String connectionType, double cableLength,
                     boolean isWireless, boolean hasRGB, String color,
-                    String countryProduction, int productionDate,
+                    String countryProduction, int productionDate,String category,
                     int price,  String description,
                     int warrantyMoths) {
 
 
         super(id, brand, model, connectionType, cableLength, isWireless,
                 hasRGB, color, countryProduction, productionDate, price,
-                "Клавиатура", description, warrantyMoths);
+                 category, description, warrantyMoths);
 
         this.keyboardType = keyboardType;
         this.countKey = countKey;

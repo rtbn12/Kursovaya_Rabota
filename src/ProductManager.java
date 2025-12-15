@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ProductManager {
 
-    public static Product registrationProduct ()
+    public static Product registrationProduct (String choiceCategory)
     {
        Map<String,Product> products = FileManager.loadProduct0();
         Scanner scanner = new Scanner(System.in);
@@ -51,65 +51,6 @@ public class ProductManager {
             price = scanner.nextInt();
         }
 
-//        System.out.print("\nВведите количество единиц товара, поступивших на склад:");
-//        int quantity = scanner.nextInt();
-
-//        while(quantity<=0 || quantity > 15)
-//        {
-//            System.out.print("\nВведено недоступное количество единиц товара!\n" +
-//                    "Введите количество единиц товара ещё раз:");
-//            quantity = scanner.nextInt();
-//        }
-
-        boolean categoryTip = true;
-        String category = "";
-        while (categoryTip)
-        {
-            System.out.print("\nВведите категорию товара:\n" +
-                    "0-продукт\n" +
-                    "1-\n" +
-                    "2-\n" +
-                    "3-\n" +
-                    "Выбор:");
-
-            try {
-                int choiceCategory = scanner.nextInt();
-                scanner.nextLine();
-
-                switch (choiceCategory)
-                {
-                    case 0:
-                        category = "Товар";
-                        categoryTip = false;
-                        break;
-                    case 1:
-                        category = "Заглушка1";
-                        categoryTip = false;
-                        break;
-                    case 2:
-                        category = "Заглушка2";
-                        categoryTip = false;
-                        break;
-                    case 3:
-                        category = "Заглушка3";
-                        categoryTip = false;
-                        break;
-                    default:
-                        System.out.print("\nВведен некорректный вариант! " +
-                                "Попробуй ещё раз!");
-                }
-
-            }catch (InputMismatchException e) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            }
-            catch (Exception a) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
 
         System.out.print("\nВведите описание товара:");
         String description = scanner.nextLine();
@@ -152,10 +93,74 @@ public class ProductManager {
         
         System.out.print("\nРегистрация товара завершена успешно!");
 
-        products.put(id,new Product(id,brand,model,countryProduction,productionDate,price,category,description,warrantyMoths));
+        products.put(id,new Product(id,brand,model,countryProduction,productionDate,price,choiceCategory,description,warrantyMoths));
         FileManager.saveProduct0(products);
-        return  new Product(id,brand,model,countryProduction,productionDate,price,category,description,warrantyMoths);
+        return  new Product(id,brand,model,countryProduction,productionDate,price,choiceCategory,description,warrantyMoths);
 
 
     }
+
+    public static ComputerComponent registrationComputerComponent(String choiceCategory)
+    {
+        Product product = registrationProduct(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = product.getId();
+        String brand = product.getBrand();
+        String model = product.getModel();
+        String countryProduction = product.getCountryProduction();
+        int productionDate = product.getProductionDate();
+        int price = product.getPrice();
+        String description = product.getDescription();
+        int warrantyMoths = product.getWarrantyMoths();
+        String category = product.getCategory();
+
+        String interfaceType;
+        if(category.equals("Видеокарта"))
+        {
+            interfaceType = "PCIe";
+        } else if (category.equals("Кулер")) {
+            interfaceType = "Нет";
+        } else if (category.equals("Корпус")) {
+            interfaceType = "Нет";
+        } else if (category.equals("Блок питания")) {
+            interfaceType = "Нет";
+        } else if (category.equals("Центральный процессор")) {
+
+        } else if (category.equals("Оперативная память")) {
+
+        } else if (category.equals("Постоянное запоминающее устройство")) {
+
+
+        } else {
+            System.out.print("\nВведите интерфейсы подключения внешних устройств материнской платы:");
+            interfaceType = scanner.nextLine();
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void registrationCPU(String choiceCategory){}
+    public static void registrationMotherBoard(String choiceCategory){}
+    public static void registrationGPU(String choiceCategory){}
+    public static void registrationRAM(String choiceCategory){}
+    public static void registrationStorage(String choiceCategory){}
+    public static void registrationPowerSupply(String choiceCategory){}
+    public static void registrationCase(String choiceCategory){}
+    public static void registrationCooler(String choiceCategory){}
+    public static void registrationSoftware(String choiceCategory){}
+    public static void registrationMonitor(String choiceCategory){}
+    public static void registrationMouse(String choiceCategory){}
+    public static void registrationKeyBoard(String choiceCategory){}
 }

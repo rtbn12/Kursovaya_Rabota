@@ -10,14 +10,14 @@ public class Mouse extends Peripheral{
                  int buttonsCount, String sensorType, boolean isGaming,
                  String connectionType, double cableLength,
                  boolean isWireless, boolean hasRGB, String color,
-                 String countryProduction, int productionDate,
+                 String countryProduction, int productionDate,String category,
                  int price, String description,
                  int warrantyMoths) {
 
 
         super(id, brand, model, connectionType, cableLength, isWireless,
                 hasRGB, color, countryProduction, productionDate, price,
-                "Компьютерная мышь", description, warrantyMoths);
+                 category, description, warrantyMoths);
 
 
         this.dpi = dpi;

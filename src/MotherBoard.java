@@ -17,14 +17,14 @@ public class MotherBoard extends ComputerComponent{
                        String chipset, String socket, int ramSlots, int maxRamCapacity, String ramType,
                        int m2Slots, int sataPorts, boolean hasWiFi, String audioCodec, String lanSpeed,
                        int powerConsumption, double voltage, String dimensions, int weight,
-                       String countryProduction, int productionDate,
+                       String countryProduction, int productionDate,String category,
                        String description,
                        int warrantyMoths) {
 
 
 
         super(id, brand, model, price, interfaceType, powerConsumption, voltage, dimensions,
-                weight, countryProduction, productionDate, "Материнская плата",
+                weight, countryProduction, productionDate, category,
                 description, warrantyMoths);
 
         this.chipset = chipset;

@@ -12,11 +12,11 @@ public class Storage extends ComputerComponent{
     public Storage(String id, String brand, String model, int price, String interfaceType,int capacity,
                    String storageType,int readSpeed,int writeSpeed,String formFactor,int tbw,int cacheSize,
                    String nandType,int powerConsumption, double voltage, String dimensions, int weight,
-                   String countryProduction, int productionDate, String description, int warrantyMoths) {
+                   String countryProduction, int productionDate,String category, String description, int warrantyMoths) {
 
 
         super(id, brand, model, price, interfaceType, powerConsumption, voltage, dimensions, weight, countryProduction,
-                productionDate, "Постоянное запоминающее устройство", description, warrantyMoths);
+                productionDate,  category, description, warrantyMoths);
 
         this.capacity = capacity;
         this.storageType = storageType;

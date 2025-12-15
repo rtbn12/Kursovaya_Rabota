@@ -10,16 +10,16 @@ public class PowerSupply extends ComputerComponent{
     private String protections;     // Защиты (OCP, OVP, UVP, OPP, SCP)
 
 
-    public PowerSupply(String id, String brand, String model, int price,
+    public PowerSupply(String id, String brand, String model, int price,String interfaceType,
                        int powerConsumption, double voltage,String efficiency,String modularity,
                        int sataConnectors,int pcieConnectors,int cpuConnectors,String fanSize,
                        String protections, String dimensions, int weight,
-                       String countryProduction, int productionDate,
+                       String countryProduction, int productionDate,String category,
                        String description, int warrantyMoths) {
 
 
-        super(id, brand, model, price, "Нет", powerConsumption, voltage, dimensions,
-                weight, countryProduction, productionDate,"Блок питания", description, warrantyMoths);
+        super(id, brand, model, price,  interfaceType, powerConsumption, voltage, dimensions,
+                weight, countryProduction, productionDate, category, description, warrantyMoths);
 
 
         this.efficiency = efficiency;

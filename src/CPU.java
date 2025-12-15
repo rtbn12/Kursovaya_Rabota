@@ -14,12 +14,12 @@ public class CPU extends ComputerComponent{
     public CPU(String id, String brand, String model, int price, String interfaceType, String socket,
                int coreCount, int threadCount,double baseFrequency,double maxFrequency,int cacheSize,String memoryType,
                boolean hasIntegratedGraphics,int powerConsumption, double voltage, String dimensions,
-               int weight, String countryProduction, int productionDate, String description,
+               int weight, String countryProduction, int productionDate,String category, String description,
                int warrantyMoths) {
 
 
         super(id, brand, model, price, interfaceType, powerConsumption, voltage, dimensions, weight,
-                countryProduction, productionDate, "Процессор", description, warrantyMoths);
+                countryProduction, productionDate, category, description, warrantyMoths);
 
 
         this.socket = socket;

@@ -29,6 +29,7 @@ public class Seller extends User implements Serializable {
 
     public void registrationProduct()
     {
+        String category;
         initScanner();
         int registrationChoice;
         boolean registration = true;
@@ -58,40 +59,52 @@ public class Seller extends User implements Serializable {
                 switch (registrationChoice)
                 {
                     case 1:
-                        System.out.println("Заглушка 1");
+                        category = "Центральный процессор";
+                        ProductManager.registrationCPU(category);
                         break;
                     case 2:
-                        System.out.println("Заглушка 2");
+                        category = "Материнская плата";
+                        ProductManager.registrationMotherBoard(category);
                         break;
                     case 3:
-                        System.out.println("Заглушка 3");
+                        category = "Видеокарта";
+                        ProductManager.registrationGPU(category);
                         break;
                     case 4:
-                        System.out.println("Заглушка 4");
+                        category = "Оперативная память";
+                        ProductManager.registrationRAM(category);
                         break;
                     case 5:
-                        System.out.println("Заглушка 5");
+                        category = "Постоянное запоминающее устройство";
+                        ProductManager.registrationStorage(category);
                         break;
                     case 6:
-                        System.out.println("Заглушка 6");
+                        category = "Блок питания";
+                        ProductManager.registrationPowerSupply(category);
                         break;
                     case 7:
-                        System.out.println("Заглушка 7");
+                        category = "Корпус";
+                        ProductManager.registrationCase(category);
                         break;
                     case 8:
-                        System.out.println("Заглушка 8");
+                        category = "Кулер";
+                        ProductManager.registrationCooler(category);
                         break;
                     case 9:
-                        System.out.println("Заглушка 9");
+                        category = "Программное обеспечение";
+                        ProductManager.registrationSoftware(category);
                         break;
                     case 10:
-                        System.out.println("Заглушка 10");
+                        category = "Монитор";
+                        ProductManager.registrationMonitor(category);
                         break;
                     case 11:
-                        System.out.println("Заглушка 11");
+                        category = "Мышь";
+                        ProductManager.registrationMouse(category);
                         break;
                     case 12:
-                        System.out.println("Заглушка 12");
+                        category = "Клавиатура";
+                        ProductManager.registrationKeyBoard(category);
                         break;
                     case 0:
                         registration = false;

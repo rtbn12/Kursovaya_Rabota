@@ -12,13 +12,13 @@ public class RAM extends ComputerComponent{
     public RAM(String id, String brand, String model, int price, String interfaceType,int capacity,
                int frequency,int latency, String memoryType, int modulesCount,boolean hasRGB,
                boolean hasHeatSpreader,int powerConsumption, double voltage, String dimensions,
-               int weight, String countryProduction, int productionDate,
+               int weight, String countryProduction, int productionDate, String category,
                String description, int warrantyMoths) {
 
 
         super(id, brand, model, price, interfaceType, powerConsumption, voltage,
                 dimensions, weight, countryProduction, productionDate,
-                "Оперативная память", description, warrantyMoths);
+                 category, description, warrantyMoths);
 
         this.capacity = capacity;
         this.frequency = frequency;

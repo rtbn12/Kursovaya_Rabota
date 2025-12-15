@@ -12,7 +12,6 @@ public  class Product implements Serializable {
     private String countryProduction;
     private int productionDate;
     private int price;
-//    private int quantity;
     private String category;
     private String description;
     private Date addedDate;
@@ -28,7 +27,6 @@ public  class Product implements Serializable {
         this.countryProduction = countryProduction;
         this.productionDate = productionDate;
         this.price = price;
-//        this.quantity = quantity;
         this.category = category;
         this.description = description;
         this.addedDate = new Date();
@@ -60,10 +58,6 @@ public  class Product implements Serializable {
     public int getPrice() {
         return price;
     }
-
-//    public int getQuantity() {
-//        return quantity;
-//    }
 
     public String getCategory() {
         return category;
@@ -112,10 +106,6 @@ public  class Product implements Serializable {
     public void setPrice(int price) {
         this.price = price;
     }
-
-//    public void setQuantity(int quantity) {
-//        this.quantity = quantity;
-//    }
 
     public void setCategory(String category) {
         this.category = category;

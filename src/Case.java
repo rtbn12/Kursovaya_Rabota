@@ -12,17 +12,17 @@ public class Case extends ComputerComponent{
     private boolean hasDustFilters; // Пылевые фильтры
 
 
-    public Case(String id, String brand, String model, int price,String caseType,
+    public Case(String id, String brand, String model, int price,String interfaceType,String caseType,
                 String motherboardFormFactor,int driveBays35,int driveBays25,
                 String frontPanel,boolean hasTemperedGlass,boolean hasFanSupport,
                 boolean hasRGB,boolean hasDustFilters,
                 String dimensions, int weight,
-                String countryProduction, int productionDate,
+                String countryProduction, int productionDate,String category,
                 String description, int warrantyMoths) {
 
 
-        super(id, brand, model, price, "Нет", 0, 0, dimensions,
-                weight, countryProduction, productionDate, "Кейс", description, warrantyMoths);
+        super(id, brand, model, price,  interfaceType, 0, 0, dimensions,
+                weight, countryProduction, productionDate,  category, description, warrantyMoths);
 
 
         this.caseType = caseType;

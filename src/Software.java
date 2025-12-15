@@ -12,11 +12,11 @@ public class Software extends Product{
     public Software(String id, String brand, String model,String softwareType,
                     int licenseDuration,String supportedOS,String systemRequirements,
                     boolean isDigital,String languages, String countryProduction,
-                    int productionDate, int price, String description, int warrantyMoths) {
+                    int productionDate,String category, int price, String description, int warrantyMoths) {
 
 
         super(id, brand, model, countryProduction,
-                productionDate, price, "Программное обеспечение",
+                productionDate, price,  category,
                 description, warrantyMoths);
 
         this.softwareType = softwareType;

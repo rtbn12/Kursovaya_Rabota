@@ -9,17 +9,17 @@ public class Cooler extends ComputerComponent{
     private boolean hasRGB;         // RGB подсветка
     private boolean hasPwm;         // PWM регулировка оборотов
 
-    public Cooler(String id, String brand, String model, int price, String coolerType,
+    public Cooler(String id, String brand, String model, int price, String interfaceType, String coolerType,
                   String socketCompatibility, int fanSize,int fanSpeed,int tdp,
                   int heatPipes,boolean hasRGB,boolean hasPwm,
                   int powerConsumption, double voltage, String dimensions, int weight,
-                  String countryProduction, int productionDate,
+                  String countryProduction, int productionDate,String category,
                   String description, int warrantyMoths) {
 
 
-        super(id, brand, model, price, "Нет", powerConsumption,
+        super(id, brand, model, price,  interfaceType, powerConsumption,
                 voltage, dimensions, weight, countryProduction, productionDate,
-                "Кулер", description, warrantyMoths);
+                 category, description, warrantyMoths);
 
         this.coolerType = coolerType;
         this.socketCompatibility = socketCompatibility;
