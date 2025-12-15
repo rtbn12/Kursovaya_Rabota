@@ -159,6 +159,8 @@ public  class Product implements Serializable {
     public void getFullInfoForSeller()
     {
 
+        System.out.println("Дата добавления товара: " + getAddedDate());
+
     }
 
 }
