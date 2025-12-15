@@ -63,26 +63,6 @@ public class ComputerComponent extends Product{
     }
 
 
-    @Override
-    public void getFullInfoForClient() {
-
-        System.out.println("\nId: " + getId());
-        System.out.println("Категория: " + getCategory());
-        System.out.println("Бренд: " + getBrand());
-        System.out.println("Модель: " + getModel());
-        System.out.println("Цена: " + getPrice());
-        System.out.println("Интерфейс подключения: " + getInterfaceType());
-        System.out.println("Потребляемая мощность: " + getPowerConsumption());
-        System.out.println("Рабочее напряжение: " + getVoltage() + " V");
-        System.out.println("Габариты: " + getDimensions() + " мм");
-        System.out.println("Вес: " + getWeight() + " г");
-        System.out.println("Страна-производитель: " + getCountryProduction());
-        System.out.println("Год релиза: " + getProductionDate());
-        System.out.println("Гарантийный срок: " + getWarrantyMoths() + " месяцев");
-        System.out.println("Рейтинг: " + getRating());
-        System.out.println("Описание: " + getDescription());
-
-    }
 
 
 }

@@ -66,23 +66,5 @@ public class Peripheral extends Product{
         this.color = color;
     }
 
-    @Override
-    public void getFullInfoForClient() {
 
-        System.out.println("\nId: " + getId());
-        System.out.println("Категория: " + getCategory());
-        System.out.println("Бренд: " + getBrand());
-        System.out.println("Модель: " + getModel());
-        System.out.println("Цена: " + getPrice());
-        System.out.println("Цвет устройства: " + getColor());
-        System.out.println("Доступные типы подключения: " + getConnectionType());
-        System.out.println("Длина кабеля: " + getCableLength() + " м");
-        System.out.println("Беспроводное устройство: " + (isWireless() ? "Да" : "Нет"));
-        System.out.println("Наличие RGB подсветки: " + (isHasRGB() ? "Да" : "Нет"));
-        System.out.println("Страна-производитель: " + getCountryProduction());
-        System.out.println("Год релиза: " + getProductionDate());
-        System.out.println("Гарантийный срок: " + getWarrantyMoths() + " месяцев");
-        System.out.println("Рейтинг: " + getRating());
-        System.out.println("Описание: " + getDescription());
-    }
 }
