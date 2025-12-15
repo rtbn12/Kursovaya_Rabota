@@ -26,11 +26,11 @@ public class FileManager {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
 
-            Map<String, T> clients = ( Map<String, T>)ois.readObject();
+            Map<String, T> users = ( Map<String, T>)ois.readObject();
 
             ois.close();
 
-            return clients;
+            return users;
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Ошибка загрузки: " + e.getMessage());

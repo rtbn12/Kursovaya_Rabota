@@ -5,7 +5,11 @@ public class ComputerShop {
     private static final String address = "Belgorod, Pobedy street, 85b";
     private static final String name = "ENS";
     private static final String phone = "+79024292753";
-    static  void main(String[] args) {
+
+    private static Client client = null;
+    private static Seller seller = null;
+
+   public static  void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         boolean cycle = true;
@@ -46,7 +50,7 @@ public class ComputerShop {
                                        AccountManager.registrationClient();
                                        break;
                                    case 2:
-                                       AccountManager.authorizationClient();
+                                       client = AccountManager.authorizationClient();
                                        break;
                                    case 0:
                                        cycleClient = false;
@@ -91,10 +95,19 @@ public class ComputerShop {
                                         AccountManager.registrationSeller();
                                         break;
                                     case 2:
-                                        AccountManager.authorizationSeller();
+                                        seller = AccountManager.authorizationSeller();
                                         break;
                                     case 3:
-                                       ProductManager.registrationProduct();
+                                        if(seller!=null)
+                                        {
+                                            seller.registrationProduct();
+                                        }
+
+                                        else
+                                        {
+                                            System.out.println("Продавец не авторизован!");
+                                        }
+
                                         break;
                                     case 0:
                                         cycleSeller = false;
