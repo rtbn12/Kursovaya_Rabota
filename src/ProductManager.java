@@ -115,7 +115,7 @@ public class ProductManager {
         int warrantyMoths = product.getWarrantyMoths();
         String category = product.getCategory();
 
-        String interfaceType;
+        String interfaceType = null;
         if(category.equals("Видеокарта"))
         {
             interfaceType = "PCIe";
@@ -127,16 +127,230 @@ public class ProductManager {
             interfaceType = "Нет";
         } else if (category.equals("Центральный процессор")) {
 
+            boolean cycle = true;
+            while (cycle)
+            {
+                System.out.print("\nВыберите один из доступных вариантов интерфейса подключения процессора: " +
+                        "1-PGA\n" +
+                        "2-LGA\n" +
+                        "3-BGA\n" +
+                        "Ваш выбор:");
+                int choice;
+                try {
+                    choice = scanner.nextInt();
+                    switch (choice)
+                    {
+                        case 1:
+                            interfaceType = "PGA";
+                            cycle = false;
+                            break;
+                        case 2:
+                            interfaceType = "LGA";
+                            cycle = false;
+                            break;
+                        case 3:
+                            interfaceType = "BGA";
+                            cycle = false;
+                            break;
+                        default:
+                            System.out.println("Такого варианта выбора нет!\n" +
+                                    "Пожалуйста, введите корректную цифру!");
+                    }
+
+                }catch (InputMismatchException e) {
+                    System.out.println("Произошла ошибка!\n" +
+                            "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                            "В прошлый раз вы ввели букву вместо числа!");
+                    scanner.nextLine();
+                }
+                catch (Exception a) {
+                    System.out.println("Произошла неизвестная ошибка!");
+                    scanner.nextLine();
+                }
+            }
+
         } else if (category.equals("Оперативная память")) {
+            boolean cycle = true;
+            while (cycle)
+            {
+                System.out.print("\nВыберите один из доступных вариантов интерфейса подключения ОЗУ: " +
+                        "1-DIMM\n" +
+                        "2-SO-DIMM\n" +
+                        "Ваш выбор:");
+                int choice;
+                try {
+                    choice = scanner.nextInt();
+                    switch (choice)
+                    {
+                        case 1:
+                            interfaceType = "DIMM";
+                            cycle = false;
+                            break;
+                        case 2:
+                            interfaceType = "SO-DIMM";
+                            cycle = false;
+                            break;
+                        default:
+                            System.out.println("Такого варианта выбора нет!\n" +
+                                    "Пожалуйста, введите корректную цифру!");
+                    }
+
+                }catch (InputMismatchException e) {
+                    System.out.println("Произошла ошибка!\n" +
+                            "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                            "В прошлый раз вы ввели букву вместо числа!");
+                    scanner.nextLine();
+                }
+                catch (Exception a) {
+                    System.out.println("Произошла неизвестная ошибка!");
+                    scanner.nextLine();
+                }
+            }
 
         } else if (category.equals("Постоянное запоминающее устройство")) {
+            boolean cycle = true;
+            while (cycle)
+            {
+                System.out.print("\nВыберите один из доступных вариантов интерфейса подключения Постоянного запоминающего устройства: " +
+                        "1-SATA III\n" +
+                        "2-M.2\n" +
+                        "Ваш выбор:");
+                int choice;
+                try {
+                    choice = scanner.nextInt();
+                    switch (choice)
+                    {
+                        case 1:
+                            interfaceType = "SATA III";
+                            cycle = false;
+                            break;
+                        case 2:
+                            interfaceType = "M.2";
+                            cycle = false;
+                            break;
+                        default:
+                            System.out.println("Такого варианта выбора нет!\n" +
+                                    "Пожалуйста, введите корректную цифру!");
+                    }
 
+                }catch (InputMismatchException e) {
+                    System.out.println("Произошла ошибка!\n" +
+                            "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                            "В прошлый раз вы ввели букву вместо числа!");
+                    scanner.nextLine();
+                }
+                catch (Exception a) {
+                    System.out.println("Произошла неизвестная ошибка!");
+                    scanner.nextLine();
+                }
+            }
 
         } else {
             System.out.print("\nВведите интерфейсы подключения внешних устройств материнской платы:");
             interfaceType = scanner.nextLine();
         }
 
+
+
+        int powerConsumption =0;
+        boolean cyclePower = true;
+        while (cyclePower)
+        {
+            System.out.print("\nВведите потребляемую мощность устройства:");
+
+            try {
+                  powerConsumption = scanner.nextInt();
+                while(powerConsumption <0 || powerConsumption>2000)
+                {
+
+                    System.out.print("\nНекорректное значение потребляемой мощности!\n" +
+                            "Введите значение ещё раз:");
+                    powerConsumption = scanner.nextInt();
+                }
+
+                cyclePower = false;
+
+            }catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            }
+            catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+
+        }
+
+        double voltage = 0;
+        boolean cycleVoltage = true;
+        while (cycleVoltage)
+        {
+            System.out.print("\nВведите рабочее напряжение устройства:");
+
+            try {
+                voltage = scanner.nextDouble();
+                while(voltage <0 || voltage>15)
+                {
+
+                    System.out.print("\nНекорректное значение рабочего напряжения!\n" +
+                            "Введите значение ещё раз:");
+                    voltage = scanner.nextInt();
+                }
+
+                cycleVoltage = false;
+
+            }catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            }
+            catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+
+        }
+
+        String dimensions;
+        System.out.print("\nВведите размеры продукта в миллиметрах в формате A x B x C :");
+        dimensions = scanner.nextLine();
+
+        int weight = 0;
+        boolean cycleWeight = true;
+        while (cycleWeight)
+        {
+            System.out.print("\nВведите вес устройства в граммах:");
+
+            try {
+                weight = scanner.nextInt();
+                while(weight <0 || weight>10000)
+                {
+
+                    System.out.print("\nНекорректное значение веса устройства!\n" +
+                            "Введите значение ещё раз:");
+                    weight = scanner.nextInt();
+                }
+
+                cycleWeight = false;
+
+            }catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            }
+            catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+
+        }
+
+
+        return new ComputerComponent(id,brand,model,price,interfaceType,powerConsumption,voltage,dimensions,weight,countryProduction,productionDate,category,description,warrantyMoths);
 
     }
 
