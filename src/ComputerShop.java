@@ -82,7 +82,8 @@ public class ComputerShop {
                             System.out.print("Введите номер интересующего действия:\n" +
                                     "1 - Регистрация\n" +
                                     "2 - Авторизация\n" +
-                                    "3 - Добавить товар\n"+
+                                    "3 - Добавить товар\n" +
+                                    "4 - Вывести информацию о товаре\n"+
                                     "0 - Выход в главное меню\n" +
                                     "Ваш выбор:");
                             int choiceSeller;
@@ -101,6 +102,17 @@ public class ComputerShop {
                                         if(seller!=null)
                                         {
                                             seller.registrationProduct();
+                                        }
+
+                                        else
+                                        {
+                                            System.out.println("Продавец не авторизован!");
+                                        }
+                                        break;
+                                    case 4:
+                                        if(seller!=null)
+                                        {
+                                            seller.printProduct();
                                         }
 
                                         else

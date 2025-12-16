@@ -1,7 +1,5 @@
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Seller extends User implements Serializable {
@@ -127,6 +125,96 @@ public class Seller extends User implements Serializable {
 
         }
 
+    }
+
+
+    public void printProduct()
+    {
+
+        initScanner();
+        int printChoice;
+        boolean print = true;
+        while(print)
+        {
+            System.out.print("\nВыберите категорию товара, которую хотите вывести:\n" +
+                    "1-Центральный процессор\n" +
+                    "2-Материнская плата\n" +
+                    "3-Видеокарта\n" +
+                    "4-Оперативная память\n" +
+                    "5-Постоянное запоминающее устройство\n" +
+                    "6-Блок питания\n" +
+                    "7-Корпус\n" +
+                    "8-Кулер\n" +
+                    "9-Программное обеспечение\n" +
+                    "10-Монитор\n" +
+                    "11-Мышь\n" +
+                    "12-Клавиатура\n" +
+                    "0-Выход в меню продавца\n" +
+                    "Ваш выбор:");
+
+
+
+            try {
+                printChoice = scanner2.nextInt();
+
+                switch (printChoice)
+                {
+                    case 1:
+                        ProductManager.PrintCPU();
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    case 5:
+
+                        break;
+                    case 6:
+
+                        break;
+                    case 7:
+
+                        break;
+                    case 8:
+
+                        break;
+                    case 9:
+
+                        break;
+                    case 10:
+
+                        break;
+                    case 11:
+
+                        break;
+                    case 12:
+
+                        break;
+                    case 0:
+                        print = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+
+            }catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner2.nextLine();
+            }
+            catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner2.nextLine();
+            }
+
+        }
     }
 
 
