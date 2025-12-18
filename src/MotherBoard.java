@@ -9,13 +9,13 @@ public class MotherBoard extends ComputerComponent{
     private int sataPorts;           // Количество SATA портов
     private boolean hasWiFi;         // Встроенный WiFi
     private String audioCodec;       // Аудиокодек
-    private String lanSpeed;         // Скорость сетевой карты
+    private int lanSpeed;         // Скорость сетевой карты
 
 
 
     public MotherBoard(String id, String brand, String model, int price, String interfaceType,
                        String chipset, String socket, int ramSlots, int maxRamCapacity, String ramType,
-                       int m2Slots, int sataPorts, boolean hasWiFi, String audioCodec, String lanSpeed,
+                       int m2Slots, int sataPorts, boolean hasWiFi, String audioCodec, int lanSpeed,
                        int powerConsumption, double voltage, String dimensions, int weight,
                        String countryProduction, int productionDate,String category,
                        String description,
@@ -112,11 +112,11 @@ public class MotherBoard extends ComputerComponent{
         this.audioCodec = audioCodec;
     }
 
-    public String getLanSpeed() {
+    public int getLanSpeed() {
         return lanSpeed;
     }
 
-    public void setLanSpeed(String lanSpeed) {
+    public void setLanSpeed(int lanSpeed) {
         this.lanSpeed = lanSpeed;
     }
 

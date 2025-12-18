@@ -163,7 +163,7 @@ public class Seller extends User implements Serializable {
                         ProductManager.PrintCPU();
                         break;
                     case 2:
-
+                        ProductManager.PrintMotherBoard();
                         break;
                     case 3:
 
