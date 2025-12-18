@@ -786,13 +786,6 @@ public class ProductManager {
     }
 
 
-
-
-
-
-
-
-
     public static void registrationMotherBoard(String choiceCategory)
     {
         ComputerComponent computerComponent = registrationComputerComponent(choiceCategory);
@@ -1011,6 +1004,9 @@ public class ProductManager {
         FileManager.saveMotherBoard(motherBoards);
         System.out.print("\nМатеринская плата " + brand + " " + model + " успешно зарегистрирована!");
     }
+
+
+
     public static void registrationGPU(String choiceCategory){}
     public static void registrationRAM(String choiceCategory){}
     public static void registrationStorage(String choiceCategory){}
