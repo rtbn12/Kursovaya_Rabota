@@ -65,19 +65,36 @@ public class ProductManager {
         }
 
 
-
-
-
-        System.out.print("\nВведите цену товара:");
-        int price = scanner.nextInt();
-        scanner.nextLine();
-
-        while (price <=0 || price>1000_000)
+        int price =0;
+        boolean cyclePrice = true;
+        while (cyclePrice)
         {
-            System.out.print("\nВведена недоступная цена для товара!\n" +
-                    "Введите цену ещё раз:");
-            price = scanner.nextInt();
-            scanner.nextLine();
+            System.out.print("\nВведите цену товара:");
+
+            try {
+                price = scanner.nextInt();
+                scanner.nextLine();
+                while (price <=0 || price>1000_000)
+                {
+                    System.out.print("\nВведена недоступная цена для товара!\n" +
+                            "Введите цену ещё раз:");
+                    price = scanner.nextInt();
+                    scanner.nextLine();
+                }
+
+                cyclePrice = false;
+
+            }catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            }
+            catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+
         }
 
 
@@ -1007,7 +1024,418 @@ public class ProductManager {
 
 
 
-    public static void registrationGPU(String choiceCategory){}
+    public static void registrationGPU(String choiceCategory){
+
+        ComputerComponent computerComponent = registrationComputerComponent(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = computerComponent.getId();
+        String brand = computerComponent.getBrand();
+        String model = computerComponent.getModel();
+        String countryProduction = computerComponent.getCountryProduction();
+        int productionDate = computerComponent.getProductionDate();
+        int price = computerComponent.getPrice();
+        String description = computerComponent.getDescription();
+        int warrantyMoths = computerComponent.getWarrantyMoths();
+        String category = computerComponent.getCategory();
+        String interfaceType = computerComponent.getInterfaceType();;
+        double voltage = computerComponent.getVoltage();
+        int powerConsumption = computerComponent.getPowerConsumption();
+        String dimensions = computerComponent.getDimensions();
+        int weight = computerComponent.getWeight();
+
+
+        int vramSize = 0;
+        String memoryType = null;
+        int cudaCores = 0;
+        double baseFrequency = 0;
+        double boostFrequency = 0;
+        int memoryBusWidth = 0;
+        String coolingType = null;
+        int powerConnectors = 0;
+        String typePCIe = null;
+        String videoOutput = null;
+
+
+        boolean cycleVramSize = true;
+        while (cycleVramSize) {
+            System.out.print("\nВведите объем видеопамяти в ГБ (1-24): ");
+
+            try {
+                vramSize = scanner.nextInt();
+                scanner.nextLine();
+                while (vramSize < 1 || vramSize > 24) {
+                    System.out.print("\nНекорректный объем видеопамяти!\n" +
+                            "Введите значение ещё раз (1-24 ГБ): ");
+                    vramSize = scanner.nextInt();
+                    scanner.nextLine();
+                }
+                cycleVramSize = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        System.out.print("\nВведите тип памяти (GDDR5, GDDR6, GDDR6X, GDDR7): ");
+        memoryType = scanner.nextLine();
+
+
+        boolean cycleCudaCores = true;
+        while (cycleCudaCores) {
+            System.out.print("\nВведите количество CUDA ядер (256-18432): ");
+
+            try {
+                cudaCores = scanner.nextInt();
+                scanner.nextLine();
+                while (cudaCores < 256 || cudaCores > 18432) {
+                    System.out.print("\nНекорректное количество CUDA ядер!\n" +
+                            "Введите значение ещё раз (256-18432): ");
+                    cudaCores = scanner.nextInt();
+                    scanner.nextLine();
+                }
+                cycleCudaCores = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+
+        boolean cycleBaseFrequency = true;
+        while (cycleBaseFrequency) {
+            System.out.print("\nВведите базовую частоту в МГц (800-2500): ");
+
+            try {
+                baseFrequency = scanner.nextDouble();
+                scanner.nextLine();
+                while (baseFrequency < 800 || baseFrequency > 2500) {
+                    System.out.print("\nНекорректная базовая частота!\n" +
+                            "Введите значение ещё раз (800-2500 МГц): ");
+                    baseFrequency = scanner.nextDouble();
+                    scanner.nextLine();
+                }
+                cycleBaseFrequency = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+
+        boolean cycleBoostFrequency = true;
+        while (cycleBoostFrequency) {
+            System.out.print("\nВведите турбо частоту в МГц (" + baseFrequency + "-3000): ");
+
+            try {
+                boostFrequency = scanner.nextDouble();
+                scanner.nextLine();
+                while (boostFrequency < baseFrequency || boostFrequency > 3000) {
+                    System.out.print("\nНекорректная турбо частота!\n" +
+                            "Введите значение ещё раз (" + baseFrequency + "-3000 МГц): ");
+                    boostFrequency = scanner.nextDouble();
+                    scanner.nextLine();
+                }
+                cycleBoostFrequency = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+
+        boolean cycleMemoryBusWidth = true;
+        while (cycleMemoryBusWidth) {
+            System.out.print("\nВведите ширину шины памяти в битах (64, 128, 192, 256, 384): ");
+
+            try {
+                memoryBusWidth = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validBusWidths = {64, 128, 192, 256, 384};
+                boolean isValid = false;
+
+                for (int width : validBusWidths) {
+                    if (memoryBusWidth == width) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректная ширина шины памяти!\n" +
+                            "Введите значение ещё раз (64, 128, 192, 256, 384 бит): ");
+                    memoryBusWidth = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int width : validBusWidths) {
+                        if (memoryBusWidth == width) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleMemoryBusWidth = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        System.out.print("\nВведите тип охлаждения (воздушное, жидкостное, гибридное): ");
+        coolingType = scanner.nextLine();
+
+
+        boolean cyclePowerConnectors = true;
+        while (cyclePowerConnectors) {
+            System.out.print("\nВведите количество 8-пиновых разъемов питания (0-3): ");
+
+            try {
+                powerConnectors = scanner.nextInt();
+                scanner.nextLine();
+                while (powerConnectors < 0 || powerConnectors > 3) {
+                    System.out.print("\nНекорректное количество разъемов питания!\n" +
+                            "Введите значение ещё раз (0-3): ");
+                    powerConnectors = scanner.nextInt();
+                    scanner.nextLine();
+                }
+                cyclePowerConnectors = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+
+        boolean cycleTypePCIe = true;
+        while (cycleTypePCIe) {
+            System.out.print("\nВыберите версию PCIe:\n" +
+                    "1 - PCIe 3.0\n" +
+                    "2 - PCIe 4.0\n" +
+                    "3 - PCIe 5.0\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        typePCIe = "PCIe 3.0";
+                        cycleTypePCIe = false;
+                        break;
+                    case 2:
+                        typePCIe = "PCIe 4.0";
+                        cycleTypePCIe = false;
+                        break;
+                    case 3:
+                        typePCIe = "PCIe 5.0";
+                        cycleTypePCIe = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        int hdmiPorts = 0;
+        int displayPorts = 0;
+        int vgaPorts = 0;
+        int dviDPorts = 0;
+        int dviIPorts = 0;
+
+
+        boolean cycleHdmiPorts = true;
+        while (cycleHdmiPorts) {
+            System.out.print("\nВведите количество HDMI портов (0-4): ");
+
+            try {
+                hdmiPorts = scanner.nextInt();
+                scanner.nextLine();
+                while (hdmiPorts < 0 || hdmiPorts > 4) {
+                    System.out.print("\nНекорректное количество HDMI портов!\n" +
+                            "Введите значение ещё раз (0-4): ");
+                    hdmiPorts = scanner.nextInt();
+                    scanner.nextLine();
+                }
+                cycleHdmiPorts = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+
+        boolean cycleDisplayPorts = true;
+        while (cycleDisplayPorts) {
+            System.out.print("\nВведите количество DisplayPort портов (0-4): ");
+
+            try {
+                displayPorts = scanner.nextInt();
+                scanner.nextLine();
+                while (displayPorts < 0 || displayPorts > 4) {
+                    System.out.print("\nНекорректное количество DisplayPort!\n" +
+                            "Введите значение ещё раз (0-4): ");
+                    displayPorts = scanner.nextInt();
+                    scanner.nextLine();
+                }
+                cycleDisplayPorts = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+
+        boolean cycleVgaPorts = true;
+        while (cycleVgaPorts) {
+            System.out.print("\nВведите количество VGA портов (0-2): ");
+
+            try {
+                vgaPorts = scanner.nextInt();
+                scanner.nextLine();
+                while (vgaPorts < 0 || vgaPorts > 2) {
+                    System.out.print("\nНекорректное количество VGA портов!\n" +
+                            "Введите значение ещё раз (0-2): ");
+                    vgaPorts = scanner.nextInt();
+                    scanner.nextLine();
+                }
+                cycleVgaPorts = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+
+        boolean cycleDviDPorts = true;
+        while (cycleDviDPorts) {
+            System.out.print("\nВведите количество DVI-D портов (0-2): ");
+
+            try {
+                dviDPorts = scanner.nextInt();
+                scanner.nextLine();
+                while (dviDPorts < 0 || dviDPorts > 2) {
+                    System.out.print("\nНекорректное количество DVI-D портов!\n" +
+                            "Введите значение ещё раз (0-2): ");
+                    dviDPorts = scanner.nextInt();
+                    scanner.nextLine();
+                }
+                cycleDviDPorts = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+
+        boolean cycleDviIPorts = true;
+        while (cycleDviIPorts) {
+            System.out.print("\nВведите количество DVI-I портов (0-2): ");
+
+            try {
+                dviIPorts = scanner.nextInt();
+                scanner.nextLine();
+                while (dviIPorts < 0 || dviIPorts > 2) {
+                    System.out.print("\nНекорректное количество DVI-I портов!\n" +
+                            "Введите значение ещё раз (0-2): ");
+                    dviIPorts = scanner.nextInt();
+                    scanner.nextLine();
+                }
+                cycleDviIPorts = false;
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+
+
+        videoOutput = String.format("HDMI: %d, DisplayPort: %d, VGA: %d, DVI-D: %d, DVI-I: %d",
+                hdmiPorts, displayPorts, vgaPorts, dviDPorts, dviIPorts);
+
+        Map<String, GPU> gpus = FileManager.loadGPU();
+        gpus.put(id, new GPU(
+                id, brand, model, price, interfaceType,
+                vramSize, memoryType, cudaCores, baseFrequency, boostFrequency,
+                memoryBusWidth, coolingType, powerConnectors, typePCIe, videoOutput,
+                powerConsumption, voltage, dimensions, weight,
+                countryProduction, productionDate, category,
+                description, warrantyMoths
+        ));
+
+        FileManager.saveGPU(gpus);
+        System.out.print("\nВидеокарта " + brand + " " + model + " успешно зарегистрирована!");
+    }
+
+
+
     public static void registrationRAM(String choiceCategory){}
     public static void registrationStorage(String choiceCategory){}
     public static void registrationPowerSupply(String choiceCategory){}
@@ -1061,6 +1489,26 @@ public class ProductManager {
         for (MotherBoard mb : motherBoards.values()) {
             mb.getFullInfoForClient();
             mb.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintGPU() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, GPU> GPUs = FileManager.loadGPU();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Видеокарта")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for (GPU gpu : GPUs.values()) {
+            gpu.getFullInfoForClient();
+            gpu.getFullInfoForSeller();
         }
     }
 }
