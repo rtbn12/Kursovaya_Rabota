@@ -169,7 +169,7 @@ public class Seller extends User implements Serializable {
                         ProductManager.PrintGPU();
                         break;
                     case 4:
-
+                        ProductManager.PrintRAM();
                         break;
                     case 5:
 

@@ -5,8 +5,7 @@ import java.util.Scanner;
 
 public class ProductManager {
 
-    public static Product registrationProduct (String choiceCategory)
-    {
+    public static Product registrationProduct (String choiceCategory) {
        Map<String,Product> products = FileManager.loadProduct0();
         Scanner scanner = new Scanner(System.in);
 
@@ -145,8 +144,7 @@ public class ProductManager {
 
     }
 
-    public static ComputerComponent registrationComputerComponent(String choiceCategory)
-    {
+    public static ComputerComponent registrationComputerComponent(String choiceCategory) {
         Product product = registrationProduct(choiceCategory);
         Scanner scanner = new Scanner(System.in);
 
@@ -219,7 +217,7 @@ public class ProductManager {
             boolean cycle = true;
             while (cycle)
             {
-                System.out.print("\nВыберите один из доступных вариантов интерфейса подключения ОЗУ: " +
+                System.out.print("\nВыберите один из доступных вариантов интерфейса подключения ОЗУ:\n" +
                         "1-DIMM\n" +
                         "2-SO-DIMM\n" +
                         "Ваш выбор:");
@@ -548,8 +546,7 @@ public class ProductManager {
     }
 
 
-    public static void registrationCPU(String choiceCategory)
-    {
+    public static void registrationCPU(String choiceCategory) {
         ComputerComponent computerComponent = registrationComputerComponent(choiceCategory);
         Scanner scanner = new Scanner(System.in);
 
@@ -803,8 +800,7 @@ public class ProductManager {
     }
 
 
-    public static void registrationMotherBoard(String choiceCategory)
-    {
+    public static void registrationMotherBoard(String choiceCategory) {
         ComputerComponent computerComponent = registrationComputerComponent(choiceCategory);
         Scanner scanner = new Scanner(System.in);
 
@@ -1436,7 +1432,342 @@ public class ProductManager {
 
 
 
-    public static void registrationRAM(String choiceCategory){}
+    public static void registrationRAM(String choiceCategory){
+        ComputerComponent computerComponent = registrationComputerComponent(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = computerComponent.getId();
+        String brand = computerComponent.getBrand();
+        String model = computerComponent.getModel();
+        String countryProduction = computerComponent.getCountryProduction();
+        int productionDate = computerComponent.getProductionDate();
+        int price = computerComponent.getPrice();
+        String description = computerComponent.getDescription();
+        int warrantyMoths = computerComponent.getWarrantyMoths();
+        String category = computerComponent.getCategory();
+        String interfaceType = computerComponent.getInterfaceType();
+        double voltage = computerComponent.getVoltage();
+        int powerConsumption = computerComponent.getPowerConsumption();
+        String dimensions = computerComponent.getDimensions();
+        int weight = computerComponent.getWeight();
+
+
+        int capacity = 0;
+        int frequency = 0;
+        int latency = 0;
+        String memoryType = null;
+        int modulesCount = 0;
+        boolean hasRGB = false;
+        boolean hasHeatSpreader = false;
+
+
+        boolean cycleCapacity = true;
+        while (cycleCapacity) {
+            System.out.print("\nВведите объем одного модуля в ГБ (4, 8, 16, 32, 64): ");
+
+            try {
+                capacity = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validCapacities = {4, 8, 16, 32, 64};
+                boolean isValid = false;
+
+                for (int cap : validCapacities) {
+                    if (capacity == cap) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректный объем модуля!\n" +
+                            "Введите значение ещё раз (4, 8, 16, 32, 64 ГБ): ");
+                    capacity = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int cap : validCapacities) {
+                        if (capacity == cap) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleCapacity = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Частота памяти
+        boolean cycleFrequency = true;
+        while (cycleFrequency) {
+            System.out.print("\nВведите частоту памяти в МГц (2133, 2400, 2666, 3000, 3200, 3600, 4000, 4400, 4800, 5200, 5600, 6000, 6400, 6800, 7200): ");
+
+            try {
+                frequency = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validFrequencies = {2133, 2400, 2666, 3000, 3200, 3600, 4000, 4400, 4800, 5200, 5600, 6000, 6400, 6800, 7200};
+                boolean isValid = false;
+
+                for (int freq : validFrequencies) {
+                    if (frequency == freq) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректная частота памяти!\n" +
+                            "Введите значение ещё раз (стандартные значения: 2133-7200 МГц): ");
+                    frequency = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int freq : validFrequencies) {
+                        if (frequency == freq) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleFrequency = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Тайминги (латентность)
+        boolean cycleLatency = true;
+        while (cycleLatency) {
+            System.out.print("\nВведите тайминги памяти (CL14, CL16, CL18, CL20, CL22, CL24, CL28, CL30, CL32, CL34, CL36, CL38, CL40): ");
+
+            try {
+                System.out.print("\nВведите только число после CL: ");
+                latency = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validLatencies = {14, 16, 18, 20, 22, 24, 28, 30, 32, 34, 36, 38, 40};
+                boolean isValid = false;
+
+                for (int lat : validLatencies) {
+                    if (latency == lat) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректные тайминги!\n" +
+                            "Введите значение ещё раз (14-40): ");
+                    latency = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int lat : validLatencies) {
+                        if (latency == lat) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleLatency = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Тип памяти (выбор из меню)
+        boolean cycleMemoryType = true;
+        while (cycleMemoryType) {
+            System.out.print("\nВыберите тип памяти:\n" +
+                    "1 - DDR4\n" +
+                    "2 - DDR5\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        memoryType = "DDR4";
+                        cycleMemoryType = false;
+                        break;
+                    case 2:
+                        memoryType = "DDR5";
+                        cycleMemoryType = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Количество модулей в комплекте
+        boolean cycleModulesCount = true;
+        while (cycleModulesCount) {
+            System.out.print("\nВведите количество модулей в комплекте (1, 2, 4, 8): ");
+
+            try {
+                modulesCount = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validCounts = {1, 2, 4, 8};
+                boolean isValid = false;
+
+                for (int count : validCounts) {
+                    if (modulesCount == count) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректное количество модулей!\n" +
+                            "Введите значение ещё раз (1, 2, 4 или 8): ");
+                    modulesCount = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int count : validCounts) {
+                        if (modulesCount == count) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleModulesCount = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Наличие RGB подсветки
+        boolean cycleHasRGB = true;
+        while (cycleHasRGB) {
+            System.out.print("\nЕсть ли у оперативной памяти RGB подсветка?\n" +
+                    "Введите:\n" +
+                    "1 - если RGB подсветка присутствует\n" +
+                    "0 - если RGB подсветка отсутствует\n" +
+                    "Ваш выбор: ");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 0:
+                        hasRGB = false;
+                        cycleHasRGB = false;
+                        break;
+                    case 1:
+                        hasRGB = true;
+                        cycleHasRGB = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Наличие радиатора охлаждения
+        boolean cycleHasHeatSpreader = true;
+        while (cycleHasHeatSpreader) {
+            System.out.print("\nЕсть ли у оперативной памяти радиатор охлаждения?\n" +
+                    "Введите:\n" +
+                    "1 - если радиатор присутствует\n" +
+                    "0 - если радиатор отсутствует\n" +
+                    "Ваш выбор: ");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 0:
+                        hasHeatSpreader = false;
+                        cycleHasHeatSpreader = false;
+                        break;
+                    case 1:
+                        hasHeatSpreader = true;
+                        cycleHasHeatSpreader = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        Map<String, RAM> rams = FileManager.loadRAM();
+        rams.put(id, new RAM(
+                id, brand, model, price, interfaceType,
+                capacity, frequency, latency, memoryType, modulesCount,
+                hasRGB, hasHeatSpreader,
+                powerConsumption, voltage, dimensions, weight,
+                countryProduction, productionDate, category,
+                description, warrantyMoths
+        ));
+
+        FileManager.saveRAM(rams);
+        System.out.print("\nОперативная память " + brand + " " + model + " успешно зарегистрирована!");
+    }
+
+
     public static void registrationStorage(String choiceCategory){}
     public static void registrationPowerSupply(String choiceCategory){}
     public static void registrationCase(String choiceCategory){}
@@ -1448,8 +1779,7 @@ public class ProductManager {
 
 
 
-    public static void PrintCPU()
-    {
+    public static void PrintCPU() {
         Map<String,Product> products = FileManager.loadProduct0();
         Map<String,CPU> CPUs = FileManager.loadCPU();
 
@@ -1509,6 +1839,26 @@ public class ProductManager {
         for (GPU gpu : GPUs.values()) {
             gpu.getFullInfoForClient();
             gpu.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintRAM() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, RAM> RAMs = FileManager.loadRAM();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Оперативная память")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for (RAM ram : RAMs.values()) {
+            ram.getFullInfoForClient();
+            ram.getFullInfoForSeller();
         }
     }
 }
