@@ -3661,7 +3661,632 @@ public class ProductManager {
     }
 
 
-    public static void registrationMonitor(String choiceCategory){}
+    public static Peripheral registrationPeripheral(String choiceCategory) {
+        Product product = registrationProduct(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = product.getId();
+        String brand = product.getBrand();
+        String model = product.getModel();
+        String countryProduction = product.getCountryProduction();
+        int productionDate = product.getProductionDate();
+        int price = product.getPrice();
+        String description = product.getDescription();
+        int warrantyMoths = product.getWarrantyMoths();
+        String category = product.getCategory();
+
+        String connectionType = null;
+        double cableLength = 0.0;
+        boolean isWireless = false;
+        boolean hasRGB = false;
+        String color = null;
+
+        // Тип подключения
+        boolean cycleConnectionType = true;
+        while (cycleConnectionType) {
+            System.out.print("\nВыберите тип подключения:\n" +
+                    "1 - USB\n" +
+                    "2 - USB-C\n" +
+                    "3 - HDMI\n" +
+                    "4 - DisplayPort\n" +
+                    "5 - Bluetooth\n" +
+                    "6 - Wireless (2.4 ГГц)\n" +
+                    "7 - PS/2 (для клавиатур)\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        connectionType = "USB";
+                        cycleConnectionType = false;
+                        break;
+                    case 2:
+                        connectionType = "USB-C";
+                        cycleConnectionType = false;
+                        break;
+                    case 3:
+                        connectionType = "HDMI";
+                        cycleConnectionType = false;
+                        break;
+                    case 4:
+                        connectionType = "DisplayPort";
+                        cycleConnectionType = false;
+                        break;
+                    case 5:
+                        connectionType = "Bluetooth";
+                        cycleConnectionType = false;
+                        break;
+                    case 6:
+                        connectionType = "Wireless (2.4 ГГц)";
+                        cycleConnectionType = false;
+                        break;
+                    case 7:
+                        connectionType = "PS/2";
+                        cycleConnectionType = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Беспроводное устройство или проводное
+        boolean cycleIsWireless = true;
+        while (cycleIsWireless) {
+            System.out.print("\nЭто беспроводное устройство?\n" +
+                    "Введите:\n" +
+                    "1 - Да, беспроводное\n" +
+                    "0 - Нет, проводное\n" +
+                    "Ваш выбор: ");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 0:
+                        isWireless = false;
+                        cycleIsWireless = false;
+                        break;
+                    case 1:
+                        isWireless = true;
+                        cycleIsWireless = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Длина кабеля (если устройство проводное)
+        if (!isWireless) {
+            boolean cycleCableLength = true;
+            while (cycleCableLength) {
+                System.out.print("\nВведите длину кабеля в метрах (0.5 - 3.0): ");
+
+                try {
+                    cableLength = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    while (cableLength < 0.5 || cableLength > 3.0) {
+                        System.out.print("\nНекорректная длина кабеля!\n" +
+                                "Введите значение ещё раз (0.5 - 3.0 метра): ");
+                        cableLength = scanner.nextDouble();
+                        scanner.nextLine();
+                    }
+
+                    cycleCableLength = false;
+
+                } catch (InputMismatchException p) {
+                    System.out.println("Произошла ошибка!\n" +
+                            "Пожалуйста, введите корректное значение!\n" +
+                            "В прошлый раз вы ввели букву вместо числа!");
+                    scanner.nextLine();
+                } catch (Exception p) {
+                    System.out.println("Произошла неизвестная ошибка!");
+                    scanner.nextLine();
+                }
+            }
+        } else {
+            cableLength = 0.0; // Для беспроводных устройств длина кабеля = 0
+        }
+
+        // Наличие RGB подсветки
+        boolean cycleHasRGB = true;
+        while (cycleHasRGB) {
+            System.out.print("\nЕсть ли у устройства RGB подсветка?\n" +
+                    "Введите:\n" +
+                    "1 - если RGB подсветка присутствует\n" +
+                    "0 - если RGB подсветка отсутствует\n" +
+                    "Ваш выбор: ");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 0:
+                        hasRGB = false;
+                        cycleHasRGB = false;
+                        break;
+                    case 1:
+                        hasRGB = true;
+                        cycleHasRGB = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Цвет устройства
+        boolean cycleColor = true;
+        while (cycleColor) {
+            System.out.print("\nВыберите цвет устройства:\n" +
+                    "1 - Черный\n" +
+                    "2 - Белый\n" +
+                    "3 - Серый\n" +
+                    "4 - Красный\n" +
+                    "5 - Синий\n" +
+                    "6 - Зеленый\n" +
+                    "7 - Другой цвет (введите название)\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        color = "Черный";
+                        cycleColor = false;
+                        break;
+                    case 2:
+                        color = "Белый";
+                        cycleColor = false;
+                        break;
+                    case 3:
+                        color = "Серый";
+                        cycleColor = false;
+                        break;
+                    case 4:
+                        color = "Красный";
+                        cycleColor = false;
+                        break;
+                    case 5:
+                        color = "Синий";
+                        cycleColor = false;
+                        break;
+                    case 6:
+                        color = "Зеленый";
+                        cycleColor = false;
+                        break;
+                    case 7:
+                        System.out.print("Введите название цвета: ");
+                        color = scanner.nextLine();
+                        if (color.trim().isEmpty()) {
+                            System.out.println("Цвет не может быть пустым!");
+                            continue;
+                        }
+                        cycleColor = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        return new Peripheral(
+                id, brand, model, connectionType,
+                cableLength, isWireless, hasRGB,
+                color, countryProduction, productionDate,
+                price, category, description, warrantyMoths
+        );
+    }
+
+
+    public static void registrationMonitor(String choiceCategory){
+
+        Peripheral peripheral = registrationPeripheral(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = peripheral.getId();
+        String brand = peripheral.getBrand();
+        String model = peripheral.getModel();
+        String countryProduction = peripheral.getCountryProduction();
+        int productionDate = peripheral.getProductionDate();
+        int price = peripheral.getPrice();
+        String description = peripheral.getDescription();
+        int warrantyMoths = peripheral.getWarrantyMoths();
+        String category = peripheral.getCategory();
+        String connectionType = peripheral.getConnectionType();
+        double cableLength = peripheral.getCableLength();
+        boolean isWireless = peripheral.isWireless();
+        boolean hasRGB = peripheral.isHasRGB();
+        String color = peripheral.getColor();
+
+        double screenSize = 0.0;
+        String resolution = null;
+        int refreshRate = 0;
+        String panelType = null;
+        int responseTime = 0;
+        boolean hasHDR = false;
+        boolean hasBuiltInSpeakers = false;
+
+        // Диагональ экрана
+        boolean cycleScreenSize = true;
+        while (cycleScreenSize) {
+            System.out.print("\nВведите диагональ экрана в дюймах (15.6, 21.5, 24, 27, 32, 34, 49): ");
+
+            try {
+                screenSize = scanner.nextDouble();
+                scanner.nextLine();
+
+                double[] validSizes = {15.6, 21.5, 24, 27, 32, 34, 49};
+                boolean isValid = false;
+
+                for (double size : validSizes) {
+                    if (Math.abs(screenSize - size) < 0.1) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректная диагональ экрана!\n" +
+                            "Введите значение ещё раз (15.6, 21.5, 24, 27, 32, 34, 49 дюймов): ");
+                    screenSize = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    for (double size : validSizes) {
+                        if (Math.abs(screenSize - size) < 0.1) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleScreenSize = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Разрешение экрана
+        boolean cycleResolution = true;
+        while (cycleResolution) {
+            System.out.print("\nВыберите разрешение экрана:\n" +
+                    "1 - 1920x1080 (Full HD)\n" +
+                    "2 - 2560x1440 (QHD / 2K)\n" +
+                    "3 - 3840x2160 (4K UHD)\n" +
+                    "4 - 3440x1440 (UltraWide QHD)\n" +
+                    "5 - 5120x1440 (Super UltraWide)\n" +
+                    "6 - 2560x1080 (UltraWide Full HD)\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        resolution = "1920x1080 (Full HD)";
+                        cycleResolution = false;
+                        break;
+                    case 2:
+                        resolution = "2560x1440 (QHD / 2K)";
+                        cycleResolution = false;
+                        break;
+                    case 3:
+                        resolution = "3840x2160 (4K UHD)";
+                        cycleResolution = false;
+                        break;
+                    case 4:
+                        resolution = "3440x1440 (UltraWide QHD)";
+                        cycleResolution = false;
+                        break;
+                    case 5:
+                        resolution = "5120x1440 (Super UltraWide)";
+                        cycleResolution = false;
+                        break;
+                    case 6:
+                        resolution = "2560x1080 (UltraWide Full HD)";
+                        cycleResolution = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Частота обновления
+        boolean cycleRefreshRate = true;
+        while (cycleRefreshRate) {
+            System.out.print("\nВведите частоту обновления экрана в Гц (60, 75, 120, 144, 165, 240, 360): ");
+
+            try {
+                refreshRate = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validRates = {60, 75, 120, 144, 165, 240, 360};
+                boolean isValid = false;
+
+                for (int rate : validRates) {
+                    if (refreshRate == rate) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректная частота обновления!\n" +
+                            "Введите значение ещё раз (60, 75, 120, 144, 165, 240, 360 Гц): ");
+                    refreshRate = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int rate : validRates) {
+                        if (refreshRate == rate) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleRefreshRate = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Тип матрицы
+        boolean cyclePanelType = true;
+        while (cyclePanelType) {
+            System.out.print("\nВыберите тип матрицы:\n" +
+                    "1 - IPS\n" +
+                    "2 - VA\n" +
+                    "3 - TN\n" +
+                    "4 - OLED\n" +
+                    "5 - Nano-IPS\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        panelType = "IPS";
+                        cyclePanelType = false;
+                        break;
+                    case 2:
+                        panelType = "VA";
+                        cyclePanelType = false;
+                        break;
+                    case 3:
+                        panelType = "TN";
+                        cyclePanelType = false;
+                        break;
+                    case 4:
+                        panelType = "OLED";
+                        cyclePanelType = false;
+                        break;
+                    case 5:
+                        panelType = "Nano-IPS";
+                        cyclePanelType = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Время отклика
+        boolean cycleResponseTime = true;
+        while (cycleResponseTime) {
+            System.out.print("\nВведите время отклика в миллисекундах (1, 2, 4, 5, 8): ");
+
+            try {
+                responseTime = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validTimes = {1, 2, 4, 5, 8};
+                boolean isValid = false;
+
+                for (int time : validTimes) {
+                    if (responseTime == time) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректное время отклика!\n" +
+                            "Введите значение ещё раз (1, 2, 4, 5, 8 мс): ");
+                    responseTime = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int time : validTimes) {
+                        if (responseTime == time) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleResponseTime = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Поддержка HDR
+        boolean cycleHasHDR = true;
+        while (cycleHasHDR) {
+            System.out.print("\nПоддерживает ли монитор HDR?\n" +
+                    "Введите:\n" +
+                    "1 - если HDR поддерживается\n" +
+                    "0 - если HDR не поддерживается\n" +
+                    "Ваш выбор: ");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 0:
+                        hasHDR = false;
+                        cycleHasHDR = false;
+                        break;
+                    case 1:
+                        hasHDR = true;
+                        cycleHasHDR = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Встроенные колонки
+        boolean cycleHasBuiltInSpeakers = true;
+        while (cycleHasBuiltInSpeakers) {
+            System.out.print("\nЕсть ли у монитора встроенные колонки?\n" +
+                    "Введите:\n" +
+                    "1 - если встроенные колонки присутствуют\n" +
+                    "0 - если встроенные колонки отсутствуют\n" +
+                    "Ваш выбор: ");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 0:
+                        hasBuiltInSpeakers = false;
+                        cycleHasBuiltInSpeakers = false;
+                        break;
+                    case 1:
+                        hasBuiltInSpeakers = true;
+                        cycleHasBuiltInSpeakers = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        Map<String, Monitor> monitors = FileManager.loadMonitor();
+        monitors.put(id, new Monitor(
+                id, brand, model,
+                screenSize, resolution,
+                refreshRate, panelType,
+                responseTime, hasHDR,
+                hasBuiltInSpeakers,
+                connectionType, cableLength,
+                isWireless, hasRGB,
+                color, countryProduction,
+                productionDate, category, price,
+                description, warrantyMoths
+        ));
+
+        FileManager.saveMonitor(monitors);
+        System.out.print("\nМонитор " + brand + " " + model + " успешно зарегистрирован!");
+
+    }
+
+
     public static void registrationMouse(String choiceCategory){}
     public static void registrationKeyBoard(String choiceCategory){}
 
