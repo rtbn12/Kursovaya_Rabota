@@ -99,7 +99,7 @@ public class PowerSupply extends ComputerComponent{
         System.out.println("Бренд: " + getBrand());
         System.out.println("Модель: " + getModel());
         System.out.println("Цена: " + getPrice() + " рублей");
-        System.out.println("Потребляемая мощность: " + getPowerConsumption());
+        System.out.println("Потребляемая мощность: " + getPowerConsumption() + " ВТ");
         System.out.println("Рабочее напряжение: " + getVoltage() + " V");
         System.out.println("Сертификат эффективности: " + getEfficiency());
         System.out.println("Модульность: " + getModularity());

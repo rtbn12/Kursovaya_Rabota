@@ -2131,7 +2131,357 @@ public class ProductManager {
     }
 
 
-    public static void registrationPowerSupply(String choiceCategory){}
+    public static void registrationPowerSupply(String choiceCategory){
+
+        ComputerComponent computerComponent = registrationComputerComponent(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = computerComponent.getId();
+        String brand = computerComponent.getBrand();
+        String model = computerComponent.getModel();
+        String countryProduction = computerComponent.getCountryProduction();
+        int productionDate = computerComponent.getProductionDate();
+        int price = computerComponent.getPrice();
+        String description = computerComponent.getDescription();
+        int warrantyMoths = computerComponent.getWarrantyMoths();
+        String category = computerComponent.getCategory();
+        String interfaceType = computerComponent.getInterfaceType();
+        double voltage = computerComponent.getVoltage();
+        int powerConsumption = computerComponent.getPowerConsumption();
+        String dimensions = computerComponent.getDimensions();
+        int weight = computerComponent.getWeight();
+
+        String efficiency = null;
+        String modularity = null;
+        int sataConnectors = 0;
+        int pcieConnectors = 0;
+        int cpuConnectors = 0;
+        String fanSize = null;
+        String protections = "";
+
+
+        // Сертификат эффективности
+        boolean cycleEfficiency = true;
+        while (cycleEfficiency) {
+            System.out.print("\nВыберите сертификат эффективности 80 PLUS:\n" +
+                    "1 - 80 PLUS Bronze\n" +
+                    "2 - 80 PLUS Silver\n" +
+                    "3 - 80 PLUS Gold\n" +
+                    "4 - 80 PLUS Platinum\n" +
+                    "5 - 80 PLUS Titanium\n" +
+                    "6 - Без сертификата\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        efficiency = "80 PLUS Bronze";
+                        cycleEfficiency = false;
+                        break;
+                    case 2:
+                        efficiency = "80 PLUS Silver";
+                        cycleEfficiency = false;
+                        break;
+                    case 3:
+                        efficiency = "80 PLUS Gold";
+                        cycleEfficiency = false;
+                        break;
+                    case 4:
+                        efficiency = "80 PLUS Platinum";
+                        cycleEfficiency = false;
+                        break;
+                    case 5:
+                        efficiency = "80 PLUS Titanium";
+                        cycleEfficiency = false;
+                        break;
+                    case 6:
+                        efficiency = "Без сертификата";
+                        cycleEfficiency = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Модульность кабелей
+        boolean cycleModularity = true;
+        while (cycleModularity) {
+            System.out.print("\nВыберите тип модульности кабелей:\n" +
+                    "1 - Полная модульность (Full Modular)\n" +
+                    "2 - Частичная модульность (Semi Modular)\n" +
+                    "3 - Немодульный (Non Modular)\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        modularity = "Полная модульность (Full Modular)";
+                        cycleModularity = false;
+                        break;
+                    case 2:
+                        modularity = "Частичная модульность (Semi Modular)";
+                        cycleModularity = false;
+                        break;
+                    case 3:
+                        modularity = "Немодульный (Non Modular)";
+                        cycleModularity = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Количество SATA разъемов
+        boolean cycleSataConnectors = true;
+        while (cycleSataConnectors) {
+            System.out.print("\nВведите количество SATA разъемов (4-12): ");
+
+            try {
+                sataConnectors = scanner.nextInt();
+                scanner.nextLine();
+
+                while (sataConnectors < 4 || sataConnectors > 12) {
+                    System.out.print("\nНекорректное количество SATA разъемов!\n" +
+                            "Введите значение ещё раз (4-12): ");
+                    sataConnectors = scanner.nextInt();
+                    scanner.nextLine();
+                }
+
+                cycleSataConnectors = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Количество PCI-E разъемов
+        boolean cyclePcieConnectors = true;
+        while (cyclePcieConnectors) {
+            System.out.print("\nВведите количество PCI-E разъемов (6+2 pin) (1-8): ");
+
+            try {
+                pcieConnectors = scanner.nextInt();
+                scanner.nextLine();
+
+                while (pcieConnectors < 1 || pcieConnectors > 8) {
+                    System.out.print("\nНекорректное количество PCI-E разъемов!\n" +
+                            "Введите значение ещё раз (1-8): ");
+                    pcieConnectors = scanner.nextInt();
+                    scanner.nextLine();
+                }
+
+                cyclePcieConnectors = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Количество CPU разъемов
+        boolean cycleCpuConnectors = true;
+        while (cycleCpuConnectors) {
+            System.out.print("\nВведите количество CPU разъемов (4+4 pin) (1-4): ");
+
+            try {
+                cpuConnectors = scanner.nextInt();
+                scanner.nextLine();
+
+                while (cpuConnectors < 1 || cpuConnectors > 4) {
+                    System.out.print("\nНекорректное количество CPU разъемов!\n" +
+                            "Введите значение ещё раз (1-4): ");
+                    cpuConnectors = scanner.nextInt();
+                    scanner.nextLine();
+                }
+
+                cycleCpuConnectors = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Размер вентилятора
+        boolean cycleFanSize = true;
+        while (cycleFanSize) {
+            System.out.print("\nВыберите размер вентилятора:\n" +
+                    "1 - 80 мм\n" +
+                    "2 - 120 мм\n" +
+                    "3 - 135 мм\n" +
+                    "4 - 140 мм\n" +
+                    "5 - Пассивное охлаждение (без вентилятора)\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        fanSize = "80 мм";
+                        cycleFanSize = false;
+                        break;
+                    case 2:
+                        fanSize = "120 мм";
+                        cycleFanSize = false;
+                        break;
+                    case 3:
+                        fanSize = "135 мм";
+                        cycleFanSize = false;
+                        break;
+                    case 4:
+                        fanSize = "140 мм";
+                        cycleFanSize = false;
+                        break;
+                    case 5:
+                        fanSize = "Пассивное охлаждение";
+                        cycleFanSize = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Выбор защит (можно выбрать несколько)
+        boolean cycleProtections = true;
+        while (cycleProtections) {
+            System.out.print("\nВыберите доступные защиты (можно выбрать несколько цифр через пробел):\n" +
+                    "1 - OCP (Защита от перегрузки по току)\n" +
+                    "2 - OVP (Защита от перенапряжения)\n" +
+                    "3 - UVP (Защита от пониженного напряжения)\n" +
+                    "4 - OPP (Защита от перегрузки по мощности)\n" +
+                    "5 - SCP (Защита от короткого замыкания)\n" +
+                    "6 - OTP (Защита от перегрева)\n" +
+                    "7 - SIP (Защита от перенапряжения на входе)\n" +
+                    "Введите номера выбранных защит (например: 1 2 3 4 5): ");
+
+            try {
+                scanner = new Scanner(System.in);
+                String input = scanner.nextLine();
+                String[] choices = input.split(" ");
+
+                StringBuilder selectedProtections = new StringBuilder();
+
+                for (String choiceStr : choices) {
+                    try {
+                        int choice = Integer.parseInt(choiceStr);
+                        switch (choice) {
+                            case 1:
+                                if (selectedProtections.length() > 0) selectedProtections.append(", ");
+                                selectedProtections.append("OCP");
+                                break;
+                            case 2:
+                                if (selectedProtections.length() > 0) selectedProtections.append(", ");
+                                selectedProtections.append("OVP");
+                                break;
+                            case 3:
+                                if (selectedProtections.length() > 0) selectedProtections.append(", ");
+                                selectedProtections.append("UVP");
+                                break;
+                            case 4:
+                                if (selectedProtections.length() > 0) selectedProtections.append(", ");
+                                selectedProtections.append("OPP");
+                                break;
+                            case 5:
+                                if (selectedProtections.length() > 0) selectedProtections.append(", ");
+                                selectedProtections.append("SCP");
+                                break;
+                            case 6:
+                                if (selectedProtections.length() > 0) selectedProtections.append(", ");
+                                selectedProtections.append("OTP");
+                                break;
+                            case 7:
+                                if (selectedProtections.length() > 0) selectedProtections.append(", ");
+                                selectedProtections.append("SIP");
+                                break;
+                        }
+                    } catch (NumberFormatException e) {
+
+                    }
+                }
+
+                if (selectedProtections.length() == 0) {
+                    System.out.println("Вы не выбрали ни одной защиты! Пожалуйста, выберите хотя бы одну.");
+                    continue;
+                }
+
+                protections = selectedProtections.toString();
+                cycleProtections = false;
+
+            } catch (Exception e) {
+                System.out.println("Произошла ошибка при вводе!\n" +
+                        "Пожалуйста, введите цифры через пробел.");
+            }
+        }
+
+        Map<String, PowerSupply> powerSupplies = FileManager.loadPowerSupply();
+        powerSupplies.put(id, new PowerSupply(
+                id, brand, model, price, interfaceType,
+                powerConsumption, voltage, efficiency, modularity,
+                sataConnectors, pcieConnectors, cpuConnectors, fanSize,
+                protections, dimensions, weight,
+                countryProduction, productionDate, category,
+                description, warrantyMoths
+        ));
+
+        FileManager.savePowerSupply(powerSupplies);
+        System.out.print("\nБлок питания " + brand + " " + model + " успешно зарегистрирован!");
+    }
+
+
     public static void registrationCase(String choiceCategory){}
     public static void registrationCooler(String choiceCategory){}
     public static void registrationSoftware(String choiceCategory){}
