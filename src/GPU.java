@@ -123,7 +123,7 @@ public class GPU extends ComputerComponent{
         System.out.println("Бренд: " + getBrand());
         System.out.println("Модель: " + getModel());
         System.out.println("Цена: " + getPrice() + " рублей");
-        System.out.println("Интерфейс подключения: " + getInterfaceType());
+        System.out.println("Интерфейсы подключения задней панели: " + getInterfaceType());
         System.out.println("Объем видеопамяти: " + getVramSize() + " ГБ " + getMemoryType());
         System.out.println("Количество вычислительных ядер: " + getCudaCores());
         System.out.println("Базовая частота: " + getBaseFrequency() + " МГц");
