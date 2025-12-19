@@ -256,7 +256,7 @@ public class ProductManager {
             boolean cycle = true;
             while (cycle)
             {
-                System.out.print("\nВыберите один из доступных вариантов интерфейса подключения Постоянного запоминающего устройства: " +
+                System.out.print("\nВыберите один из доступных вариантов интерфейса подключения Постоянного запоминающего устройства:\n" +
                         "1-SATA III\n" +
                         "2-M.2\n" +
                         "Ваш выбор:");
@@ -1768,7 +1768,369 @@ public class ProductManager {
     }
 
 
-    public static void registrationStorage(String choiceCategory){}
+    public static void registrationStorage(String choiceCategory){
+        ComputerComponent computerComponent = registrationComputerComponent(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = computerComponent.getId();
+        String brand = computerComponent.getBrand();
+        String model = computerComponent.getModel();
+        String countryProduction = computerComponent.getCountryProduction();
+        int productionDate = computerComponent.getProductionDate();
+        int price = computerComponent.getPrice();
+        String description = computerComponent.getDescription();
+        int warrantyMoths = computerComponent.getWarrantyMoths();
+        String category = computerComponent.getCategory();
+        String interfaceType = computerComponent.getInterfaceType();
+        double voltage = computerComponent.getVoltage();
+        int powerConsumption = computerComponent.getPowerConsumption();
+        String dimensions = computerComponent.getDimensions();
+        int weight = computerComponent.getWeight();
+
+        int capacity = 0;
+        String storageType = null;
+        int readSpeed = 0;
+        int writeSpeed = 0;
+        String formFactor = null;
+        int tbw = 0;
+        int cacheSize = 0;
+        String nandType = null;
+
+        // Емкость накопителя
+        boolean cycleCapacity = true;
+        while (cycleCapacity) {
+            System.out.print("\nВведите емкость накопителя в ГБ (128, 256, 512, 1024, 2048, 4096, 8192): ");
+
+            try {
+                capacity = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validCapacities = {128, 256, 512, 1024, 2048, 4096, 8192};
+                boolean isValid = false;
+
+                for (int cap : validCapacities) {
+                    if (capacity == cap) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректная емкость накопителя!\n" +
+                            "Введите значение ещё раз (128, 256, 512, 1024, 2048, 4096, 8192 ГБ): ");
+                    capacity = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int cap : validCapacities) {
+                        if (capacity == cap) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleCapacity = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Тип накопителя (SSD, HDD, NVMe)
+        boolean cycleStorageType = true;
+        while (cycleStorageType) {
+            System.out.print("\nВыберите тип накопителя:\n" +
+                    "1 - SSD (SATA)\n" +
+                    "2 - NVMe SSD\n" +
+                    "3 - HDD\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        storageType = "SSD";
+                        cycleStorageType = false;
+                        break;
+                    case 2:
+                        storageType = "NVMe SSD";
+                        cycleStorageType = false;
+                        break;
+                    case 3:
+                        storageType = "HDD";
+                        cycleStorageType = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Форм-фактор
+        boolean cycleFormFactor = true;
+        while (cycleFormFactor) {
+            System.out.print("\nВыберите форм-фактор накопителя:\n" +
+                    "1 - 2.5\"\n" +
+                    "2 - M.2\n" +
+                    "3 - 3.5\"\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        formFactor = "2.5\"";
+                        cycleFormFactor = false;
+                        break;
+                    case 2:
+                        formFactor = "M.2";
+                        cycleFormFactor = false;
+                        break;
+                    case 3:
+                        formFactor = "3.5\"";
+                        cycleFormFactor = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Скорость чтения
+        boolean cycleReadSpeed = true;
+        while (cycleReadSpeed) {
+            System.out.print("\nВведите скорость чтения в МБ/с (минимальное значение 100 МБ/с): ");
+
+            try {
+                readSpeed = scanner.nextInt();
+                scanner.nextLine();
+
+                while (readSpeed < 100) {
+                    System.out.print("\nНекорректная скорость чтения!\n" +
+                            "Введите значение ещё раз (не менее 100 МБ/с): ");
+                    readSpeed = scanner.nextInt();
+                    scanner.nextLine();
+                }
+
+                cycleReadSpeed = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Скорость записи
+        boolean cycleWriteSpeed = true;
+        while (cycleWriteSpeed) {
+            System.out.print("\nВведите скорость записи в МБ/с (минимальное значение 50 МБ/с): ");
+
+            try {
+                writeSpeed = scanner.nextInt();
+                scanner.nextLine();
+
+                while (writeSpeed < 50) {
+                    System.out.print("\nНекорректная скорость записи!\n" +
+                            "Введите значение ещё раз (не менее 50 МБ/с): ");
+                    writeSpeed = scanner.nextInt();
+                    scanner.nextLine();
+                }
+
+                // Проверка, чтобы скорость записи не была больше скорости чтения
+                if (writeSpeed > readSpeed) {
+                    System.out.println("Внимание: Скорость записи не может быть выше скорости чтения!\n" +
+                            "Скорость записи установлена равной скорости чтения.");
+                    writeSpeed = readSpeed;
+                }
+
+                cycleWriteSpeed = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Ресурс записи (TBW)
+        boolean cycleTBW = true;
+        while (cycleTBW) {
+            System.out.print("\nВведите ресурс записи (TBW) в терабайтах: ");
+
+            try {
+                tbw = scanner.nextInt();
+                scanner.nextLine();
+
+                while (tbw <= 0) {
+                    System.out.print("\nНекорректный ресурс записи!\n" +
+                            "Введите значение ещё раз (положительное число): ");
+                    tbw = scanner.nextInt();
+                    scanner.nextLine();
+                }
+
+                cycleTBW = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Размер кэша
+        boolean cycleCacheSize = true;
+        while (cycleCacheSize) {
+            System.out.print("\nВведите размер кэша в МБ (0, 64, 128, 256, 512, 1024, 2048): ");
+
+            try {
+                cacheSize = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validCacheSizes = {0, 64, 128, 256, 512, 1024, 2048};
+                boolean isValid = false;
+
+                for (int cache : validCacheSizes) {
+                    if (cacheSize == cache) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректный размер кэша!\n" +
+                            "Введите значение ещё раз (0, 64, 128, 256, 512, 1024, 2048 МБ): ");
+                    cacheSize = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int cache : validCacheSizes) {
+                        if (cacheSize == cache) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleCacheSize = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Тип памяти NAND
+        boolean cycleNandType = true;
+        while (cycleNandType) {
+            System.out.print("\nВыберите тип памяти NAND:\n" +
+                    "1 - TLC\n" +
+                    "2 - QLC\n" +
+                    "3 - 3D NAND\n" +
+                    "4 - MLC (для SSD)\n" +
+                    "5 - SLC (для SSD)\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        nandType = "TLC";
+                        cycleNandType = false;
+                        break;
+                    case 2:
+                        nandType = "QLC";
+                        cycleNandType = false;
+                        break;
+                    case 3:
+                        nandType = "3D NAND";
+                        cycleNandType = false;
+                        break;
+                    case 4:
+                        nandType = "MLC";
+                        cycleNandType = false;
+                        break;
+                    case 5:
+                        nandType = "SLC";
+                        cycleNandType = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        Map<String, Storage> storages = FileManager.loadStorage();
+        storages.put(id, new Storage(
+                id, brand, model, price, interfaceType,
+                capacity, storageType, readSpeed, writeSpeed, formFactor,
+                tbw, cacheSize, nandType,
+                powerConsumption, voltage, dimensions, weight,
+                countryProduction, productionDate, category,
+                description, warrantyMoths
+        ));
+
+        FileManager.saveStorage(storages);
+        System.out.print("\nНакопитель " + brand + " " + model + " успешно зарегистрирован!");
+
+    }
+
+
     public static void registrationPowerSupply(String choiceCategory){}
     public static void registrationCase(String choiceCategory){}
     public static void registrationCooler(String choiceCategory){}
@@ -1859,6 +2221,166 @@ public class ProductManager {
         for (RAM ram : RAMs.values()) {
             ram.getFullInfoForClient();
             ram.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintPowerSupply() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, PowerSupply> PowerSupplys = FileManager.loadPowerSupply();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Блок питания")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for (PowerSupply powerSupply : PowerSupplys.values()) {
+            powerSupply.getFullInfoForClient();
+            powerSupply.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintCase() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, Case> cases = FileManager.loadCase();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Корпус")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for (Case cas : cases.values()) {
+            cas.getFullInfoForClient();
+            cas.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintCooler() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, Cooler> coolers = FileManager.loadCooler();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Кулер")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for (Cooler cooler : coolers.values()) {
+            cooler.getFullInfoForClient();
+            cooler.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintSoftware() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, Software> Softwares = FileManager.loadSoftware();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Программное обеспечение")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for (Software software : Softwares.values()) {
+            software.getFullInfoForClient();
+            software.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintMonitor() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, Monitor> Monitors = FileManager.loadMonitor();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Монитор")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for (Monitor monitor : Monitors.values()) {
+            monitor.getFullInfoForClient();
+            monitor.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintMouse() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, Mouse> Mouses = FileManager.loadMouse();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Мышь")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for (Mouse mouse : Mouses.values()) {
+            mouse.getFullInfoForClient();
+            mouse.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintKeyBoard() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, Keyboard>  Keyboards = FileManager.loadKeyboard();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Клавиатура")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for ( Keyboard  keyboard : Keyboards.values()) {
+            keyboard.getFullInfoForClient();
+            keyboard.getFullInfoForSeller();
+        }
+    }
+
+    public static void PrintStorage() {
+        Map<String, Product> products = FileManager.loadProduct0();
+        Map<String, Storage> Storages = FileManager.loadStorage();
+
+        System.out.println("\n============================ Базовая информация ================================");
+
+        for (Product product : products.values()) {
+            if (product.getCategory().equals("Постоянное запоминающее устройство")) {
+                product.getMiniInfo();
+            }
+        }
+
+        System.out.println("\n============================ Полная информация ================================");
+
+        for (Storage storage : Storages.values()) {
+            storage.getFullInfoForClient();
+            storage.getFullInfoForSeller();
         }
     }
 }

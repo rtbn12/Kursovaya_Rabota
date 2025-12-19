@@ -172,28 +172,28 @@ public class Seller extends User implements Serializable {
                         ProductManager.PrintRAM();
                         break;
                     case 5:
-
+                        ProductManager.PrintStorage();
                         break;
                     case 6:
-
+                        ProductManager.PrintPowerSupply();
                         break;
                     case 7:
-
+                        ProductManager.PrintCase();
                         break;
                     case 8:
-
+                        ProductManager.PrintCooler();
                         break;
                     case 9:
-
+                        ProductManager.PrintSoftware();
                         break;
                     case 10:
-
+                        ProductManager.PrintMonitor();
                         break;
                     case 11:
-
+                        ProductManager.PrintMouse();
                         break;
                     case 12:
-
+                        ProductManager.PrintKeyBoard();
                         break;
                     case 0:
                         print = false;
