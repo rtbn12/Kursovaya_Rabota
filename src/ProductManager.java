@@ -4287,8 +4287,223 @@ public class ProductManager {
     }
 
 
-    public static void registrationMouse(String choiceCategory){}
-    public static void registrationKeyBoard(String choiceCategory){}
+    public static void registrationMouse(String choiceCategory){
+        Peripheral peripheral = registrationPeripheral(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = peripheral.getId();
+        String brand = peripheral.getBrand();
+        String model = peripheral.getModel();
+        String countryProduction = peripheral.getCountryProduction();
+        int productionDate = peripheral.getProductionDate();
+        int price = peripheral.getPrice();
+        String description = peripheral.getDescription();
+        int warrantyMoths = peripheral.getWarrantyMoths();
+        String category = peripheral.getCategory();
+        String connectionType = peripheral.getConnectionType();
+        double cableLength = peripheral.getCableLength();
+        boolean isWireless = peripheral.isWireless();
+        boolean hasRGB = peripheral.isHasRGB();
+        String color = peripheral.getColor();
+
+        int dpi = 0;
+        int buttonsCount = 0;
+        String sensorType = null;
+        boolean isGaming = false;
+
+        // Чувствительность (DPI)
+        boolean cycleDpi = true;
+        while (cycleDpi) {
+            System.out.print("\nВведите максимальную чувствительность мыши в DPI (800, 1600, 3200, 6400, 12000, 16000, 26000): ");
+
+            try {
+                dpi = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validDpis = {800, 1600, 3200, 6400, 12000, 16000, 26000};
+                boolean isValid = false;
+
+                for (int validDpi : validDpis) {
+                    if (dpi == validDpi) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректная чувствительность DPI!\n" +
+                            "Введите значение ещё раз (800, 1600, 3200, 6400, 12000, 16000, 26000 DPI): ");
+                    dpi = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int validDpi : validDpis) {
+                        if (dpi == validDpi) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleDpi = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Количество кнопок
+        boolean cycleButtonsCount = true;
+        while (cycleButtonsCount) {
+            System.out.print("\nВведите количество кнопок (3, 5, 7, 9, 12, 18): ");
+
+            try {
+                buttonsCount = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validButtons = {3, 5, 7, 9, 12, 18};
+                boolean isValid = false;
+
+                for (int buttons : validButtons) {
+                    if (buttonsCount == buttons) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректное количество кнопок!\n" +
+                            "Введите значение ещё раз (3, 5, 7, 9, 12, 18 кнопок): ");
+                    buttonsCount = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int buttons : validButtons) {
+                        if (buttonsCount == buttons) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleButtonsCount = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Тип сенсора
+        boolean cycleSensorType = true;
+        while (cycleSensorType) {
+            System.out.print("\nВыберите тип сенсора мыши:\n" +
+                    "1 - Оптический\n" +
+                    "2 - Лазерный\n" +
+                    "3 - Оптический высокоточный\n" +
+                    "4 - Герконовый (для трекболов)\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        sensorType = "Оптический";
+                        cycleSensorType = false;
+                        break;
+                    case 2:
+                        sensorType = "Лазерный";
+                        cycleSensorType = false;
+                        break;
+                    case 3:
+                        sensorType = "Оптический высокоточный";
+                        cycleSensorType = false;
+                        break;
+                    case 4:
+                        sensorType = "Герконовый";
+                        cycleSensorType = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Игровая мышь или офисная
+        boolean cycleIsGaming = true;
+        while (cycleIsGaming) {
+            System.out.print("\nЭто игровая мышь?\n" +
+                    "Введите:\n" +
+                    "1 - Да, игровая\n" +
+                    "0 - Нет, офисная/обычная\n" +
+                    "Ваш выбор: ");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 0:
+                        isGaming = false;
+                        cycleIsGaming = false;
+                        break;
+                    case 1:
+                        isGaming = true;
+                        cycleIsGaming = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        Map<String, Mouse> mice = FileManager.loadMouse();
+        mice.put(id, new Mouse(
+                id, brand, model, dpi,
+                buttonsCount, sensorType, isGaming,
+                connectionType, cableLength,
+                isWireless, hasRGB, color,
+                countryProduction, productionDate, category,
+                price, description, warrantyMoths
+        ));
+
+        FileManager.saveMouse(mice);
+        System.out.print("\nМышь " + brand + " " + model + " успешно зарегистрирована!");
+
+    }
+
+
+    public static void registrationKeyBoard(String choiceCategory){
+
+    }
 
 
 
