@@ -4502,6 +4502,310 @@ public class ProductManager {
 
 
     public static void registrationKeyBoard(String choiceCategory){
+        Peripheral peripheral = registrationPeripheral(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = peripheral.getId();
+        String brand = peripheral.getBrand();
+        String model = peripheral.getModel();
+        String countryProduction = peripheral.getCountryProduction();
+        int productionDate = peripheral.getProductionDate();
+        int price = peripheral.getPrice();
+        String description = peripheral.getDescription();
+        int warrantyMoths = peripheral.getWarrantyMoths();
+        String category = peripheral.getCategory();
+        String connectionType = peripheral.getConnectionType();
+        double cableLength = peripheral.getCableLength();
+        boolean isWireless = peripheral.isWireless();
+        boolean hasRGB = peripheral.isHasRGB();
+        String color = peripheral.getColor();
+
+        String keyboardType = null;
+        int countKey = 0;
+        String switchType = "Нет";
+        String layout = "";
+        boolean hasNumpad = false;
+
+        // Тип клавиатуры
+        boolean cycleKeyboardType = true;
+        while (cycleKeyboardType) {
+            System.out.print("\nВыберите тип клавиатуры:\n" +
+                    "1 - Механическая\n" +
+                    "2 - Мембранная\n" +
+                    "3 - Ножничная (ноутбучная)\n" +
+                    "4 - Гибридная\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        keyboardType = "Механическая";
+                        cycleKeyboardType = false;
+                        break;
+                    case 2:
+                        keyboardType = "Мембранная";
+                        cycleKeyboardType = false;
+                        break;
+                    case 3:
+                        keyboardType = "Ножничная (ноутбучная)";
+                        cycleKeyboardType = false;
+                        break;
+                    case 4:
+                        keyboardType = "Гибридная";
+                        cycleKeyboardType = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Количество клавиш
+        boolean cycleCountKey = true;
+        while (cycleCountKey) {
+            System.out.print("\nВведите количество клавиш (61, 68, 87, 104, 108): ");
+
+            try {
+                countKey = scanner.nextInt();
+                scanner.nextLine();
+
+                int[] validKeys = {61, 68, 87, 104, 108};
+                boolean isValid = false;
+
+                for (int keys : validKeys) {
+                    if (countKey == keys) {
+                        isValid = true;
+                        break;
+                    }
+                }
+
+                while (!isValid) {
+                    System.out.print("\nНекорректное количество клавиш!\n" +
+                            "Введите значение ещё раз (61, 68, 87, 104, 108 клавиш): ");
+                    countKey = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int keys : validKeys) {
+                        if (countKey == keys) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+
+                cycleCountKey = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Тип переключателей (только для механических клавиатур)
+        if (keyboardType.equals("Механическая")) {
+            boolean cycleSwitchType = true;
+            while (cycleSwitchType) {
+                System.out.print("\nВыберите тип механических переключателей:\n" +
+                        "1 - Cherry MX Red (линейные)\n" +
+                        "2 - Cherry MX Blue (кликающие)\n" +
+                        "3 - Cherry MX Brown (тактильные)\n" +
+                        "4 - Cherry MX Black (линейные тяжелые)\n" +
+                        "5 - Gateron Red\n" +
+                        "6 - Gateron Blue\n" +
+                        "7 - Gateron Brown\n" +
+                        "8 - Outemu\n" +
+                        "9 - Kailh\n" +
+                        "Ваш выбор: ");
+
+                int choice;
+                try {
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (choice) {
+                        case 1:
+                            switchType = "Cherry MX Red";
+                            cycleSwitchType = false;
+                            break;
+                        case 2:
+                            switchType = "Cherry MX Blue";
+                            cycleSwitchType = false;
+                            break;
+                        case 3:
+                            switchType = "Cherry MX Brown";
+                            cycleSwitchType = false;
+                            break;
+                        case 4:
+                            switchType = "Cherry MX Black";
+                            cycleSwitchType = false;
+                            break;
+                        case 5:
+                            switchType = "Gateron Red";
+                            cycleSwitchType = false;
+                            break;
+                        case 6:
+                            switchType = "Gateron Blue";
+                            cycleSwitchType = false;
+                            break;
+                        case 7:
+                            switchType = "Gateron Brown";
+                            cycleSwitchType = false;
+                            break;
+                        case 8:
+                            switchType = "Outemu";
+                            cycleSwitchType = false;
+                            break;
+                        case 9:
+                            switchType = "Kailh";
+                            cycleSwitchType = false;
+                            break;
+                        default:
+                            System.out.println("Такого варианта выбора нет!\n" +
+                                    "Пожалуйста, введите корректную цифру!");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Произошла ошибка!\n" +
+                            "Пожалуйста, введите корректное значение!\n" +
+                            "В прошлый раз вы ввели букву вместо числа!");
+                    scanner.nextLine();
+                } catch (Exception a) {
+                    System.out.println("Произошла неизвестная ошибка!");
+                    scanner.nextLine();
+                }
+            }
+        }
+
+        // Раскладка (можно выбрать несколько)
+        boolean cycleLayout = true;
+        while (cycleLayout) {
+            System.out.print("\nВыберите раскладку клавиатуры (можно выбрать несколько цифр через пробел):\n" +
+                    "1 - Русская (RU)\n" +
+                    "2 - Английская (US)\n" +
+                    "3 - Европейская (EU)\n" +
+                    "4 - Японская (JP)\n" +
+                    "5 - Китайская (CN)\n" +
+                    "6 - Двуязычная (RU/EN)\n" +
+                    "Введите номера выбранных раскладок (например: 1 2 6): ");
+
+            try {
+                String input = scanner.nextLine();
+                String[] choices = input.split(" ");
+
+                StringBuilder selectedLayouts = new StringBuilder();
+
+                for (String choiceStr : choices) {
+                    try {
+                        int choice = Integer.parseInt(choiceStr);
+                        switch (choice) {
+                            case 1:
+                                if (selectedLayouts.length() > 0) selectedLayouts.append(", ");
+                                selectedLayouts.append("RU");
+                                break;
+                            case 2:
+                                if (selectedLayouts.length() > 0) selectedLayouts.append(", ");
+                                selectedLayouts.append("US");
+                                break;
+                            case 3:
+                                if (selectedLayouts.length() > 0) selectedLayouts.append(", ");
+                                selectedLayouts.append("EU");
+                                break;
+                            case 4:
+                                if (selectedLayouts.length() > 0) selectedLayouts.append(", ");
+                                selectedLayouts.append("JP");
+                                break;
+                            case 5:
+                                if (selectedLayouts.length() > 0) selectedLayouts.append(", ");
+                                selectedLayouts.append("CN");
+                                break;
+                            case 6:
+                                if (selectedLayouts.length() > 0) selectedLayouts.append(", ");
+                                selectedLayouts.append("RU/EN");
+                                break;
+                        }
+                    } catch (NumberFormatException e) {
+                        // Пропускаем некорректные вводы
+                    }
+                }
+
+                if (selectedLayouts.length() == 0) {
+                    System.out.println("Вы не выбрали ни одной раскладки! Пожалуйста, выберите хотя бы одну.");
+                    continue;
+                }
+
+                layout = selectedLayouts.toString();
+                cycleLayout = false;
+
+            } catch (Exception e) {
+                System.out.println("Произошла ошибка при вводе!\n" +
+                        "Пожалуйста, введите цифры через пробел.");
+            }
+        }
+
+        // Наличие цифрового блока (numpad)
+        boolean cycleHasNumpad = true;
+        while (cycleHasNumpad) {
+            System.out.print("\nЕсть ли у клавиатуры цифровой блок (numpad)?\n" +
+                    "Введите:\n" +
+                    "1 - Да, цифровой блок присутствует\n" +
+                    "0 - Нет, цифровой блок отсутствует\n" +
+                    "Ваш выбор: ");
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 0:
+                        hasNumpad = false;
+                        cycleHasNumpad = false;
+                        break;
+                    case 1:
+                        hasNumpad = true;
+                        cycleHasNumpad = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        Map<String, Keyboard> keyboards = FileManager.loadKeyboard();
+        keyboards.put(id, new Keyboard(
+                id, brand, model,
+                keyboardType, countKey,
+                switchType, layout, hasNumpad,
+                connectionType, cableLength,
+                isWireless, hasRGB, color,
+                countryProduction, productionDate, category,
+                price, description, warrantyMoths
+        ));
+
+        FileManager.saveKeyboard(keyboards);
+        System.out.print("\nКлавиатура " + brand + " " + model + " успешно зарегистрирована!");
 
     }
 
