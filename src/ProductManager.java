@@ -3338,7 +3338,329 @@ public class ProductManager {
     }
 
 
-    public static void registrationSoftware(String choiceCategory){}
+    public static void registrationSoftware(String choiceCategory){
+        Product product = registrationProduct(choiceCategory);
+        Scanner scanner = new Scanner(System.in);
+
+        String id = product.getId();
+        String brand = product.getBrand();
+        String model = product.getModel();
+        String countryProduction = product.getCountryProduction();
+        int productionDate = product.getProductionDate();
+        int price = product.getPrice();
+        String description = product.getDescription();
+        int warrantyMoths = product.getWarrantyMoths();
+        String category = product.getCategory();
+
+        String softwareType = null;
+        int licenseDuration = 0;
+        String supportedOS = "";
+        String systemRequirements = "";
+        boolean isDigital = false;
+        String languages = "";
+
+        // Тип программного обеспечения
+        boolean cycleSoftwareType = true;
+        while (cycleSoftwareType) {
+            System.out.print("\nВыберите тип программного обеспечения:\n" +
+                    "1 - Операционная система\n" +
+                    "2 - Антивирус\n" +
+                    "3 - Офисный пакет\n" +
+                    "4 - Графический редактор\n" +
+                    "5 - Игра\n" +
+                    "6 - Утилита\n" +
+                    "7 - Драйвер\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        softwareType = "Операционная система";
+                        cycleSoftwareType = false;
+                        break;
+                    case 2:
+                        softwareType = "Антивирус";
+                        cycleSoftwareType = false;
+                        break;
+                    case 3:
+                        softwareType = "Офисный пакет";
+                        cycleSoftwareType = false;
+                        break;
+                    case 4:
+                        softwareType = "Графический редактор";
+                        cycleSoftwareType = false;
+                        break;
+                    case 5:
+                        softwareType = "Игра";
+                        cycleSoftwareType = false;
+                        break;
+                    case 6:
+                        softwareType = "Утилита";
+                        cycleSoftwareType = false;
+                        break;
+                    case 7:
+                        softwareType = "Драйвер";
+                        cycleSoftwareType = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Срок лицензии
+        boolean cycleLicenseDuration = true;
+        while (cycleLicenseDuration) {
+            System.out.print("\nВведите срок лицензии в месяцах (0 = бессрочная, 1-120 месяцев): ");
+
+            try {
+                licenseDuration = scanner.nextInt();
+                scanner.nextLine();
+
+                while (licenseDuration < 0 || licenseDuration > 120) {
+                    System.out.print("\nНекорректный срок лицензии!\n" +
+                            "Введите значение ещё раз (0-120 месяцев): ");
+                    licenseDuration = scanner.nextInt();
+                    scanner.nextLine();
+                }
+
+                cycleLicenseDuration = false;
+
+            } catch (InputMismatchException p) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception p) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Поддерживаемые операционные системы (можно выбрать несколько)
+        boolean cycleSupportedOS = true;
+        while (cycleSupportedOS) {
+            System.out.print("\nВыберите поддерживаемые операционные системы (можно выбрать несколько цифр через пробел):\n" +
+                    "1 - Windows 10/11\n" +
+                    "2 - Windows 7/8\n" +
+                    "3 - macOS\n" +
+                    "4 - Linux\n" +
+                    "5 - Android\n" +
+                    "6 - iOS\n" +
+                    "Введите номера выбранных ОС (например: 1 3 4): ");
+
+            try {
+                String input = scanner.nextLine();
+                String[] choices = input.split(" ");
+
+                StringBuilder selectedOS = new StringBuilder();
+
+                for (String choiceStr : choices) {
+                    try {
+                        int choice = Integer.parseInt(choiceStr);
+                        switch (choice) {
+                            case 1:
+                                if (selectedOS.length() > 0) selectedOS.append(", ");
+                                selectedOS.append("Windows 10/11");
+                                break;
+                            case 2:
+                                if (selectedOS.length() > 0) selectedOS.append(", ");
+                                selectedOS.append("Windows 7/8");
+                                break;
+                            case 3:
+                                if (selectedOS.length() > 0) selectedOS.append(", ");
+                                selectedOS.append("macOS");
+                                break;
+                            case 4:
+                                if (selectedOS.length() > 0) selectedOS.append(", ");
+                                selectedOS.append("Linux");
+                                break;
+                            case 5:
+                                if (selectedOS.length() > 0) selectedOS.append(", ");
+                                selectedOS.append("Android");
+                                break;
+                            case 6:
+                                if (selectedOS.length() > 0) selectedOS.append(", ");
+                                selectedOS.append("iOS");
+                                break;
+                        }
+                    } catch (NumberFormatException e) {
+                        // Пропускаем некорректные вводы
+                    }
+                }
+
+                if (selectedOS.length() == 0) {
+                    System.out.println("Вы не выбрали ни одной ОС! Пожалуйста, выберите хотя бы одну.");
+                    continue;
+                }
+
+                supportedOS = selectedOS.toString();
+                cycleSupportedOS = false;
+
+            } catch (Exception e) {
+                System.out.println("Произошла ошибка при вводе!\n" +
+                        "Пожалуйста, введите цифры через пробел.");
+            }
+        }
+
+        // Системные требования
+        boolean cycleSystemRequirements = true;
+        while (cycleSystemRequirements) {
+            System.out.print("\nВведите системные требования (можно подробно описать требования к железу): ");
+
+            try {
+                systemRequirements = scanner.nextLine();
+
+                if (systemRequirements.trim().isEmpty()) {
+                    System.out.println("Системные требования не могут быть пустыми! Пожалуйста, введите описание.");
+                    continue;
+                }
+
+                cycleSystemRequirements = false;
+
+            } catch (Exception e) {
+                System.out.println("Произошла ошибка при вводе!");
+            }
+        }
+
+        // Тип версии (цифровая или коробочная)
+        boolean cycleIsDigital = true;
+        while (cycleIsDigital) {
+            System.out.print("\nВыберите тип версии:\n" +
+                    "1 - Цифровая версия (электронный ключ/файл)\n" +
+                    "2 - Коробочная версия (физический носитель)\n" +
+                    "Ваш выбор: ");
+
+            int choice;
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        isDigital = true;
+                        cycleIsDigital = false;
+                        break;
+                    case 2:
+                        isDigital = false;
+                        cycleIsDigital = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректную цифру!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+
+        // Поддерживаемые языки (можно выбрать несколько)
+        boolean cycleLanguages = true;
+        while (cycleLanguages) {
+            System.out.print("\nВыберите поддерживаемые языки (можно выбрать несколько цифр через пробел):\n" +
+                    "1 - Русский\n" +
+                    "2 - Английский\n" +
+                    "3 - Немецкий\n" +
+                    "4 - Французский\n" +
+                    "5 - Испанский\n" +
+                    "6 - Китайский\n" +
+                    "7 - Японский\n" +
+                    "8 - Многоязычная версия\n" +
+                    "Введите номера выбранных языков (например: 1 2 8): ");
+
+            try {
+                String input = scanner.nextLine();
+                String[] choices = input.split(" ");
+
+                StringBuilder selectedLanguages = new StringBuilder();
+
+                for (String choiceStr : choices) {
+                    try {
+                        int choice = Integer.parseInt(choiceStr);
+                        switch (choice) {
+                            case 1:
+                                if (selectedLanguages.length() > 0) selectedLanguages.append(", ");
+                                selectedLanguages.append("Русский");
+                                break;
+                            case 2:
+                                if (selectedLanguages.length() > 0) selectedLanguages.append(", ");
+                                selectedLanguages.append("Английский");
+                                break;
+                            case 3:
+                                if (selectedLanguages.length() > 0) selectedLanguages.append(", ");
+                                selectedLanguages.append("Немецкий");
+                                break;
+                            case 4:
+                                if (selectedLanguages.length() > 0) selectedLanguages.append(", ");
+                                selectedLanguages.append("Французский");
+                                break;
+                            case 5:
+                                if (selectedLanguages.length() > 0) selectedLanguages.append(", ");
+                                selectedLanguages.append("Испанский");
+                                break;
+                            case 6:
+                                if (selectedLanguages.length() > 0) selectedLanguages.append(", ");
+                                selectedLanguages.append("Китайский");
+                                break;
+                            case 7:
+                                if (selectedLanguages.length() > 0) selectedLanguages.append(", ");
+                                selectedLanguages.append("Японский");
+                                break;
+                            case 8:
+                                if (selectedLanguages.length() > 0) selectedLanguages.append(", ");
+                                selectedLanguages.append("Многоязычная");
+                                break;
+                        }
+                    } catch (NumberFormatException e) {
+                        // Пропускаем некорректные вводы
+                    }
+                }
+
+                if (selectedLanguages.length() == 0) {
+                    System.out.println("Вы не выбрали ни одного языка! Пожалуйста, выберите хотя бы один.");
+                    continue;
+                }
+
+                languages = selectedLanguages.toString();
+                cycleLanguages = false;
+
+            } catch (Exception e) {
+                System.out.println("Произошла ошибка при вводе!\n" +
+                        "Пожалуйста, введите цифры через пробел.");
+            }
+        }
+
+        Map<String, Software> softwareMap = FileManager.loadSoftware();
+        softwareMap.put(id, new Software(
+                id, brand, model, softwareType,
+                licenseDuration, supportedOS, systemRequirements,
+                isDigital, languages, countryProduction,
+                productionDate, category, price, description, warrantyMoths
+        ));
+
+        FileManager.saveSoftware(softwareMap);
+        System.out.print("\nПрограммное обеспечение " + brand + " " + model + " успешно зарегистрировано!");
+
+    }
+
+
     public static void registrationMonitor(String choiceCategory){}
     public static void registrationMouse(String choiceCategory){}
     public static void registrationKeyBoard(String choiceCategory){}
