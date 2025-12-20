@@ -327,12 +327,12 @@ public class ProductManager {
 
             boolean cycleAudioPorts = true;
             while (cycleAudioPorts) {
-                System.out.print("\nВведите количество аналоговых аудиовыходов (3-8): ");
+                System.out.print("\nВведите количество аналоговых аудиовыходов (2-8): ");
 
                 try {
                     audioPorts = scanner.nextInt();
                     scanner.nextLine();
-                    while (audioPorts < 3 || audioPorts > 8) {
+                    while (audioPorts < 2 || audioPorts > 8) {
                         System.out.print("\nНекорректное количество аудио портов!\n" +
                                 "Введите значение ещё раз (3-8): ");
                         audioPorts = scanner.nextInt();
@@ -721,7 +721,7 @@ public class ProductManager {
             try {
                 cacheSize = scanner.nextInt();
                 scanner.nextLine();
-                while(cacheSize <0 || cacheSize>64 || cacheSize%2!=0)
+                while(cacheSize <0 || cacheSize>256 || cacheSize%2!=0)
                 {
 
                     System.out.print("\nНекорректный объём кэша процессора!\n" +
@@ -952,7 +952,7 @@ public class ProductManager {
             try {
                 lanSpeed = scanner.nextInt();
                 scanner.nextLine();
-                while (lanSpeed < 0 || lanSpeed > 2500) {
+                while (lanSpeed < 0 || lanSpeed > 10000) {
                     System.out.print("\nНекорректная скорость сетевой карты!\n" +
                             "Введите значение ещё раз : ");
                     lanSpeed = scanner.nextInt();
@@ -1061,9 +1061,9 @@ public class ProductManager {
             try {
                 vramSize = scanner.nextInt();
                 scanner.nextLine();
-                while (vramSize < 1 || vramSize > 24) {
+                while (vramSize < 1 || vramSize > 64) {
                     System.out.print("\nНекорректный объем видеопамяти!\n" +
-                            "Введите значение ещё раз (1-24 ГБ): ");
+                            "Введите значение ещё раз (1-64 ГБ): ");
                     vramSize = scanner.nextInt();
                     scanner.nextLine();
                 }
@@ -1085,12 +1085,12 @@ public class ProductManager {
 
         boolean cycleCudaCores = true;
         while (cycleCudaCores) {
-            System.out.print("\nВведите количество CUDA ядер (256-18432): ");
+            System.out.print("\nВведите количество CUDA ядер (256-30000): ");
 
             try {
                 cudaCores = scanner.nextInt();
                 scanner.nextLine();
-                while (cudaCores < 256 || cudaCores > 18432) {
+                while (cudaCores < 256 || cudaCores > 30000) {
                     System.out.print("\nНекорректное количество CUDA ядер!\n" +
                             "Введите значение ещё раз (256-18432): ");
                     cudaCores = scanner.nextInt();
@@ -1163,13 +1163,13 @@ public class ProductManager {
 
         boolean cycleMemoryBusWidth = true;
         while (cycleMemoryBusWidth) {
-            System.out.print("\nВведите ширину шины памяти в битах (64, 128, 192, 256, 384): ");
+            System.out.print("\nВведите ширину шины памяти в битах (64, 128, 192, 256, 384, 512, 1024): ");
 
             try {
                 memoryBusWidth = scanner.nextInt();
                 scanner.nextLine();
 
-                int[] validBusWidths = {64, 128, 192, 256, 384};
+                int[] validBusWidths = {64, 128, 192, 256, 384, 512, 1024};
                 boolean isValid = false;
 
                 for (int width : validBusWidths) {
@@ -5051,6 +5051,102 @@ public class ProductManager {
         for (Storage storage : Storages.values()) {
             storage.getFullInfoForClient();
             storage.getFullInfoForSeller();
+        }
+    }
+
+
+
+
+
+
+
+
+    public static void printProduct()
+    {
+
+        Scanner scanner2 = new Scanner(System.in);
+        int printChoice;
+        boolean print = true;
+        while(print)
+        {
+            System.out.print("\nВыберите интересующую категорию товара:\n" +
+                    "1-Центральный процессор\n" +
+                    "2-Материнская плата\n" +
+                    "3-Видеокарта\n" +
+                    "4-Оперативная память\n" +
+                    "5-Постоянное запоминающее устройство\n" +
+                    "6-Блок питания\n" +
+                    "7-Корпус\n" +
+                    "8-Кулер\n" +
+                    "9-Программное обеспечение\n" +
+                    "10-Монитор\n" +
+                    "11-Мышь\n" +
+                    "12-Клавиатура\n" +
+                    "0-Выход в меню\n" +
+                    "Ваш выбор:");
+
+
+
+            try {
+                printChoice = scanner2.nextInt();
+
+                switch (printChoice)
+                {
+                    case 1:
+                        ProductManager.PrintCPU();
+                        break;
+                    case 2:
+                        ProductManager.PrintMotherBoard();
+                        break;
+                    case 3:
+                        ProductManager.PrintGPU();
+                        break;
+                    case 4:
+                        ProductManager.PrintRAM();
+                        break;
+                    case 5:
+                        ProductManager.PrintStorage();
+                        break;
+                    case 6:
+                        ProductManager.PrintPowerSupply();
+                        break;
+                    case 7:
+                        ProductManager.PrintCase();
+                        break;
+                    case 8:
+                        ProductManager.PrintCooler();
+                        break;
+                    case 9:
+                        ProductManager.PrintSoftware();
+                        break;
+                    case 10:
+                        ProductManager.PrintMonitor();
+                        break;
+                    case 11:
+                        ProductManager.PrintMouse();
+                        break;
+                    case 12:
+                        ProductManager.PrintKeyBoard();
+                        break;
+                    case 0:
+                        print = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+
+            }catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner2.nextLine();
+            }
+            catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner2.nextLine();
+            }
+
         }
     }
 }
