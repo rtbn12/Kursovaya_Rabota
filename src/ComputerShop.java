@@ -1,4 +1,5 @@
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ComputerShop {
@@ -39,6 +40,10 @@ public class ComputerShop {
                                    "1 - Регистрация\n" +
                                    "2 - Авторизация\n" +
                                    "3 - Каталог товаров\n" +
+                                   "4 - Поиск товара по id\n" +
+                                   "5 - Проверить баланс\n" +
+                                   "6 - Корзина\n" +
+                                   "7 - Список покупок\n" +
                                    "0 - Выход в главное меню\n" +
                                    "Ваш выбор:");
                            int choiceClient;
@@ -55,6 +60,130 @@ public class ComputerShop {
                                        break;
                                    case 3:
                                        ProductManager.printProduct();
+                                       break;
+                                   case 4:
+                                       //поиск товара
+                                       int searchChoice;
+                                       boolean search = true;
+                                       while(search)
+                                       {
+                                           System.out.println("\n\n+-+-+-+-+-+-+-+--Раздел поиска товара по id--+-+-+-+-+-+-+-+");
+                                           System.out.print("\nВыберите одно из доступных действий:\n" +
+                                                   "1 - Выполнить поиск\n" +
+                                                   "0 - Выход в меню покупателя\n" +
+                                                   "Ваш выбор:");
+                                           try {
+                                               searchChoice = scanner.nextInt();
+
+                                               switch (searchChoice)
+                                               {
+                                                   case 1:
+                                                       //здесь будет метод по поиску товара и дальнейшие действия
+                                                       break;
+                                                   case 0:
+                                                       search = false;
+                                                       break;
+                                                   default:
+                                                       System.out.println("Такого варианта выбора нет!\n" +
+                                                               "Пожалуйста, введите корректное число!");
+                                               }
+
+                                           }catch (InputMismatchException e) {
+                                               System.out.println("Произошла ошибка!\n" +
+                                                       "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                       "В прошлый раз вы ввели букву вместо числа!");
+                                               scanner.nextLine();
+                                           }
+                                           catch (Exception a) {
+                                               System.out.println("Произошла неизвестная ошибка!");
+                                               scanner.nextLine();
+                                           }
+
+                                       }
+
+                                       break;
+                                   case 5:
+                                       if(client != null)
+                                       {
+                                           // раздел баланса
+                                           int balanceChoice;
+                                           boolean balance = true;
+                                           while(balance)
+                                           {
+                                               System.out.println("\n\n+-+-+-+-+-+-+-+--Баланс--+-+-+-+-+-+-+-+");
+                                               System.out.println("Ваш баланс составляет: " + client.getBalance() +  " рублей!");
+                                               System.out.print("\nВыберите одно из доступных действий:\n" +
+                                                       "1 - Пополнить баланс\n" +
+                                                       "0 - Выход в меню покупателя\n" +
+                                                       "Ваш выбор:");
+                                               try {
+                                                   balanceChoice = scanner.nextInt();
+
+                                                   switch (balanceChoice)
+                                                   {
+                                                       case 1:
+                                                           double sum;
+                                                           boolean sumCycle = true;
+                                                           while(sumCycle)
+                                                           {
+                                                               System.out.print("\nВыберите вносимую сумму в рублях:");
+
+                                                               try {
+                                                               sum = scanner.nextDouble();
+                                                               client.addBalance(sum);
+                                                               FileManager.rewriteClient(client);
+
+                                                                   sumCycle = false;
+                                                               }catch (InputMismatchException e) {
+                                                                   System.out.println("Произошла ошибка!\n" +
+                                                                           "Пожалуйста, введите корректное целочисленное вносимой суммы!\n" +
+                                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                                   scanner.nextLine();
+                                                               }
+                                                               catch (Exception a) {
+                                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                                   scanner.nextLine();
+                                                               }
+
+                                                           }
+                                                           break;
+                                                       case 0:
+                                                           balance = false;
+                                                           break;
+                                                       default:
+                                                           System.out.println("Такого варианта выбора нет!\n" +
+                                                                   "Пожалуйста, введите корректное число!");
+                                                   }
+
+                                               }catch (InputMismatchException e) {
+                                                   System.out.println("Произошла ошибка!\n" +
+                                                           "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                   scanner.nextLine();
+                                               }
+                                               catch (Exception a) {
+                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                   scanner.nextLine();
+                                               }
+
+                                           }
+
+
+                                       }
+
+                                       else
+                                       {
+                                           System.out.println("\n Для выполнения этого действия, сначала надо пройти процесс авторизации!");
+
+                                       }
+
+                                       break;
+
+                                   case 6:
+
+                                       break;
+                                   case 7:
+
                                        break;
                                    case 0:
                                        cycleClient = false;
@@ -87,7 +216,11 @@ public class ComputerShop {
                                     "1 - Регистрация\n" +
                                     "2 - Авторизация\n" +
                                     "3 - Добавить товар\n" +
-                                    "4 - Вывести информацию о товаре\n"+
+                                    "4 - Каталог товаров\n" +
+                                    "5 - Поиск товара по id\n" +
+                                    "5 - Изменить товар\n" +
+                                    "6 - Удалить товар\n" +
+                                    "7 - Подтвердить покупку\n"+
                                     "0 - Выход в главное меню\n" +
                                     "Ваш выбор:");
                             int choiceSeller;
@@ -123,6 +256,15 @@ public class ComputerShop {
                                         {
                                             System.out.println("Продавец не авторизован!");
                                         }
+
+                                        break;
+                                    case 5:
+
+                                        break;
+                                    case 6:
+
+                                        break;
+                                    case 7:
 
                                         break;
                                     case 0:

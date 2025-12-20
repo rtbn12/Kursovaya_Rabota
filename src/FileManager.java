@@ -91,6 +91,14 @@ public class FileManager {
         saveUser(clients,CLIENTFILE);
     }
 
+    public static void rewriteClient(Client client) {
+        String login = client.getLogin();
+        Map<String, Client> clientMap = loadClient();
+        clientMap.get(login);
+        clientMap.put(login, client);
+        saveClient(clientMap);
+    }
+
     public static void saveSeller(Map<String,Seller> sellers)
     {
         saveUser(sellers,SELLERSFILE);
