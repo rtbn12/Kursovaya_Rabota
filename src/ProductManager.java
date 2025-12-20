@@ -116,7 +116,7 @@ public class ProductManager {
             try {
                 warrantyMoths = scanner.nextInt();
                 scanner.nextLine();
-                while (warrantyMoths<=0 || warrantyMoths>120)
+                while (warrantyMoths<0 || warrantyMoths>120)
                 {
                     System.out.print("\nВы ввели некорректный срок гарантии!\n" +
                             "Введите срок гарантии в месяцах заново!:");
@@ -3052,6 +3052,7 @@ public class ProductManager {
                     "6 - AM3+\n" +
                     "7 - TR4\n" +
                     "8 - sTRX4\n" +
+                    "9 - нет (для корпусных кулеров)\n" +
                     "Введите номера выбранных сокетов (например: 1 2 4 5): ");
 
             try {
@@ -3095,6 +3096,10 @@ public class ProductManager {
                             case 8:
                                 if (selectedSockets.length() > 0) selectedSockets.append(", ");
                                 selectedSockets.append("sTRX4");
+                                break;
+                            case 9:
+                                if (selectedSockets.length() > 0) selectedSockets.append(", ");
+                                selectedSockets.append("нет");
                                 break;
                         }
                     } catch (NumberFormatException e) {
@@ -3459,6 +3464,8 @@ public class ProductManager {
                     "4 - Linux\n" +
                     "5 - Android\n" +
                     "6 - iOS\n" +
+                    "7 - PS5\n" +
+                    "8 - PS4/5\n" +
                     "Введите номера выбранных ОС (например: 1 3 4): ");
 
             try {
@@ -3494,6 +3501,14 @@ public class ProductManager {
                             case 6:
                                 if (selectedOS.length() > 0) selectedOS.append(", ");
                                 selectedOS.append("iOS");
+                                break;
+                            case 7:
+                                if (selectedOS.length() > 0) selectedOS.append(", ");
+                                selectedOS.append("PS5");
+                                break;
+                            case 8:
+                                if (selectedOS.length() > 0) selectedOS.append(", ");
+                                selectedOS.append("PS4/5");
                                 break;
                         }
                     } catch (NumberFormatException e) {
@@ -4055,13 +4070,13 @@ public class ProductManager {
         // Частота обновления
         boolean cycleRefreshRate = true;
         while (cycleRefreshRate) {
-            System.out.print("\nВведите частоту обновления экрана в Гц (60, 75, 120, 144, 165, 240, 360): ");
+            System.out.print("\nВведите частоту обновления экрана в Гц (60, 75, 100, 120, 144, 165, 180, 240, 360): ");
 
             try {
                 refreshRate = scanner.nextInt();
                 scanner.nextLine();
 
-                int[] validRates = {60, 75, 120, 144, 165, 240, 360};
+                int[] validRates = {60, 75,100, 120, 144, 165, 180, 240, 360};
                 boolean isValid = false;
 
                 for (int rate : validRates) {
@@ -4314,13 +4329,13 @@ public class ProductManager {
         // Чувствительность (DPI)
         boolean cycleDpi = true;
         while (cycleDpi) {
-            System.out.print("\nВведите максимальную чувствительность мыши в DPI (800, 1600, 3200, 6400, 12000, 16000, 26000): ");
+            System.out.print("\nВведите максимальную чувствительность мыши в DPI (800, 1000, 1600, 3200, 6400, 12000, 16000, 26000): ");
 
             try {
                 dpi = scanner.nextInt();
                 scanner.nextLine();
 
-                int[] validDpis = {800, 1600, 3200, 6400, 12000, 16000, 26000};
+                int[] validDpis = {800, 1000, 1600, 3200, 6400, 12000, 16000, 26000};
                 boolean isValid = false;
 
                 for (int validDpi : validDpis) {
