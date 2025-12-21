@@ -181,8 +181,118 @@ public class ComputerShop {
 
                                    case 6:
 
+                                       if(client != null)
+                                       {
+                                           // раздел корзины
+                                           int basketChoice;
+                                           boolean bascet = true;
+                                           while(bascet)
+                                           {
+                                               System.out.println("\n\n+-+-+-+-+-+-+-+--Ваша корзина--+-+-+-+-+-+-+-+");
+                                               // тут будет метод для вывода содержимого корзины
+                                               System.out.print("\nВыберите одно из доступных действий:\n" +
+                                                       "1 - Купить все товары\n" +
+                                                       "2 - Купить товар по его id\n" +
+                                                       "3 - Очистить козину\n" +
+                                                       "4 - Удалить товар из корзины по его id\n" +
+                                                       "0 - Выход в меню покупателя\n" +
+                                                       "Ваш выбор:");
+                                               try {
+                                                   basketChoice = scanner.nextInt();
+
+                                                   switch (basketChoice)
+                                                   {
+                                                       case 1:
+                                                          // логика для покупки всех товаров
+                                                           break;
+                                                       case 2:
+                                                           // логика для покупки товара по id
+                                                           break;
+                                                       case 3:
+                                                           // логика для очистки корзины
+                                                           break;
+                                                       case 4:
+                                                           // логика для удаления товара по его id
+                                                           break;
+                                                       case 0:
+                                                           bascet = false;
+                                                           break;
+                                                       default:
+                                                           System.out.println("Такого варианта выбора нет!\n" +
+                                                                   "Пожалуйста, введите корректное число!");
+                                                   }
+
+                                               }catch (InputMismatchException e) {
+                                                   System.out.println("Произошла ошибка!\n" +
+                                                           "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                   scanner.nextLine();
+                                               }
+                                               catch (Exception a) {
+                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                   scanner.nextLine();
+                                               }
+
+                                           }
+
+
+                                       }
+
+                                       else
+                                       {
+                                           System.out.println("\n Для выполнения этого действия, сначала надо пройти процесс авторизации!");
+
+                                       }
+
                                        break;
                                    case 7:
+
+                                       if(client != null)
+                                       {
+                                           // раздел списка покупок
+                                           int shoppingListChoice;
+                                           boolean shoppingList = true;
+                                           while(shoppingList)
+                                           {
+                                               System.out.println("\n\n+-+-+-+-+-+-+-+--Ваш список покупок--+-+-+-+-+-+-+-+");
+                                               // тут будет метод для вывода содержимого списка покупок
+                                               System.out.print("\nВыберите одно из доступных действий:\n" +
+                                                       "0 - Выход в меню покупателя\n" +
+                                                       "Ваш выбор:");
+                                               try {
+                                                   shoppingListChoice = scanner.nextInt();
+                                                   if(shoppingListChoice!=0)
+                                                   {
+                                                       System.out.println("Такого варианта выбора нет!\n" +
+                                                               "Пожалуйста, введите корректное число!");
+                                                   }
+                                                   else
+                                                   {
+                                                       shoppingList = false;
+                                                   }
+
+
+                                               }catch (InputMismatchException e) {
+                                                   System.out.println("Произошла ошибка!\n" +
+                                                           "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                   scanner.nextLine();
+                                               }
+                                               catch (Exception a) {
+                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                   scanner.nextLine();
+                                               }
+
+                                           }
+
+
+                                       }
+
+                                       else
+                                       {
+                                           System.out.println("\n Для выполнения этого действия, сначала надо пройти процесс авторизации!");
+
+                                       }
 
                                        break;
                                    case 0:
@@ -320,9 +430,14 @@ public class ComputerShop {
     }
 
     public static void aboutShop(){
-        System.out.println("Название магазина:" + name);
+        System.out.println("\nНазвание магазина:" + name);
         System.out.println("Адрес:" + address);
         System.out.println("Контактный телефон:" + phone);
+        System.out.println("\n\nДанный компьютерный магазин не существует в реальности,\n" +
+                "а представляет собой лишь некоммерческую программу,\n" +
+                "написанную студентом в качестве курсовой работы,\n" +
+                "все совпадения с возможной логикой работы магазина 'DNS' вовсе не случайны,\n" +
+                "так как лучший способ создать что-то хорошее - брать пример с лучших!");
     }
 
     public static String getName()
