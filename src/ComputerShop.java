@@ -59,7 +59,91 @@ public class ComputerShop {
                                        client = AccountManager.authorizationClient();
                                        break;
                                    case 3:
-                                       ProductManager.printProductForClient();
+
+                                       int printChoice;
+                                       boolean print = true;
+                                       while(print)
+                                       {System.out.println("\n\n+-+-+-+-+-+-+-+--Каталог товаров--+-+-+-+-+-+-+-+");
+                                           System.out.print("\nВыберите интересующую категорию товара:\n" +
+                                                   "1 - Центральный процессор\n" +
+                                                   "2 - Материнская плата\n" +
+                                                   "3 - Видеокарта\n" +
+                                                   "4 - Оперативная память\n" +
+                                                   "5 - Постоянное запоминающее устройство\n" +
+                                                   "6 - Блок питания\n" +
+                                                   "7 - Корпус\n" +
+                                                   "8 - Кулер\n" +
+                                                   "9 - Программное обеспечение\n" +
+                                                   "10 - Монитор\n" +
+                                                   "11 - Мышь\n" +
+                                                   "12 - Клавиатура\n" +
+                                                   "0 - Выход в меню\n" +
+                                                   "Ваш выбор:");
+
+
+                                           try {
+                                               printChoice = scanner.nextInt();
+
+                                               switch (printChoice)
+                                               {
+                                                   case 1:
+                                                       handleProductMenu("Центральный процессор", scanner);
+                                                       break;
+                                                   case 2:
+                                                       handleProductMenu("Материнская плата", scanner);
+                                                       break;
+                                                   case 3:
+                                                       handleProductMenu("Видеокарта", scanner);
+                                                       break;
+                                                   case 4:
+                                                       handleProductMenu("Оперативная память", scanner);
+                                                       break;
+                                                   case 5:
+                                                       handleProductMenu("Постоянное запоминающее устройство", scanner);
+                                                       break;
+                                                   case 6:
+                                                       handleProductMenu("Блок питания", scanner);
+                                                       break;
+                                                   case 7:
+                                                       handleProductMenu("Корпус", scanner);
+                                                       break;
+                                                   case 8:
+                                                       handleProductMenu("Кулер", scanner);
+                                                       break;
+                                                   case 9:
+                                                       handleProductMenu("Программное обеспечение", scanner);
+                                                       break;
+                                                   case 10:
+                                                       handleProductMenu("Монитор", scanner);
+                                                       break;
+                                                   case 11:
+                                                       handleProductMenu("Мышь", scanner);
+                                                       break;
+                                                   case 12:
+                                                       handleProductMenu("Клавиатура", scanner);
+                                                       break;
+                                                   case 0:
+                                                       print = false;
+                                                       break;
+                                                   default:
+                                                       System.out.println("Такого варианта выбора нет!\n" +
+                                                               "Пожалуйста, введите корректное число!");
+                                               }
+
+                                           }catch (InputMismatchException e) {
+                                               System.out.println("Произошла ошибка!\n" +
+                                                       "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                       "В прошлый раз вы ввели букву вместо числа!");
+                                               scanner.nextLine();
+                                           }
+                                           catch (Exception a) {
+                                               System.out.println("Произошла неизвестная ошибка!");
+                                               scanner.nextLine();
+                                           }
+
+                                       }
+
+
                                        break;
                                    case 4:
                                        //поиск товара
@@ -359,7 +443,7 @@ public class ComputerShop {
                                     case 4:
                                         if(seller!=null)
                                         {
-                                            ProductManager.printProductForClient();
+
                                         }
 
                                         else
@@ -443,5 +527,101 @@ public class ComputerShop {
     public static String getName()
     {
         return name;
+    }
+
+    private static void handleProductMenu(String categoryName, Scanner scanner) {
+        ProductManager.printMiniInfo(categoryName);
+        int productChoice;
+        boolean productCycle = true;
+
+        while(productCycle) {
+            System.out.print("\nВыберите одно из доступных действий:\n" +
+                    "1 - Подробнее о товаре\n" +
+                    "0 - Вернуться к каталогу товаров\n" +
+                    "Ваш выбор: ");
+
+            try {
+                productChoice = scanner.nextInt();
+
+                switch (productChoice) {
+                    case 1:
+                        ProductManager.searchProductForClient();
+                        int Choice;
+                        boolean Cycle = true;
+
+                        while(Cycle) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Купить товар\n" +
+                                    "2 - Положить товар в корзину\n" +
+                                    "3 - Авторизоваться\n" +
+                                    "0 - Назад\n"+
+                                    "Ваш выбор: ");
+
+                            try {
+                                Choice = scanner.nextInt();
+
+                                switch (Choice) {
+                                    case 1:
+                                        if(client!=null){
+                                            // здесь будет логика для покупки товара
+                                        }
+
+                                        else {
+                                            System.out.println("\nДля выполнения этого действия сначала надо пройти процесс авторизации!");
+                                        }
+
+                                        break;
+                                    case 2:
+
+                                        if(client!=null){
+                                            // здесь логика для того, чтобы положить товар в корзину
+                                        }
+
+                                        else {
+                                            System.out.println("\nДля выполнения этого действия сначала надо пройти процесс авторизации!");
+                                        }
+
+                                        break;
+                                    case 3:
+                                        client = AccountManager.authorizationClient();
+                                        break;
+
+                                    case 0:
+                                        Cycle = false;
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    case 0:
+                        productCycle = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
     }
 }
