@@ -162,7 +162,7 @@ public class ComputerShop {
                                                switch (searchChoice)
                                                {
                                                    case 1:
-                                                       ProductManager.searchProductForClient();
+                                                       productActionsMenu(scanner);
                                                        break;
                                                    case 0:
                                                        search = false;
@@ -545,69 +545,70 @@ public class ComputerShop {
 
                 switch (productChoice) {
                     case 1:
-                        ProductManager.searchProductForClient();
-                        int Choice;
-                        boolean Cycle = true;
-
-                        while(Cycle) {
-                            System.out.print("\nВыберите одно из доступных действий:\n" +
-                                    "1 - Купить товар\n" +
-                                    "2 - Положить товар в корзину\n" +
-                                    "3 - Авторизоваться\n" +
-                                    "0 - Назад\n"+
-                                    "Ваш выбор: ");
-
-                            try {
-                                Choice = scanner.nextInt();
-
-                                switch (Choice) {
-                                    case 1:
-                                        if(client!=null){
-                                            // здесь будет логика для покупки товара
-                                        }
-
-                                        else {
-                                            System.out.println("\nДля выполнения этого действия сначала надо пройти процесс авторизации!");
-                                        }
-
-                                        break;
-                                    case 2:
-
-                                        if(client!=null){
-                                            // здесь логика для того, чтобы положить товар в корзину
-                                        }
-
-                                        else {
-                                            System.out.println("\nДля выполнения этого действия сначала надо пройти процесс авторизации!");
-                                        }
-
-                                        break;
-                                    case 3:
-                                        client = AccountManager.authorizationClient();
-                                        break;
-
-                                    case 0:
-                                        Cycle = false;
-                                        break;
-                                    default:
-                                        System.out.println("Такого варианта выбора нет!\n" +
-                                                "Пожалуйста, введите корректное число!");
-                                }
-
-                            } catch (InputMismatchException e) {
-                                System.out.println("Произошла ошибка!\n" +
-                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
-                                        "В прошлый раз вы ввели букву вместо числа!");
-                                scanner.nextLine();
-                            } catch (Exception a) {
-                                System.out.println("Произошла неизвестная ошибка!");
-                                scanner.nextLine();
-                            }
-                        }
+                        productActionsMenu(scanner);
                         break;
                     case 0:
                         productCycle = false;
                         break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
+
+    private static void productActionsMenu( Scanner scanner) {
+        ProductManager.searchProductForClient();
+        int choice;
+        boolean cycle = true;
+
+        while(cycle) {
+            System.out.print("\nВыберите одно из доступных действий:\n" +
+                    "1 - Купить товар\n" +
+                    "2 - Положить товар в корзину\n" +
+                    "3 - Авторизоваться\n" +
+                    "0 - Назад\n" +
+                    "Ваш выбор: ");
+
+            try {
+                choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        if(client != null) {
+                            // здесь будет логика для покупки товара
+                        } else {
+                            System.out.println("\nДля выполнения этого действия сначала надо пройти процесс авторизации!");
+                        }
+                        break;
+
+                    case 2:
+                        if(client != null) {
+                            // здесь логика для того, чтобы положить товар в корзину
+                        } else {
+                            System.out.println("\nДля выполнения этого действия сначала надо пройти процесс авторизации!");
+                        }
+                        break;
+
+                    case 3:
+                        client = AccountManager.authorizationClient();
+                        break;
+
+                    case 0:
+                        cycle = false;
+                        break;
+
                     default:
                         System.out.println("Такого варианта выбора нет!\n" +
                                 "Пожалуйста, введите корректное число!");
