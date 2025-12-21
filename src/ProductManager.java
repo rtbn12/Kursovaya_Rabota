@@ -4826,258 +4826,127 @@ public class ProductManager {
 
 
 
-    public static void PrintCPU() {
+
+
+
+
+    public static void printMiniInfo(String category){
+
         Map<String,Product> products = FileManager.loadProduct0();
-        Map<String,CPU> CPUs = FileManager.loadCPU();
-
         System.out.println("============================ Базовая информация ================================");
-
         for (Product product : products.values())
         {
 
-            if (product.getCategory().equals("Центральный процессор")) {
+            if (product.getCategory().equals(category)) {
                 product.getMiniInfo();
+                System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
             }
         }
 
-        System.out.println("============================ Полная информация ================================");
 
-        for(CPU cpu : CPUs.values())
-        {
-            cpu.getFullInfoForClient();
-            cpu.getFullInfoForSeller();
-        }
     }
 
-    public static void PrintMotherBoard() {
+    public static void searchProductForClient(){
+
+        Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, MotherBoard> motherBoards = FileManager.loadMotherBoard();
+        System.out.print("\nВведите id заинтересовавшего вас товара:");
+        String id = scanner.nextLine();
 
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Материнская плата")) {
-                product.getMiniInfo();
-            }
+        while(!products.containsKey(id)){
+            System.out.print("\nТовара с таким id не найдено!\n" +
+                    "Пожалуйста, попробуйте ввести id товара ещё раз:");
+            id = scanner.nextLine();
         }
 
-        System.out.println("\n============================ Полная информация ================================");
+        Product product = products.get(id);
+        String category = product.getCategory();
+        switch (category){
 
-        for (MotherBoard mb : motherBoards.values()) {
-            mb.getFullInfoForClient();
-            mb.getFullInfoForSeller();
+            case "Центральный процессор":
+                Map<String,CPU> CPU = FileManager.loadCPU();
+                CPU cpu = CPU.get(id);
+                cpu.getFullInfoForClient();
+                break;
+            case "Материнская плата":
+                Map<String,MotherBoard> MB = FileManager.loadMotherBoard();
+                MotherBoard mb = MB.get(id);
+                mb.getFullInfoForClient();
+                break;
+            case "Видеокарта":
+                Map<String,GPU> GPU = FileManager.loadGPU();
+                GPU gpu = GPU.get(id);
+                gpu.getFullInfoForClient();
+                break;
+            case"Оперативная память":
+                Map<String,RAM> RAM = FileManager.loadRAM();
+                RAM ram = RAM.get(id);
+                ram.getFullInfoForClient();
+                break;
+            case "Постоянное запоминающее устройство":
+                Map<String,Storage> Storage = FileManager.loadStorage();
+                Storage storage = Storage.get(id);
+                storage.getFullInfoForClient();
+                break;
+            case "Блок питания":
+                Map<String,PowerSupply> PowerSupply = FileManager.loadPowerSupply();
+                PowerSupply powerSupply = PowerSupply.get(id);
+                powerSupply.getFullInfoForClient();
+                break;
+            case "Корпус":Map<String,Case> Case = FileManager.loadCase();
+                Case ccase = Case.get(id);
+                ccase.getFullInfoForClient();
+                break;
+            case "Кулер":Map<String,Cooler> Cooler = FileManager.loadCooler();
+                Cooler cooler = Cooler.get(id);
+                cooler.getFullInfoForClient();
+                break;
+            case "Программное обеспечение":
+                Map<String,Software> Software = FileManager.loadSoftware();
+                Software software = Software.get(id);
+                software.getFullInfoForClient();
+                break;
+            case "Монитор":
+                Map<String,Monitor> Monitor = FileManager.loadMonitor();
+                Monitor monitor = Monitor.get(id);
+                monitor.getFullInfoForClient();
+                break;
+            case "Мышь":
+                Map<String,Mouse> Mouse = FileManager.loadMouse();
+                Mouse mouse = Mouse.get(id);
+                mouse.getFullInfoForClient();
+                break;
+            case "Клавиатура":
+                Map<String,Keyboard> Keyboard = FileManager.loadKeyboard();
+                Keyboard keyboard = Keyboard.get(id);
+                keyboard.getFullInfoForClient();
+                break;
+
         }
+
+
     }
 
-    public static void PrintGPU() {
+    public static void searchProductForSeller(){
+
+        Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, GPU> GPUs = FileManager.loadGPU();
+        System.out.print("\nВведите id заинтересовавшего вас товара:");
+        String id = scanner.nextLine();
 
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Видеокарта")) {
-                product.getMiniInfo();
-            }
+        while(!products.containsKey(id)){
+            System.out.print("\nТовара с таким id не найдено!\n" +
+                    "Пожалуйста, попробуйте ввести id товара ещё раз:");
+            id = scanner.nextLine();
         }
 
-        System.out.println("\n============================ Полная информация ================================");
+        Product product = products.get(id);
+        product.getFullInfoForClient();
+        product.getFullInfoForSeller();
 
-        for (GPU gpu : GPUs.values()) {
-            gpu.getFullInfoForClient();
-            gpu.getFullInfoForSeller();
-        }
     }
 
-    public static void PrintRAM() {
-        Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, RAM> RAMs = FileManager.loadRAM();
-
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Оперативная память")) {
-                product.getMiniInfo();
-            }
-        }
-
-        System.out.println("\n============================ Полная информация ================================");
-
-        for (RAM ram : RAMs.values()) {
-            ram.getFullInfoForClient();
-            ram.getFullInfoForSeller();
-        }
-    }
-
-    public static void PrintPowerSupply() {
-        Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, PowerSupply> PowerSupplys = FileManager.loadPowerSupply();
-
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Блок питания")) {
-                product.getMiniInfo();
-            }
-        }
-
-        System.out.println("\n============================ Полная информация ================================");
-
-        for (PowerSupply powerSupply : PowerSupplys.values()) {
-            powerSupply.getFullInfoForClient();
-            powerSupply.getFullInfoForSeller();
-        }
-    }
-
-    public static void PrintCase() {
-        Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, Case> cases = FileManager.loadCase();
-
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Корпус")) {
-                product.getMiniInfo();
-            }
-        }
-
-        System.out.println("\n============================ Полная информация ================================");
-
-        for (Case cas : cases.values()) {
-            cas.getFullInfoForClient();
-            cas.getFullInfoForSeller();
-        }
-    }
-
-    public static void PrintCooler() {
-        Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, Cooler> coolers = FileManager.loadCooler();
-
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Кулер")) {
-                product.getMiniInfo();
-            }
-        }
-
-        System.out.println("\n============================ Полная информация ================================");
-
-        for (Cooler cooler : coolers.values()) {
-            cooler.getFullInfoForClient();
-            cooler.getFullInfoForSeller();
-        }
-    }
-
-    public static void PrintSoftware() {
-        Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, Software> Softwares = FileManager.loadSoftware();
-
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Программное обеспечение")) {
-                product.getMiniInfo();
-            }
-        }
-
-        System.out.println("\n============================ Полная информация ================================");
-
-        for (Software software : Softwares.values()) {
-            software.getFullInfoForClient();
-            software.getFullInfoForSeller();
-        }
-    }
-
-    public static void PrintMonitor() {
-        Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, Monitor> Monitors = FileManager.loadMonitor();
-
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Монитор")) {
-                product.getMiniInfo();
-            }
-        }
-
-        System.out.println("\n============================ Полная информация ================================");
-
-        for (Monitor monitor : Monitors.values()) {
-            monitor.getFullInfoForClient();
-            monitor.getFullInfoForSeller();
-        }
-    }
-
-    public static void PrintMouse() {
-        Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, Mouse> Mouses = FileManager.loadMouse();
-
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Мышь")) {
-                product.getMiniInfo();
-            }
-        }
-
-        System.out.println("\n============================ Полная информация ================================");
-
-        for (Mouse mouse : Mouses.values()) {
-            mouse.getFullInfoForClient();
-            mouse.getFullInfoForSeller();
-        }
-    }
-
-    public static void PrintKeyBoard() {
-        Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, Keyboard>  Keyboards = FileManager.loadKeyboard();
-
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Клавиатура")) {
-                product.getMiniInfo();
-            }
-        }
-
-        System.out.println("\n============================ Полная информация ================================");
-
-        for ( Keyboard  keyboard : Keyboards.values()) {
-            keyboard.getFullInfoForClient();
-            keyboard.getFullInfoForSeller();
-        }
-    }
-
-    public static void PrintStorage() {
-        Map<String, Product> products = FileManager.loadProduct0();
-        Map<String, Storage> Storages = FileManager.loadStorage();
-
-        System.out.println("\n============================ Базовая информация ================================");
-
-        for (Product product : products.values()) {
-            if (product.getCategory().equals("Постоянное запоминающее устройство")) {
-                product.getMiniInfo();
-            }
-        }
-
-        System.out.println("\n============================ Полная информация ================================");
-
-        for (Storage storage : Storages.values()) {
-            storage.getFullInfoForClient();
-            storage.getFullInfoForSeller();
-        }
-    }
-
-
-
-
-
-
-
-
-    public static void printProduct()
-    {
+    public static void printProductForClient() {
 
         Scanner scanner2 = new Scanner(System.in);
         int printChoice;
@@ -5085,19 +4954,19 @@ public class ProductManager {
         while(print)
         {
             System.out.print("\nВыберите интересующую категорию товара:\n" +
-                    "1-Центральный процессор\n" +
-                    "2-Материнская плата\n" +
-                    "3-Видеокарта\n" +
-                    "4-Оперативная память\n" +
-                    "5-Постоянное запоминающее устройство\n" +
-                    "6-Блок питания\n" +
-                    "7-Корпус\n" +
-                    "8-Кулер\n" +
-                    "9-Программное обеспечение\n" +
-                    "10-Монитор\n" +
-                    "11-Мышь\n" +
-                    "12-Клавиатура\n" +
-                    "0-Выход в меню\n" +
+                    "1 - Центральный процессор\n" +
+                    "2 - Материнская плата\n" +
+                    "3 - Видеокарта\n" +
+                    "4 - Оперативная память\n" +
+                    "5 - Постоянное запоминающее устройство\n" +
+                    "6 - Блок питания\n" +
+                    "7 - Корпус\n" +
+                    "8 - Кулер\n" +
+                    "9 - Программное обеспечение\n" +
+                    "10 - Монитор\n" +
+                    "11 - Мышь\n" +
+                    "12 - Клавиатура\n" +
+                    "0 - Выход в меню\n" +
                     "Ваш выбор:");
 
 
@@ -5108,40 +4977,40 @@ public class ProductManager {
                 switch (printChoice)
                 {
                     case 1:
-                        ProductManager.PrintCPU();
+                        printMiniInfo("Центральный процессор");
                         break;
                     case 2:
-                        ProductManager.PrintMotherBoard();
+                        printMiniInfo("Материнская плата");
                         break;
                     case 3:
-                        ProductManager.PrintGPU();
+                        printMiniInfo("Видеокарта");
                         break;
                     case 4:
-                        ProductManager.PrintRAM();
+                        printMiniInfo("Оперативная память");
                         break;
                     case 5:
-                        ProductManager.PrintStorage();
+                        printMiniInfo("Постоянное запоминающее устройство");
                         break;
                     case 6:
-                        ProductManager.PrintPowerSupply();
+                        printMiniInfo("Блок питания");
                         break;
                     case 7:
-                        ProductManager.PrintCase();
+                        printMiniInfo("Корпус");
                         break;
                     case 8:
-                        ProductManager.PrintCooler();
+                        printMiniInfo("Кулер");
                         break;
                     case 9:
-                        ProductManager.PrintSoftware();
+                        printMiniInfo("Программное обеспечение");
                         break;
                     case 10:
-                        ProductManager.PrintMonitor();
+                        printMiniInfo("Монитор");
                         break;
                     case 11:
-                        ProductManager.PrintMouse();
+                        printMiniInfo("Мышь");
                         break;
                     case 12:
-                        ProductManager.PrintKeyBoard();
+                        printMiniInfo("Клавиатура");
                         break;
                     case 0:
                         print = false;

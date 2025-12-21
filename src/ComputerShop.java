@@ -59,7 +59,7 @@ public class ComputerShop {
                                        client = AccountManager.authorizationClient();
                                        break;
                                    case 3:
-                                       ProductManager.printProduct();
+                                       ProductManager.printProductForClient();
                                        break;
                                    case 4:
                                        //поиск товара
@@ -78,7 +78,7 @@ public class ComputerShop {
                                                switch (searchChoice)
                                                {
                                                    case 1:
-                                                       //здесь будет метод по поиску товара и дальнейшие действия
+                                                       ProductManager.searchProductForClient();
                                                        break;
                                                    case 0:
                                                        search = false;
@@ -359,7 +359,7 @@ public class ComputerShop {
                                     case 4:
                                         if(seller!=null)
                                         {
-                                            ProductManager.printProduct();
+                                            ProductManager.printProductForClient();
                                         }
 
                                         else
