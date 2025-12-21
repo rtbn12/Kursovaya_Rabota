@@ -4830,7 +4830,7 @@ public class ProductManager {
 
 
 
-    public static void printMiniInfo(String category){
+    public static  Map<String,Product> printMiniInfo(String category){
 
         Map<String,Product> products = FileManager.loadProduct0();
         System.out.println("============================ Базовая информация ================================");
@@ -4842,6 +4842,8 @@ public class ProductManager {
                 System.out.println("=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
             }
         }
+
+        return products;
 
 
     }

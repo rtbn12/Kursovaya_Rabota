@@ -1,6 +1,7 @@
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparing;
 
 public class ComputerShop {
     private static final String address = "Belgorod, Pobedy street, 85b";
@@ -533,13 +534,29 @@ public class ComputerShop {
     }
 
     private static void handleProductMenu(String categoryName, Scanner scanner) {
-        ProductManager.printMiniInfo(categoryName);
+
+        Map<String, Product> products_0 = ProductManager.printMiniInfo(categoryName);
+
+        List<Product> products = new ArrayList<>(products_0.values());
+        List<Product> products_no_izmen = new ArrayList<>(products_0.values());
+
+
+
+
         int productChoice;
         boolean productCycle = true;
 
         while(productCycle) {
             System.out.print("\nВыберите одно из доступных действий:\n" +
                     "1 - Подробнее о товаре\n" +
+                    "2 - Вывести товары только в выделенном диапазоне\n" +
+                    "3 - Вывести товары только ниже введённой цены\n" +
+                    "4 - Вывести товары только выше указанной цены\n" +
+                    "5 - Сортировать по увеличению цены\n" +
+                    "6 - Сортировать  по уменьшению цены\n" +
+                    "7 - Сортировать по уменьшению рейтинга\n" +
+                    "8 - Сортировать по увеличению рейтинга\n" +
+                    "9 - Сбросить сортировки\n" +
                     "0 - Вернуться к каталогу товаров\n" +
                     "Ваш выбор: ");
 
@@ -549,6 +566,206 @@ public class ComputerShop {
                 switch (productChoice) {
                     case 1:
                         productActionsMenu(scanner);
+                        break;
+                    case 2:
+
+                        double minPrice=0;
+                        double maxPrice=0;
+                        boolean priceMinMax = true;
+                        while (priceMinMax){
+
+
+                            System.out.print("\nВведите нижний порог интересующей цены:");
+                            try{
+                                minPrice = scanner.nextDouble();
+
+                                try {
+                                    System.out.print("\nВведите верхний порог интересующей цены:");
+                                    maxPrice = scanner.nextDouble();
+                                    if(maxPrice<minPrice){
+                                        System.out.println("\nОшибка! Верхний порог диапазона не может быть меньше нижнего!");
+                                        continue;
+                                    }
+
+                                    double finalMinPrice = minPrice;
+                                    double finalMaxPrice = maxPrice;
+                                    products = products_no_izmen.stream().filter(p -> p.getPrice() >= finalMinPrice).
+                                            filter(p -> p.getPrice() <= finalMaxPrice).filter(p ->p.getCategory().equals(categoryName)).collect(Collectors.toList());
+
+                                    if(products.isEmpty()){
+                                        System.out.println("\nНе найдено товаров, удовлетворяющих критериям вашего отбора!");
+                                    }else {
+                                        System.out.printf("\n=+=+=+=+=+=+=+=+=Товары в ценовом диапазоне от %.2f до %.2f рублей=+=+=+=+=+=+=+=+=+=\n", minPrice, maxPrice);
+                                        for(Product product : products){
+                                            product.getMiniInfo();
+                                            System.out.println("============================================");
+                                        }
+                                    }
+
+                                    priceMinMax = false;
+
+
+                                }catch (InputMismatchException e) {
+                                    System.out.println("Произошла ошибка!\n" +
+                                            "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                            "В прошлый раз вы ввели букву вместо числа!");
+                                    scanner.nextLine();
+                                } catch (Exception a) {
+                                    System.out.println("Произошла неизвестная ошибка!");
+                                    scanner.nextLine();
+                                }
+
+                            }catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+
+
+                        }
+
+                        break;
+                    case 3:
+
+                        double maxP = 0;
+                        boolean maxip = true;
+                        while(maxip){
+                            System.out.print("\nВведите максимальную допустимую цену:");
+                            try{
+
+                                maxP = scanner.nextDouble();
+
+                                double finalMaxP = maxP;
+                                products = products_no_izmen.stream().filter(p -> p.getPrice()<= finalMaxP).
+                                        filter(p -> p.getCategory().equals(categoryName)).collect(Collectors.toList());
+
+                                if(products.isEmpty()){
+                                    System.out.println("\nНе найдено товаров, удовлетворяющих критериям вашего отбора!");
+                                }else {
+                                    System.out.printf("\n=+=+=+=+=+=+=+=+=Товары, стоящие меньше %.2f рублей=+=+=+=+=+=+=+=+=+=\n", maxP);
+                                    for(Product product : products){
+                                        product.getMiniInfo();
+                                        System.out.println("============================================");
+                                    }
+                                }
+                                maxip = false;
+
+                            }catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+
+                        break;
+                    case 4:
+                        double minP = 0;
+                        boolean minip = true;
+                        while(minip){
+                            System.out.print("\nВведите минимальную допустимую цену:");
+                            try{
+
+                                minP = scanner.nextDouble();
+                                double finalMinP = minP;
+
+                                products = products_no_izmen.stream().filter(p-> p.getPrice() >= finalMinP).
+                                        filter(p -> p.getCategory().equals(categoryName)).collect(Collectors.toList());
+
+                                if(products.isEmpty()){
+                                    System.out.println("\nНе найдено товаров, удовлетворяющих критериям вашего отбора!");
+                                }else {
+                                    System.out.printf("\n=+=+=+=+=+=+=+=+=Товары, стоящие больше %.2f рублей=+=+=+=+=+=+=+=+=+=\n", minP);
+                                    for(Product product : products){
+                                        product.getMiniInfo();
+                                        System.out.println("============================================");
+                                    }
+                                }
+                                minip = false;
+
+                            }catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+
+                        break;
+                    case 5:
+                        products = products_no_izmen.stream().filter(p -> p.getCategory().equals(categoryName))
+                                .collect(Collectors.toList());
+                        products.sort(comparing(Product::getPrice));
+                        if(products.isEmpty()){
+                            System.out.println("\nНе найдено товаров, удовлетворяющих критериям вашего отбора!");
+                        }else {
+                            System.out.print("\n=+=+=+=+=+=+=+=+=Товары, отсортированные по увеличению цены=+=+=+=+=+=+=+=+=+=\n");
+                            for(Product product : products){
+                                product.getMiniInfo();
+                                System.out.println("============================================");
+                            }
+                        }
+
+                        break;
+                    case 6:
+                        products = products_no_izmen.stream().filter(p -> p.getCategory().equals(categoryName))
+                                .collect(Collectors.toList());
+                        products.sort(comparing(Product::getPrice).reversed());
+                        if(products.isEmpty()){
+                            System.out.println("\nНе найдено товаров, удовлетворяющих критериям вашего отбора!");
+                        }else {
+                            System.out.print("\n=+=+=+=+=+=+=+=+=Товары, отсортированные по уменьшению цены=+=+=+=+=+=+=+=+=+=\n");
+                            for(Product product : products){
+                                product.getMiniInfo();
+                                System.out.println("============================================");
+                            }
+                        }
+
+                        break;
+                    case 7:
+                        products = products_no_izmen.stream().filter(p -> p.getCategory().equals(categoryName))
+                                .collect(Collectors.toList());
+                        products.sort(comparing(Product::getRating).reversed());
+                        if(products.isEmpty()){
+                            System.out.println("\nНе найдено товаров, удовлетворяющих критериям вашего отбора!");
+                        }else {
+                            System.out.print("\n=+=+=+=+=+=+=+=+=Товары, отсортированные по уменьшению рейтинга=+=+=+=+=+=+=+=+=+=\n");
+                            for(Product product : products){
+                                product.getMiniInfo();
+                                System.out.println("============================================");
+                            }
+                        }
+
+                        break;
+                    case 8:
+                        products = products_no_izmen.stream().filter(p -> p.getCategory().equals(categoryName))
+                                .collect(Collectors.toList());
+                        products.sort(comparing(Product :: getRating));
+                        if(products.isEmpty()){
+                            System.out.println("\nНе найдено товаров, удовлетворяющих критериям вашего отбора!");
+                        }else {
+                            System.out.print("\n=+=+=+=+=+=+=+=+=Товары, отсортированные по увеличению рейтинга=+=+=+=+=+=+=+=+=+=\n");
+                            for(Product product : products){
+                                product.getMiniInfo();
+                                System.out.println("============================================");
+                            }
+                        }
+
+
+                        break;
+                    case 9:
+                        ProductManager.printMiniInfo(categoryName);
+                        products = products_no_izmen;
                         break;
                     case 0:
                         productCycle = false;
