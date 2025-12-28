@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Scanner;
 
 public  class Product implements Serializable {
 
@@ -17,22 +18,23 @@ public  class Product implements Serializable {
     private Date addedDate;
     private double rating;
     private int warrantyMoths;
+    private int quantityProduct;
+    private Date payDate;
 
-    public Product(String id, String brand, String model, String countryProduction,
-                   int productionDate, int price, String category,String description, int warrantyMoths)
-    {
+    public Product(String id, String category, Scanner scanner) {
         this.id = id;
-        this.brand = brand;
-        this.model = model;
-        this.countryProduction = countryProduction;
-        this.productionDate = productionDate;
-        this.price = price;
-        this.category = category;
-        this.description = description;
         this.addedDate = new Date();
-        this.rating = 0.0;
-        this.warrantyMoths = warrantyMoths;
-
+        this.payDate = new Date();
+        setBrand(scanner);
+        setModel(scanner);
+        setCountryProduction(scanner);
+        setProductionDate(scanner);
+        setPrice(scanner);
+        setCategory(category);
+        setDescription(scanner);
+        setWarrantyMoths(scanner);
+        setQuantityProduct(scanner);
+        setRating(scanner);
     }
 
     public String getId() {
@@ -83,48 +85,231 @@ public  class Product implements Serializable {
         return brand + model;
     }
 
-
-
-
-
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public int getQuantityProduct() {
+        return quantityProduct;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setQuantityProduct(Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("\nВведите количество товара на складе: ");
+                int input = scanner.nextInt();
+                scanner.nextLine(); // очистка буфера
+
+                if (input < 0 || input > 10) {
+                    System.out.println("Некорректное количество товара! (0-10)");
+                    continue;
+                }
+                this.quantityProduct = input;
+                valid = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
     }
 
-    public void setCountryProduction(String countryProduction) {
-        this.countryProduction = countryProduction;
+    public Date getPayDate() {
+        return payDate;
     }
 
-    public void setProductionDate(int productionDate) {
-        this.productionDate = productionDate;
+    public void setPayDate(Date payDate) {
+        this.payDate = payDate;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setBrand(Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("\nВведите бренд: ");
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) {
+                    System.out.println("Бренд не может быть пустым!");
+                    continue;
+                }
+                this.brand = input;
+                valid = true;
+            } catch (Exception e) {
+                System.out.println("Ошибка ввода бренда: " + e.getMessage());
+            }
+        }
+    }
+
+    public void setModel(Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("\nВведите модель: ");
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) {
+                    System.out.println("Модель не может быть пустой!");
+                    continue;
+                }
+                this.model = input;
+                valid = true;
+            } catch (Exception e) {
+                System.out.println("Ошибка ввода модели: " + e.getMessage());
+            }
+        }
+    }
+
+    public void setCountryProduction(Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("\nВведите страну производителя: ");
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) {
+                    System.out.println("Страна производителя не может быть пустой!");
+                    continue;
+                }
+                this.countryProduction = input;
+                valid = true;
+            } catch (Exception e) {
+                System.out.println("Ошибка ввода страны производителя: " + e.getMessage());
+            }
+        }
+    }
+
+    public void setProductionDate(Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("\nВведите год производства: ");
+                int input = scanner.nextInt();
+                scanner.nextLine(); // очистка буфера
+
+                int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+                if (input < 2018 || input > currentYear) {
+                    System.out.println("Некорректный год производства! Должен быть между 2018 и " + currentYear);
+                    continue;
+                }
+                this.productionDate = input;
+                valid = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public void setPrice(Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("\nВведите цену товара: ");
+                int input = scanner.nextInt();
+                scanner.nextLine(); // очистка буфера
+
+                if (input <= 0 || input > 1_000_000) {
+                    System.out.println("Введена недоступная цена для товара! (1 - 1,000,000)");
+                    continue;
+                }
+                this.price = input;
+                valid = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
     }
 
     public void setCategory(String category) {
         this.category = category;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("\nВведите описание товара: ");
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) {
+                    System.out.println("Описание не может быть пустым!");
+                    continue;
+                }
+                if (input.length() > 500) {
+                    System.out.println("Описание товара слишком длинное! (максимум 500 символов)");
+                    continue;
+                }
+                this.description = input;
+                valid = true;
+            } catch (Exception e) {
+                System.out.println("Ошибка ввода описания: " + e.getMessage());
+            }
+        }
     }
 
     public void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setRating(Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("\nВведите рейтинг товара (0-5): ");
+                double input = scanner.nextDouble();
+                scanner.nextLine(); // очистка буфера
+
+                if (input < 0 || input > 5) {
+                    System.out.println("Некорректный рейтинг! (0-5)");
+                    continue;
+                }
+                this.rating = Math.round(input * 100.0) / 100.0; // округляем до 2 знаков
+                valid = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное значение рейтинга!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
     }
 
-    public void setWarrantyMoths(int warrantyMoths) {
-        this.warrantyMoths = warrantyMoths;
+    public void setWarrantyMoths(Scanner scanner) {
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("\nВведите срок предоставляемой гарантии на товар в целом количестве месяцев: ");
+                int input = scanner.nextInt();
+                scanner.nextLine(); // очистка буфера
+
+                if (input < 0 || input > 120) {
+                    System.out.println("Вы ввели некорректный срок гарантии! (0-120 месяцев)");
+                    continue;
+                }
+                this.warrantyMoths = input;
+                valid = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение срока гарантии!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
     }
 
 
@@ -150,7 +335,12 @@ public  class Product implements Serializable {
     {
 
         System.out.println("Дата добавления товара: " + getAddedDate());
+        System.out.println("Количество товара на складе: " + getQuantityProduct() + " шт.");
 
+    }
+
+    public void getFullInformationForShoppingList(){
+        System.out.println("Дата покупки товара: " + getPayDate());
     }
 
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Client extends User{
@@ -47,9 +48,12 @@ public class Client extends User{
     {
         if(!shoppingList.isEmpty()){
 
+            shoppingList.sort(Comparator.comparing(Product::getPayDate).reversed());
+
             for(Product product : shoppingList){
 
                 product.getMiniInfo();
+                product.getFullInformationForShoppingList();
                 //как доработаю класс продукт сделать дополнительно вывод времени покупок
                 System.out.println("\n\n");
             }

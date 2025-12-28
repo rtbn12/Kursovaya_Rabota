@@ -5,143 +5,35 @@ import java.util.Scanner;
 
 public class ProductManager {
 
-    public static Product registrationProduct (String choiceCategory) {
-       Map<String,Product> products = FileManager.loadProduct0();
+    public static Product registrationProduct(String choiceCategory) {
+        Map<String, Product> products = FileManager.loadProduct0();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("\nВведите ID  продукта:");
-        String id = scanner.nextLine().toUpperCase().trim();
+        try {
 
-        while(products.containsKey(id))
-        {
-            System.out.print("\nТакой ID уже занят!\n" +
-                    "Придумай другой!:");
-            id = scanner.nextLine();
+            System.out.print("\nВведите ID продукта: ");
+            String id = scanner.nextLine().toUpperCase().trim();
 
+            while (products.containsKey(id)) {
+                System.out.print("\nТакой ID уже занят!\nПридумайте другой: ");
+                id = scanner.nextLine().toUpperCase().trim();
+            }
+
+
+            System.out.println("\n=== Заполнение информации о продукте ===");
+            Product product = new Product(id, choiceCategory, scanner);
+
+
+            products.put(id, product);
+            FileManager.saveProduct0(products);
+
+            System.out.println("\nПродукт успешно зарегистрирован!");
+            return product;
+
+        } catch (Exception e) {
+            System.out.println("\nОшибка при регистрации продукта: " + e.getMessage());
+            return null;
         }
-
-
-        System.out.print("\nВведите бренд:");
-        String brand = scanner.nextLine();
-
-        System.out.print("\nВведите модель:");
-        String model = scanner.nextLine();
-
-        System.out.print("\nВведите страну производителя:");
-        String countryProduction = scanner.nextLine();
-
-
-        boolean cycleCPU = true;
-        int productionDate=0;
-        while (cycleCPU)
-        {
-            System.out.print("\nВведите год производства:");
-
-            try {
-                 productionDate = scanner.nextInt();
-                scanner.nextLine();
-                while((productionDate < 2018) || productionDate > Calendar.getInstance().get(Calendar.YEAR))
-                {
-                    System.out.print("\nНекорректный год производства!\n" +
-                            "Введите год производства ещё раз:");
-                    productionDate = scanner.nextInt();
-                    scanner.nextLine();
-                }
-
-                cycleCPU = false;
-
-            }catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            }
-            catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-
-        }
-
-
-        int price =0;
-        boolean cyclePrice = true;
-        while (cyclePrice)
-        {
-            System.out.print("\nВведите цену товара:");
-
-            try {
-                price = scanner.nextInt();
-                scanner.nextLine();
-                while (price <=0 || price>1000_000)
-                {
-                    System.out.print("\nВведена недоступная цена для товара!\n" +
-                            "Введите цену ещё раз:");
-                    price = scanner.nextInt();
-                    scanner.nextLine();
-                }
-
-                cyclePrice = false;
-
-            }catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            }
-            catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-
-        }
-
-
-        System.out.print("\nВведите описание товара:");
-        String description = scanner.nextLine();
-        while (description.length()>500)
-        {
-            System.out.print("\nОписание товара слишком длинное!\n" +
-                    "Постарайтесь вместить описание в 500 символов!\n" +
-                    "Введите описание ещё раз:");
-            description = scanner.nextLine();
-        }
-
-        int warrantyMoths = 0;
-
-        boolean warranty = true;
-        while (warranty)
-        {
-            System.out.print("\nВведите срок предоставляемой гарантии на товар в целом количестве месяцев:");
-            try {
-                warrantyMoths = scanner.nextInt();
-                scanner.nextLine();
-                while (warrantyMoths<0 || warrantyMoths>120)
-                {
-                    System.out.print("\nВы ввели некорректный срок гарантии!\n" +
-                            "Введите срок гарантии в месяцах заново!:");
-                    warrantyMoths = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                warranty = false;
-            }catch (InputMismatchException e) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное целочисленное значение срока гарантии!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            }
-            catch (Exception a) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-        products.put(id,new Product(id,brand,model,countryProduction,productionDate,price,choiceCategory,description,warrantyMoths));
-        FileManager.saveProduct0(products);
-        return  new Product(id,brand,model,countryProduction,productionDate,price,choiceCategory,description,warrantyMoths);
-
-
     }
 
 
