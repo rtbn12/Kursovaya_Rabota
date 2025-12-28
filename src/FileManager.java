@@ -86,30 +86,28 @@ public class FileManager {
     }
 
 
-
-
-    public static void saveShoppingLists(Map<String, ShoppingList> shoppingLists) {
-        try {
-            ObjectOutputStream ous = new ObjectOutputStream(new FileOutputStream(SHOPPINGLISTS));
-            ous.writeObject(shoppingLists);
-            ous.close();
-        } catch (IOException e) {
-            System.out.println("Ошибка сохранения списков покупок: " + e.getMessage());
-        }
-    }
-
-    public static Map<String, ShoppingList> loadShoppingLists() {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SHOPPINGLISTS));
-            Map<String, ShoppingList> shoppingLists = (Map<String, ShoppingList>) ois.readObject();
-            ois.close();
-            return shoppingLists;
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Ошибка загрузки списков покупок: " + e.getMessage());
-            System.out.println("Возвращаю пустую коллекцию!");
-            return new HashMap<String, ShoppingList>();
-        }
-    }
+//    public static void saveShoppingLists(Map<String, ShoppingList> shoppingLists) {
+//        try {
+//            ObjectOutputStream ous = new ObjectOutputStream(new FileOutputStream(SHOPPINGLISTS));
+//            ous.writeObject(shoppingLists);
+//            ous.close();
+//        } catch (IOException e) {
+//            System.out.println("Ошибка сохранения списков покупок: " + e.getMessage());
+//        }
+//    }
+//
+//    public static Map<String, ShoppingList> loadShoppingLists() {
+//        try {
+//            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SHOPPINGLISTS));
+//            Map<String, ShoppingList> shoppingLists = (Map<String, ShoppingList>) ois.readObject();
+//            ois.close();
+//            return shoppingLists;
+//        } catch (IOException | ClassNotFoundException e) {
+//            System.out.println("Ошибка загрузки списков покупок: " + e.getMessage());
+//            System.out.println("Возвращаю пустую коллекцию!");
+//            return new HashMap<String, ShoppingList>();
+//        }
+//    }
 
     //Классы обёртки
 

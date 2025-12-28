@@ -334,16 +334,16 @@ public class ComputerShop {
 
                                        if(client != null)
                                        {
-                                           String login = client.getLogin();
-                                           Map<String,ShoppingList> shoppingListMap = FileManager.loadShoppingLists();
-                                           ShoppingList shoppingListClient = shoppingListMap.get(login);
+//                                           String login = client.getLogin();
+//                                           Map<String,ShoppingList> shoppingListMap = FileManager.loadShoppingLists();
+//                                           ShoppingList shoppingListClient = shoppingListMap.get(login);
                                            // раздел списка покупок
                                            int shoppingListChoice;
                                            boolean shoppingList = true;
                                            while(shoppingList)
                                            {
                                                System.out.println("\n\n+-+-+-+-+-+-+-+--Ваш список покупок--+-+-+-+-+-+-+-+");
-                                               shoppingListClient.printListProduct();
+                                               client.printShoppingList();
                                                System.out.print("\nВыберите одно из доступных действий:\n" +
                                                        "1 - Подробнее о товаре товаре:\n" +
                                                        "0 - Выход в меню покупателя\n" +

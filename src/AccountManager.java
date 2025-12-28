@@ -45,7 +45,7 @@ public class AccountManager {
         Scanner scanner = new Scanner(System.in);
 
         Map<String, Client> clients = FileManager.loadClient();
-        Map<String, ShoppingList> shoppingLists = FileManager.loadShoppingLists();
+//        Map<String, ShoppingList> shoppingLists = FileManager.loadShoppingLists();
 
         System.out.print("Приветствую Вас, новый пользователь!\n" +
                 "Для успешного прохождения процесса регистрации вам предстоит ввести своё НАСТОЯЩЕЕ имя,\n" +
@@ -84,10 +84,10 @@ public class AccountManager {
                 "Спасибо за регистрацию!");
 
         clients.put(login,new Client(name,password,login,1));
-        shoppingLists.put(login,new ShoppingList());
-
+//        shoppingLists.put(login,new ShoppingList());
+//
         FileManager.saveClient(clients);
-        FileManager.saveShoppingLists(shoppingLists);
+//        FileManager.saveShoppingLists(shoppingLists);
 
 
     }
