@@ -344,6 +344,7 @@ public  class Product implements Serializable {
         System.out.println("Модель: " + getModel());
         System.out.println("Цена: " + getPrice());
         System.out.println("Рейтинг: " + getRating());
+        System.out.println("Количество на складе: " + getQuantityProduct() + " шт.");
     }
 
     public void getFullInfoForClient()
@@ -355,7 +356,6 @@ public  class Product implements Serializable {
     {
 
         System.out.println("Дата добавления товара: " + getAddedDate());
-        System.out.println("Количество товара на складе: " + getQuantityProduct() + " шт.");
 
     }
 

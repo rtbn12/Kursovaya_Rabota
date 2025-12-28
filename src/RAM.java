@@ -111,7 +111,8 @@ public class RAM extends ComputerComponent{
         System.out.println("Страна-производитель: " + getCountryProduction());
         System.out.println("Год релиза: " + getProductionDate());
         System.out.println("Гарантийный срок: " + getWarrantyMoths() + " месяцев");
-        System.out.println("Рейтинг: " + getRating());
+        System.out.println("Рейтинг: " + getRating() + "из 5!");
+        System.out.println("Количество на складе: " + getQuantityProduct() + " шт.");
         System.out.println("Описание: " + getDescription());
     }
 }

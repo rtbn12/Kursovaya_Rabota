@@ -115,633 +115,70 @@ public class ProductManager {
 
 
     public static void registrationMotherBoard(String choiceCategory) {
-        ComputerComponent computerComponent = registrationComputerComponent(choiceCategory);
         Scanner scanner = new Scanner(System.in);
+        Map<String, Product> products = FileManager.loadProduct0();
 
-        String id = computerComponent.getId();
-        String brand = computerComponent.getBrand();
-        String model = computerComponent.getModel();
-        String countryProduction = computerComponent.getCountryProduction();
-        int productionDate = computerComponent.getProductionDate();
-        int price = computerComponent.getPrice();
-        String description = computerComponent.getDescription();
-        int warrantyMoths = computerComponent.getWarrantyMoths();
-        String category = computerComponent.getCategory();
-        String interfaceType = computerComponent.getInterfaceType();
-        double voltage = computerComponent.getVoltage();
-        int powerConsumption = computerComponent.getPowerConsumption();
-        String dimensions = computerComponent.getDimensions();
-        int weight = computerComponent.getWeight();
+        try {
+            System.out.println("\n=== Регистрация материнской платы ===");
 
+            System.out.print("\nВведите ID продукта: ");
+            String id = scanner.nextLine().toUpperCase().trim();
 
-        String chipset;
-        String socket;
-        int ramSlots = 0;
-        int maxRamCapacity = 0;
-        String ramType;
-        int m2Slots = 0;
-        int sataPorts = 0;
-        boolean hasWiFi = false;
-        String audioCodec;
-        int lanSpeed = 0;
-
-        System.out.print("\nВведите чипсет материнской платы :");
-        chipset = scanner.nextLine();
-
-        System.out.print("\nВведите сокет материнской платы :");
-        socket = scanner.nextLine();
-
-        boolean cycleRamSlots = true;
-        while (cycleRamSlots) {
-            System.out.print("\nВведите количество слотов оперативной памяти:");
-
-            try {
-                ramSlots = scanner.nextInt();
-                scanner.nextLine();
-                while (ramSlots < 2 || ramSlots > 8 || ramSlots % 2 != 0) {
-                    System.out.print("\nНекорректное количество слотов RAM!\n" +
-                            "Введите значение ещё раз: ");
-                    ramSlots = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleRamSlots = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
+            while (products.containsKey(id)) {
+                System.out.print("\nТакой ID уже занят!\nПридумайте другой: ");
+                id = scanner.nextLine().toUpperCase().trim();
             }
+
+            Map<String, MotherBoard> motherBoards = FileManager.loadMotherBoard();
+
+            MotherBoard motherBoard = new MotherBoard(id, choiceCategory, scanner);
+
+            products.put(id, motherBoard);
+            FileManager.saveProduct0(products);
+
+            motherBoards.put(id, motherBoard);
+            FileManager.saveMotherBoard(motherBoards);
+
+            System.out.print("\nМатеринская плата " + motherBoard.getBrand() + " " + motherBoard.getModel() + " успешно зарегистрирована!");
+
+        } catch (Exception e) {
+            System.out.println("\nОшибка при регистрации материнской платы: " + e.getMessage());
         }
-
-        boolean cycleMaxRamCapacity = true;
-        while (cycleMaxRamCapacity) {
-            System.out.print("\nВведите максимальный объём поддерживаемой оперативной памяти в ГБ (32, 64, 128, 192, 256): ");
-
-            try {
-                maxRamCapacity = scanner.nextInt();
-                scanner.nextLine();
-                while (maxRamCapacity < 32 || maxRamCapacity > 256 || (maxRamCapacity % 2 != 0 ||maxRamCapacity < 8*ramSlots )) {
-                    System.out.print("\nНекорректный максимальный объём RAM!\n" +
-                            "Введите значение ещё раз (32, 64, 128, 192, 256): ");
-                    maxRamCapacity = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleMaxRamCapacity = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-        System.out.print("\nВведите поддерживаемый тип памяти (DDR4, DDR5, DDR4/DDR5): ");
-        ramType = scanner.nextLine();
-
-        boolean cycleM2Slots = true;
-        while (cycleM2Slots) {
-            System.out.print("\nВведите количество M.2 слотов (0-6): ");
-
-            try {
-                m2Slots = scanner.nextInt();
-                scanner.nextLine();
-                while (m2Slots < 0 || m2Slots > 6) {
-                    System.out.print("\nНекорректное количество M.2 слотов!\n" +
-                            "Введите значение ещё раз (0-6): ");
-                    m2Slots = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleM2Slots = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-        boolean cycleSataPorts = true;
-        while (cycleSataPorts) {
-            System.out.print("\nВведите количество SATA портов (2-12): ");
-
-            try {
-                sataPorts = scanner.nextInt();
-                scanner.nextLine();
-                while (sataPorts < 2 || sataPorts > 12) {
-                    System.out.print("\nНекорректное количество SATA портов!\n" +
-                            "Введите значение ещё раз (2-12): ");
-                    sataPorts = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleSataPorts = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-        System.out.print("\nВведите аудиокодек (Realtek ALC897, Realtek ALC1220 и т.д.): ");
-        audioCodec = scanner.nextLine();
-
-
-        boolean cyclelanSpeed = true;
-        while (cyclelanSpeed) {
-            System.out.print("\nВведите скорость сетевой карты: ");
-
-            try {
-                lanSpeed = scanner.nextInt();
-                scanner.nextLine();
-                while (lanSpeed < 0 || lanSpeed > 10000) {
-                    System.out.print("\nНекорректная скорость сетевой карты!\n" +
-                            "Введите значение ещё раз : ");
-                    lanSpeed = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cyclelanSpeed = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-        boolean cycleHasWiFi = true;
-        while (cycleHasWiFi) {
-            System.out.print("\nЕсть ли у материнской платы встроенный WiFi модуль?\n" +
-                    "Введите:\n" +
-                    "1 - если WiFi модуль присутствует\n" +
-                    "0 - если WiFi модуль отсутствует\n" +
-                    "Ваш выбор: ");
-            int choice;
-            try {
-                choice = scanner.nextInt();
-                scanner.nextLine();
-                switch (choice) {
-                    case 0:
-                        hasWiFi = false;
-                        cycleHasWiFi = false;
-                        break;
-                    case 1:
-                        hasWiFi = true;
-                        cycleHasWiFi = false;
-                        break;
-                    default:
-                        System.out.println("Такого варианта выбора нет!\n" +
-                                "Пожалуйста, введите корректную цифру!");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception a) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-        Map<String, MotherBoard> motherBoards = FileManager.loadMotherBoard();
-        motherBoards.put(id, new MotherBoard(
-                id, brand, model, price, interfaceType,
-                chipset, socket, ramSlots, maxRamCapacity, ramType,
-                m2Slots, sataPorts, hasWiFi, audioCodec, lanSpeed,
-                powerConsumption, voltage, dimensions, weight,
-                countryProduction, productionDate, category,
-                description, warrantyMoths
-        ));
-
-        FileManager.saveMotherBoard(motherBoards);
-        System.out.print("\nМатеринская плата " + brand + " " + model + " успешно зарегистрирована!");
     }
 
 
 
     public static void registrationGPU(String choiceCategory){
 
-        ComputerComponent computerComponent = registrationComputerComponent(choiceCategory);
         Scanner scanner = new Scanner(System.in);
+        Map<String, Product> products = FileManager.loadProduct0();
 
-        String id = computerComponent.getId();
-        String brand = computerComponent.getBrand();
-        String model = computerComponent.getModel();
-        String countryProduction = computerComponent.getCountryProduction();
-        int productionDate = computerComponent.getProductionDate();
-        int price = computerComponent.getPrice();
-        String description = computerComponent.getDescription();
-        int warrantyMoths = computerComponent.getWarrantyMoths();
-        String category = computerComponent.getCategory();
-        String interfaceType = computerComponent.getInterfaceType();;
-        double voltage = computerComponent.getVoltage();
-        int powerConsumption = computerComponent.getPowerConsumption();
-        String dimensions = computerComponent.getDimensions();
-        int weight = computerComponent.getWeight();
+        try {
+            System.out.println("\n=== Регистрация видеокарты ===");
 
+            System.out.print("\nВведите ID продукта: ");
+            String id = scanner.nextLine().toUpperCase().trim();
 
-        int vramSize = 0;
-        String memoryType = null;
-        int cudaCores = 0;
-        double baseFrequency = 0;
-        double boostFrequency = 0;
-        int memoryBusWidth = 0;
-        String coolingType = null;
-        int powerConnectors = 0;
-        String typePCIe = null;
-        String videoOutput = null;
-
-
-        boolean cycleVramSize = true;
-        while (cycleVramSize) {
-            System.out.print("\nВведите объем видеопамяти в ГБ (1-24): ");
-
-            try {
-                vramSize = scanner.nextInt();
-                scanner.nextLine();
-                while (vramSize < 1 || vramSize > 64) {
-                    System.out.print("\nНекорректный объем видеопамяти!\n" +
-                            "Введите значение ещё раз (1-64 ГБ): ");
-                    vramSize = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleVramSize = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
+            while (products.containsKey(id)) {
+                System.out.print("\nТакой ID уже занят!\nПридумайте другой: ");
+                id = scanner.nextLine().toUpperCase().trim();
             }
+
+            Map<String, GPU> gpus = FileManager.loadGPU();
+
+            GPU gpu = new GPU(id, choiceCategory, scanner);
+
+            products.put(id, gpu);
+            FileManager.saveProduct0(products);
+
+            gpus.put(id, gpu);
+            FileManager.saveGPU(gpus);
+
+            System.out.print("\nВидеокарта " + gpu.getBrand() + " " + gpu.getModel() + " успешно зарегистрирована!");
+
+        } catch (Exception e) {
+            System.out.println("\nОшибка при регистрации видеокарты: " + e.getMessage());
         }
-
-        System.out.print("\nВведите тип памяти (GDDR5, GDDR6, GDDR6X, GDDR7): ");
-        memoryType = scanner.nextLine();
-
-
-        boolean cycleCudaCores = true;
-        while (cycleCudaCores) {
-            System.out.print("\nВведите количество CUDA ядер (256-30000): ");
-
-            try {
-                cudaCores = scanner.nextInt();
-                scanner.nextLine();
-                while (cudaCores < 256 || cudaCores > 30000) {
-                    System.out.print("\nНекорректное количество CUDA ядер!\n" +
-                            "Введите значение ещё раз (256-18432): ");
-                    cudaCores = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleCudaCores = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-        boolean cycleBaseFrequency = true;
-        while (cycleBaseFrequency) {
-            System.out.print("\nВведите базовую частоту в МГц (800-2500): ");
-
-            try {
-                baseFrequency = scanner.nextDouble();
-                scanner.nextLine();
-                while (baseFrequency < 800 || baseFrequency > 2500) {
-                    System.out.print("\nНекорректная базовая частота!\n" +
-                            "Введите значение ещё раз (800-2500 МГц): ");
-                    baseFrequency = scanner.nextDouble();
-                    scanner.nextLine();
-                }
-                cycleBaseFrequency = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-        boolean cycleBoostFrequency = true;
-        while (cycleBoostFrequency) {
-            System.out.print("\nВведите турбо частоту в МГц (" + baseFrequency + "-3000): ");
-
-            try {
-                boostFrequency = scanner.nextDouble();
-                scanner.nextLine();
-                while (boostFrequency < baseFrequency || boostFrequency > 3000) {
-                    System.out.print("\nНекорректная турбо частота!\n" +
-                            "Введите значение ещё раз (" + baseFrequency + "-3000 МГц): ");
-                    boostFrequency = scanner.nextDouble();
-                    scanner.nextLine();
-                }
-                cycleBoostFrequency = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-        boolean cycleMemoryBusWidth = true;
-        while (cycleMemoryBusWidth) {
-            System.out.print("\nВведите ширину шины памяти в битах (64, 128, 192, 256, 384, 512, 1024): ");
-
-            try {
-                memoryBusWidth = scanner.nextInt();
-                scanner.nextLine();
-
-                int[] validBusWidths = {64, 128, 192, 256, 384, 512, 1024};
-                boolean isValid = false;
-
-                for (int width : validBusWidths) {
-                    if (memoryBusWidth == width) {
-                        isValid = true;
-                        break;
-                    }
-                }
-
-                while (!isValid) {
-                    System.out.print("\nНекорректная ширина шины памяти!\n" +
-                            "Введите значение ещё раз (64, 128, 192, 256, 384 бит): ");
-                    memoryBusWidth = scanner.nextInt();
-                    scanner.nextLine();
-
-                    for (int width : validBusWidths) {
-                        if (memoryBusWidth == width) {
-                            isValid = true;
-                            break;
-                        }
-                    }
-                }
-
-                cycleMemoryBusWidth = false;
-
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-        System.out.print("\nВведите тип охлаждения (воздушное, жидкостное, гибридное): ");
-        coolingType = scanner.nextLine();
-
-
-        boolean cyclePowerConnectors = true;
-        while (cyclePowerConnectors) {
-            System.out.print("\nВведите количество 8-пиновых разъемов питания (0-3): ");
-
-            try {
-                powerConnectors = scanner.nextInt();
-                scanner.nextLine();
-                while (powerConnectors < 0 || powerConnectors > 3) {
-                    System.out.print("\nНекорректное количество разъемов питания!\n" +
-                            "Введите значение ещё раз (0-3): ");
-                    powerConnectors = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cyclePowerConnectors = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-        boolean cycleTypePCIe = true;
-        while (cycleTypePCIe) {
-            System.out.print("\nВыберите версию PCIe:\n" +
-                    "1 - PCIe 3.0\n" +
-                    "2 - PCIe 4.0\n" +
-                    "3 - PCIe 5.0\n" +
-                    "Ваш выбор: ");
-
-            int choice;
-            try {
-                choice = scanner.nextInt();
-                scanner.nextLine();
-                switch (choice) {
-                    case 1:
-                        typePCIe = "PCIe 3.0";
-                        cycleTypePCIe = false;
-                        break;
-                    case 2:
-                        typePCIe = "PCIe 4.0";
-                        cycleTypePCIe = false;
-                        break;
-                    case 3:
-                        typePCIe = "PCIe 5.0";
-                        cycleTypePCIe = false;
-                        break;
-                    default:
-                        System.out.println("Такого варианта выбора нет!\n" +
-                                "Пожалуйста, введите корректную цифру!");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception a) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-        int hdmiPorts = 0;
-        int displayPorts = 0;
-        int vgaPorts = 0;
-        int dviDPorts = 0;
-        int dviIPorts = 0;
-
-
-        boolean cycleHdmiPorts = true;
-        while (cycleHdmiPorts) {
-            System.out.print("\nВведите количество HDMI портов (0-4): ");
-
-            try {
-                hdmiPorts = scanner.nextInt();
-                scanner.nextLine();
-                while (hdmiPorts < 0 || hdmiPorts > 4) {
-                    System.out.print("\nНекорректное количество HDMI портов!\n" +
-                            "Введите значение ещё раз (0-4): ");
-                    hdmiPorts = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleHdmiPorts = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-        boolean cycleDisplayPorts = true;
-        while (cycleDisplayPorts) {
-            System.out.print("\nВведите количество DisplayPort портов (0-4): ");
-
-            try {
-                displayPorts = scanner.nextInt();
-                scanner.nextLine();
-                while (displayPorts < 0 || displayPorts > 4) {
-                    System.out.print("\nНекорректное количество DisplayPort!\n" +
-                            "Введите значение ещё раз (0-4): ");
-                    displayPorts = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleDisplayPorts = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-        boolean cycleVgaPorts = true;
-        while (cycleVgaPorts) {
-            System.out.print("\nВведите количество VGA портов (0-2): ");
-
-            try {
-                vgaPorts = scanner.nextInt();
-                scanner.nextLine();
-                while (vgaPorts < 0 || vgaPorts > 2) {
-                    System.out.print("\nНекорректное количество VGA портов!\n" +
-                            "Введите значение ещё раз (0-2): ");
-                    vgaPorts = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleVgaPorts = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-        boolean cycleDviDPorts = true;
-        while (cycleDviDPorts) {
-            System.out.print("\nВведите количество DVI-D портов (0-2): ");
-
-            try {
-                dviDPorts = scanner.nextInt();
-                scanner.nextLine();
-                while (dviDPorts < 0 || dviDPorts > 2) {
-                    System.out.print("\nНекорректное количество DVI-D портов!\n" +
-                            "Введите значение ещё раз (0-2): ");
-                    dviDPorts = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleDviDPorts = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-        boolean cycleDviIPorts = true;
-        while (cycleDviIPorts) {
-            System.out.print("\nВведите количество DVI-I портов (0-2): ");
-
-            try {
-                dviIPorts = scanner.nextInt();
-                scanner.nextLine();
-                while (dviIPorts < 0 || dviIPorts > 2) {
-                    System.out.print("\nНекорректное количество DVI-I портов!\n" +
-                            "Введите значение ещё раз (0-2): ");
-                    dviIPorts = scanner.nextInt();
-                    scanner.nextLine();
-                }
-                cycleDviIPorts = false;
-            } catch (InputMismatchException p) {
-                System.out.println("Произошла ошибка!\n" +
-                        "Пожалуйста, введите корректное значение!\n" +
-                        "В прошлый раз вы ввели букву вместо числа!");
-                scanner.nextLine();
-            } catch (Exception p) {
-                System.out.println("Произошла неизвестная ошибка!");
-                scanner.nextLine();
-            }
-        }
-
-
-
-        videoOutput = String.format("HDMI: %d, DisplayPort: %d, VGA: %d, DVI-D: %d, DVI-I: %d",
-                hdmiPorts, displayPorts, vgaPorts, dviDPorts, dviIPorts);
-
-        Map<String, GPU> gpus = FileManager.loadGPU();
-        gpus.put(id, new GPU(
-                id, brand, model, price, interfaceType,
-                vramSize, memoryType, cudaCores, baseFrequency, boostFrequency,
-                memoryBusWidth, coolingType, powerConnectors, typePCIe, videoOutput,
-                powerConsumption, voltage, dimensions, weight,
-                countryProduction, productionDate, category,
-                description, warrantyMoths
-        ));
-
-        FileManager.saveGPU(gpus);
-        System.out.print("\nВидеокарта " + brand + " " + model + " успешно зарегистрирована!");
     }
 
 
