@@ -37,6 +37,26 @@ public  class Product implements Serializable {
         setRating(scanner);
     }
 
+    public Product(String id, String brand, String model,
+                   String countryProduction, int productionDate,
+                   int price, String category, String description,
+                   Date addedDate, double rating, int warrantyMoths,
+                   int quantityProduct, Date payDate) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.countryProduction = countryProduction;
+        this.productionDate = productionDate;
+        this.price = price;
+        this.category = category;
+        this.description = description;
+        this.addedDate = addedDate;
+        this.rating = rating;
+        this.warrantyMoths = warrantyMoths;
+        this.quantityProduct = quantityProduct;
+        this.payDate = payDate;
+    }
+
     public String getId() {
         return id;
     }
