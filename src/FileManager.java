@@ -7,6 +7,7 @@ public class FileManager {
     private static final String CLIENTFILE = "src/Clients.dat";
     private static final String SELLERSFILE = "src/Sellers.dat";
     private static final String PRODUCTFILE = "src/Products.dat";
+    private static final String SHOPPINGLISTS = "src/ShoppingLists.dat";
 
 
     private static final String CPUTFILE = "src/FileCPU.dat";
@@ -81,6 +82,32 @@ public class FileManager {
             System.out.println("Ошибка загрузки: " + e.getMessage());
             System.out.println("Возвращаю пустую коллекцию!");
             return new HashMap<String, T>(); // ← return ВНУТРИ catch!
+        }
+    }
+
+
+
+
+    public static void saveShoppingLists(Map<String, ShoppingList> shoppingLists) {
+        try {
+            ObjectOutputStream ous = new ObjectOutputStream(new FileOutputStream(SHOPPINGLISTS));
+            ous.writeObject(shoppingLists);
+            ous.close();
+        } catch (IOException e) {
+            System.out.println("Ошибка сохранения списков покупок: " + e.getMessage());
+        }
+    }
+
+    public static Map<String, ShoppingList> loadShoppingLists() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SHOPPINGLISTS));
+            Map<String, ShoppingList> shoppingLists = (Map<String, ShoppingList>) ois.readObject();
+            ois.close();
+            return shoppingLists;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Ошибка загрузки списков покупок: " + e.getMessage());
+            System.out.println("Возвращаю пустую коллекцию!");
+            return new HashMap<String, ShoppingList>();
         }
     }
 

@@ -334,28 +334,68 @@ public class ComputerShop {
 
                                        if(client != null)
                                        {
+                                           String login = client.getLogin();
+                                           Map<String,ShoppingList> shoppingListMap = FileManager.loadShoppingLists();
+                                           ShoppingList shoppingListClient = shoppingListMap.get(login);
                                            // раздел списка покупок
                                            int shoppingListChoice;
                                            boolean shoppingList = true;
                                            while(shoppingList)
                                            {
                                                System.out.println("\n\n+-+-+-+-+-+-+-+--Ваш список покупок--+-+-+-+-+-+-+-+");
-                                               // тут будет метод для вывода содержимого списка покупок
+                                               shoppingListClient.printListProduct();
                                                System.out.print("\nВыберите одно из доступных действий:\n" +
+                                                       "1 - Подробнее о товаре товаре:\n" +
                                                        "0 - Выход в меню покупателя\n" +
                                                        "Ваш выбор:");
                                                try {
                                                    shoppingListChoice = scanner.nextInt();
-                                                   if(shoppingListChoice!=0)
-                                                   {
-                                                       System.out.println("Такого варианта выбора нет!\n" +
-                                                               "Пожалуйста, введите корректное число!");
-                                                   }
-                                                   else
-                                                   {
-                                                       shoppingList = false;
-                                                   }
 
+                                                   switch (shoppingListChoice)
+                                                   {
+                                                       case 1:
+                                                           ProductManager.searchProductForClient();
+                                                           int searchC;
+                                                           boolean searchCCC = true;
+                                                           while(searchCCC)
+                                                           {
+
+                                                               System.out.print("\nВведите 0 для возвращения к списку покупок:");
+                                                               try {
+                                                                   searchC = scanner.nextInt();
+
+                                                                   switch (searchC)
+                                                                   {
+
+                                                                       case 0:
+                                                                           searchCCC = false;
+                                                                           break;
+                                                                       default:
+                                                                           System.out.println("Такого варианта выбора нет!\n" +
+                                                                                   "Пожалуйста, введите корректное число!");
+                                                                   }
+
+                                                               }catch (InputMismatchException e) {
+                                                                   System.out.println("Произошла ошибка!\n" +
+                                                                           "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                                   scanner.nextLine();
+                                                               }
+                                                               catch (Exception a) {
+                                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                                   scanner.nextLine();
+                                                               }
+
+                                                           }
+
+                                                           break;
+                                                       case 0:
+                                                           shoppingList = false;
+                                                           break;
+                                                       default:
+                                                           System.out.println("Такого варианта выбора нет!\n" +
+                                                                   "Пожалуйста, введите корректное число!");
+                                                   }
 
                                                }catch (InputMismatchException e) {
                                                    System.out.println("Произошла ошибка!\n" +
