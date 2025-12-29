@@ -511,51 +511,51 @@ public class ComputerShop {
                                                     {
                                                         case 1:
                                                             ProductManager.printFullInformationCPU();
-                                                            handleProductSellerMenu("Центральный процессор", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 2:
                                                             ProductManager.printFullInformationMotherboard();
-                                                            handleProductSellerMenu("Материнская плата", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 3:
                                                             ProductManager.printFullInformationGPU();
-                                                            handleProductSellerMenu("Видеокарта", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 4:
                                                             ProductManager.printFullInformationRAM();
-                                                            handleProductSellerMenu("Оперативная память", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 5:
                                                             ProductManager.printFullInformationStorage();
-                                                            handleProductSellerMenu("Постоянное запоминающее устройство", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 6:
                                                             ProductManager.printFullInformationPowerSupply();
-                                                            handleProductSellerMenu("Блок питания", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 7:
                                                             ProductManager.printFullInformationCase();
-                                                            handleProductSellerMenu("Корпус", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 8:
                                                             ProductManager.printFullInformationCooler();
-                                                            handleProductSellerMenu("Кулер", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 9:
                                                             ProductManager.printFullInformationSoftware();
-                                                            handleProductSellerMenu("Программное обеспечение", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 10:
                                                             ProductManager.printFullInformationMonitor();
-                                                            handleProductSellerMenu("Монитор", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 11:
                                                             ProductManager.printFullInformationMouse();
-                                                            handleProductSellerMenu("Мышь", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 12:
                                                             ProductManager.printFullInformationKeyboard();
-                                                            handleProductSellerMenu("Клавиатура", scanner);
+                                                            handleProductSellerMenu(scanner);
                                                             break;
                                                         case 0:
                                                             print = false;
@@ -652,7 +652,7 @@ public class ComputerShop {
                                     case 7://Удалить товар
                                         if(seller!=null)
                                         {
-
+                                            ProductManager.removeTovarAndProduct(scanner);
                                         }
 
                                         else
@@ -1043,7 +1043,7 @@ public class ComputerShop {
     }
 
 
-    public static void handleProductSellerMenu(String categoryType, Scanner scanner){
+    public static void handleProductSellerMenu( Scanner scanner){
 
         int printChoice;
         boolean print = true;
@@ -1069,7 +1069,7 @@ public class ComputerShop {
                         // логика для изменения товара
                         break;
                     case 3:
-                        // логика для удаления товара
+                        ProductManager.removeTovarAndProduct(scanner);
                         break;
                     case 0:
                         print = false;

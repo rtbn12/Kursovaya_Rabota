@@ -385,39 +385,6 @@ public class ProductManager {
     }
 
 
-//    public static void registrationPeripheral(String choiceCategory) {
-//        Scanner scanner = new Scanner(System.in);
-//        Map<String, Product> products = FileManager.loadProduct0();
-//
-//        try {
-//            System.out.println("\n=== Регистрация периферийного устройства ===");
-//
-//            System.out.print("\nВведите ID продукта: ");
-//            String id = scanner.nextLine().toUpperCase().trim();
-//
-//            while (products.containsKey(id)) {
-//                System.out.print("\nТакой ID уже занят!\nПридумайте другой: ");
-//                id = scanner.nextLine().toUpperCase().trim();
-//            }
-//
-//            Map<String, Peripheral> peripherals = FileManager.loadPeripheral();
-//
-//            Peripheral peripheral = new Peripheral(id, choiceCategory, scanner);
-//
-//            products.put(id, peripheral);
-//            FileManager.saveProduct0(products);
-//
-//            peripherals.put(id, peripheral);
-//            FileManager.savePeripheral(peripherals);
-//
-//            System.out.print("\nПериферийное устройство " + peripheral.getBrand() + " " + peripheral.getModel() + " успешно зарегистрировано!");
-//
-//        } catch (Exception e) {
-//            System.out.println("\nОшибка при регистрации периферийного устройства: " + e.getMessage());
-//        }
-//    }
-
-
     public static void registrationMonitor(String choiceCategory){
 
         Scanner scanner = new Scanner(System.in);
@@ -888,5 +855,211 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
+
+
+
+
+    public static void removeTovarAndProduct(Scanner scanner){
+
+
+        int removeChoice;
+        boolean removeCycle = true;
+        while(removeCycle)
+        {
+            System.out.println("\n+=+=+=+=+=+=+=+=+=+=+=+= Удаления товара =+=+=+=+=+=+=+=+=+=+=+=+");
+            System.out.print("\nВыберите одно из доступных действий:\n" +
+                    "1 - Точно удалить товар\n" +
+                    "0 - Вернуться назад\n" +
+                    "Ваш выбор:");
+
+
+            try {
+                removeChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (removeChoice)
+                {
+                    case 1:
+                        int removeRemoveChoice;
+                        boolean removeRemoveCycle = true;
+                        while(removeRemoveCycle)
+                        {
+                            Map<String, Product> products = FileManager.loadProduct0();
+                            System.out.print("\nВведите id товара, который будет удалён:");
+                            String id = scanner.nextLine();
+
+                            while(!products.containsKey(id)){
+                                System.out.print("\nТовара с таким id не найдено!\n" +
+                                        "Пожалуйста, попробуйте ввести id товара ещё раз:");
+                                id = scanner.nextLine();
+                            }
+
+                            boolean cycle = true;
+                            while (cycle){
+                                System.out.print("\nВы точно хотите продолжить удаление товара?\n" +
+                                        "ПОСЛЕДСТВИЯ БУДУТ НЕ ОБРАТИМЫ!\n" +
+                                        "Введите 1 - если хотите продолжить процесс удаления товара!\n" +
+                                        "Введите 0 - если хотите прервать процесс удаления!\n" +
+                                        "Ваш выбор:");
+
+                                try {
+                                    removeRemoveChoice = scanner.nextInt();
+                                    scanner.nextLine();
+
+                                    switch (removeRemoveChoice)
+                                    {
+                                        case 1:
+
+                                            Product product = products.get(id);
+                                            String category = product.getCategory();
+
+                                            products.remove(id);
+                                            FileManager.saveProduct0(products);
+
+                                            switch (category){
+
+                                                case "Центральный процессор":
+                                                    Map<String, CPU> CPUMap = FileManager.loadCPU();
+                                                    CPUMap.remove(id);
+                                                    FileManager.saveCPU(CPUMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Материнская плата":
+                                                    Map<String, MotherBoard> MBMap = FileManager.loadMotherBoard();
+                                                    MBMap.remove(id);
+                                                    FileManager.saveMotherBoard(MBMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Видеокарта":
+                                                    Map<String, GPU> GPUMap = FileManager.loadGPU();
+                                                    GPUMap.remove(id);
+                                                    FileManager.saveGPU(GPUMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case"Оперативная память":
+                                                    Map<String, RAM> RAMMap = FileManager.loadRAM();
+                                                    RAMMap.remove(id);
+                                                    FileManager.saveRAM(RAMMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Постоянное запоминающее устройство":
+                                                    Map<String, Storage> StorageMap = FileManager.loadStorage();
+                                                    StorageMap.remove(id);
+                                                    FileManager.saveStorage(StorageMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Блок питания":
+                                                    Map<String, PowerSupply> PowerSupplyMap = FileManager.loadPowerSupply();
+                                                    PowerSupplyMap.remove(id);
+                                                    FileManager.savePowerSupply(PowerSupplyMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Корпус":
+                                                    Map<String, Case> CaseMap = FileManager.loadCase();
+                                                    CaseMap.remove(id);
+                                                    FileManager.saveCase(CaseMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Кулер":
+                                                    Map<String, Cooler> CoolerMap = FileManager.loadCooler();
+                                                    CoolerMap.remove(id);
+                                                    FileManager.saveCooler(CoolerMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Программное обеспечение":
+                                                    Map<String, Software> SoftwareMap = FileManager.loadSoftware();
+                                                    SoftwareMap.remove(id);
+                                                    FileManager.saveSoftware(SoftwareMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Монитор":
+                                                    Map<String, Monitor> MonitorMap = FileManager.loadMonitor();
+                                                    MonitorMap.remove(id);
+                                                    FileManager.saveMonitor(MonitorMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Мышь":
+                                                    Map<String, Mouse> MouseMap = FileManager.loadMouse();
+                                                    MouseMap.remove(id);
+                                                    FileManager.saveMouse(MouseMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Клавиатура":
+                                                    Map<String, Keyboard> KeyboardMap = FileManager.loadKeyboard();
+                                                    KeyboardMap.remove(id);
+                                                    FileManager.saveKeyboard(KeyboardMap);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+
+                                            }
+
+                                            System.out.println("\nУдаление товара прошло успешно!");
+
+                                            break;
+                                        case 0:
+                                            System.out.println("\nУдаление было отменено!");
+                                            cycle = false;
+                                            removeRemoveCycle = false;
+                                            break;
+                                        default:
+                                            System.out.println("Такого варианта выбора нет!\n" +
+                                                    "Пожалуйста, введите корректное число!");
+                                    }
+
+                                }catch (InputMismatchException e) {
+                                    System.out.println("Произошла ошибка!\n" +
+                                            "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                            "В прошлый раз вы ввели букву вместо числа!");
+                                    scanner.nextLine();
+                                }
+                                catch (Exception a) {
+                                    System.out.println("Произошла неизвестная ошибка!");
+                                    scanner.nextLine();
+                                }
+                            }
+
+
+                        }
+                        break;
+                    case 0:
+                        removeCycle = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+
+            }catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            }
+            catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+
+        }
+
+
+
+    }
+
+
+
+
 
 }
