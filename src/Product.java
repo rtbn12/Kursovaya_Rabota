@@ -113,7 +113,7 @@ public  class Product implements Serializable {
         boolean valid = false;
         while (!valid) {
             try {
-                System.out.print("\nВведите количество товара на складе: ");
+                System.out.print("\nВведите количество единиц товара, поступающего на склад: ");
                 int input = scanner.nextInt();
                 scanner.nextLine(); // очистка буфера
 
