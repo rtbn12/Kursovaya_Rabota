@@ -638,8 +638,81 @@ public class ProductManager {
         }
 
         Product product = products.get(id);
-        product.getFullInfoForClient();
-        product.getFullInfoForSeller();
+        String category = product.getCategory();
+        switch (category){
+
+            case "Центральный процессор":
+                Map<String,CPU> CPU = FileManager.loadCPU();
+                CPU cpu = CPU.get(id);
+                cpu.getFullInfoForClient();
+                cpu.getFullInfoForSeller();
+                break;
+            case "Материнская плата":
+                Map<String,MotherBoard> MB = FileManager.loadMotherBoard();
+                MotherBoard mb = MB.get(id);
+                mb.getFullInfoForClient();
+                mb.getFullInfoForSeller();
+                break;
+            case "Видеокарта":
+                Map<String,GPU> GPU = FileManager.loadGPU();
+                GPU gpu = GPU.get(id);
+                gpu.getFullInfoForClient();
+                gpu.getFullInfoForSeller();
+                break;
+            case"Оперативная память":
+                Map<String,RAM> RAM = FileManager.loadRAM();
+                RAM ram = RAM.get(id);
+                ram.getFullInfoForClient();
+                ram.getFullInfoForSeller();
+                break;
+            case "Постоянное запоминающее устройство":
+                Map<String,Storage> Storage = FileManager.loadStorage();
+                Storage storage = Storage.get(id);
+                storage.getFullInfoForClient();
+                storage.getFullInfoForSeller();
+                break;
+            case "Блок питания":
+                Map<String,PowerSupply> PowerSupply = FileManager.loadPowerSupply();
+                PowerSupply powerSupply = PowerSupply.get(id);
+                powerSupply.getFullInfoForClient();
+                powerSupply.getFullInfoForSeller();
+                break;
+            case "Корпус":Map<String,Case> Case = FileManager.loadCase();
+                Case ccase = Case.get(id);
+                ccase.getFullInfoForClient();
+                ccase.getFullInfoForSeller();
+                break;
+            case "Кулер":Map<String,Cooler> Cooler = FileManager.loadCooler();
+                Cooler cooler = Cooler.get(id);
+                cooler.getFullInfoForClient();
+                cooler.getFullInfoForSeller();
+                break;
+            case "Программное обеспечение":
+                Map<String,Software> Software = FileManager.loadSoftware();
+                Software software = Software.get(id);
+                software.getFullInfoForClient();
+                software.getFullInfoForSeller();
+                break;
+            case "Монитор":
+                Map<String,Monitor> Monitor = FileManager.loadMonitor();
+                Monitor monitor = Monitor.get(id);
+                monitor.getFullInfoForClient();
+                monitor.getFullInfoForSeller();
+                break;
+            case "Мышь":
+                Map<String,Mouse> Mouse = FileManager.loadMouse();
+                Mouse mouse = Mouse.get(id);
+                mouse.getFullInfoForClient();
+                mouse.getFullInfoForSeller();
+                break;
+            case "Клавиатура":
+                Map<String,Keyboard> Keyboard = FileManager.loadKeyboard();
+                Keyboard keyboard = Keyboard.get(id);
+                keyboard.getFullInfoForClient();
+                keyboard.getFullInfoForSeller();
+                break;
+
+        }
 
     }
 
