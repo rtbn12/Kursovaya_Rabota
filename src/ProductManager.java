@@ -716,4 +716,177 @@ public class ProductManager {
 
     }
 
+
+
+    public static void printFullInformationCPU(){
+
+        Map<String, CPU> cpus = FileManager.loadCPU();
+
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог процессоров =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if(!cpus.isEmpty()){
+            for(CPU cpu : cpus.values()){
+                cpu.getFullInfoForClient();
+                cpu.getFullInfoForSeller();
+            }
+        }
+        else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationRAM() {
+        Map<String, RAM> rams = FileManager.loadRAM();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог ОЗУ =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!rams.isEmpty()) {
+            for (RAM ram : rams.values()) {
+                ram.getFullInfoForClient();
+                ram.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationMotherboard() {
+        Map<String, MotherBoard> motherboards = FileManager.loadMotherBoard();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог материнских плат =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!motherboards.isEmpty()) {
+            for (MotherBoard motherboard : motherboards.values()) {
+                motherboard.getFullInfoForClient();
+                motherboard.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationGPU() {
+        Map<String, GPU> gpus = FileManager.loadGPU();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог видеокарт =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!gpus.isEmpty()) {
+            for (GPU gpu : gpus.values()) {
+                gpu.getFullInfoForClient();
+                gpu.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationStorage() {
+        Map<String, Storage> storages = FileManager.loadStorage();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог ПЗУ =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!storages.isEmpty()) {
+            for (Storage storage : storages.values()) {
+                storage.getFullInfoForClient();
+                storage.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationPowerSupply() {
+        Map<String, PowerSupply> powerSupplies = FileManager.loadPowerSupply();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог блоков питания =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!powerSupplies.isEmpty()) {
+            for (PowerSupply powerSupply : powerSupplies.values()) {
+                powerSupply.getFullInfoForClient();
+                powerSupply.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationCase() {
+        Map<String, Case> cases = FileManager.loadCase();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог компьютерных корпусов =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!cases.isEmpty()) {
+            for (Case computerCase : cases.values()) {
+                computerCase.getFullInfoForClient();
+                computerCase.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationCooler() {
+        Map<String, Cooler> coolers = FileManager.loadCooler();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог кулеров =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!coolers.isEmpty()) {
+            for (Cooler cooler : coolers.values()) {
+                cooler.getFullInfoForClient();
+                cooler.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationSoftware() {
+        Map<String, Software> softwareMap = FileManager.loadSoftware();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог ПО =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!softwareMap.isEmpty()) {
+            for (Software software : softwareMap.values()) {
+                software.getFullInfoForClient();
+                software.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationMonitor() {
+        Map<String, Monitor> monitors = FileManager.loadMonitor();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог мониторов =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!monitors.isEmpty()) {
+            for (Monitor monitor : monitors.values()) {
+                monitor.getFullInfoForClient();
+                monitor.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationMouse() {
+        Map<String, Mouse> mice = FileManager.loadMouse();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог мышей =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!mice.isEmpty()) {
+            for (Mouse mouse : mice.values()) {
+                mouse.getFullInfoForClient();
+                mouse.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
+    public static void printFullInformationKeyboard() {
+        Map<String, Keyboard> keyboards = FileManager.loadKeyboard();
+        System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог клавиатур =+=+=+=+=+=+=+=+=+=+=+=+=+=");
+
+        if (!keyboards.isEmpty()) {
+            for (Keyboard keyboard : keyboards.values()) {
+                keyboard.getFullInfoForClient();
+                keyboard.getFullInfoForSeller();
+            }
+        } else {
+            System.out.println("\nТоваров данной категории пока что нет в магазине!");
+        }
+    }
+
 }

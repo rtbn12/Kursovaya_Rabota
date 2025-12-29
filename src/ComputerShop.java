@@ -455,7 +455,6 @@ public class ComputerShop {
                                     "5 - Поиск товара по id\n" +
                                     "6 - Изменить товар\n" +
                                     "7 - Удалить товар\n" +
-                                    "8 - Подтвердить покупку\n"+
                                     "0 - Выход в главное меню\n" +
                                     "Ваш выбор:");
                             int choiceSeller;
@@ -464,13 +463,13 @@ public class ComputerShop {
                                 choiceSeller = scanner.nextInt();
                                 switch (choiceSeller)
                                 {
-                                    case 1:
+                                    case 1://Регистрация
                                         AccountManager.registrationSeller();
                                         break;
-                                    case 2:
+                                    case 2://Авторизация
                                         seller = AccountManager.authorizationSeller();
                                         break;
-                                    case 3:
+                                    case 3://Добавление товара
                                         if(seller!=null)
                                         {
                                             seller.registrationProduct();
@@ -481,7 +480,164 @@ public class ComputerShop {
                                             System.out.println("Продавец не авторизован!");
                                         }
                                         break;
-                                    case 4:
+                                    case 4://Каталог товаров
+                                        if(seller!=null)
+                                        {
+                                            int printChoice;
+                                            boolean print = true;
+                                            while(print)
+                                            {System.out.println("\n\n+-+-+-+-+-+-+-+--Каталог товаров--+-+-+-+-+-+-+-+");
+                                                System.out.print("\nВыберите интересующую категорию товара:\n" +
+                                                        "1 - Центральный процессор\n" +
+                                                        "2 - Материнская плата\n" +
+                                                        "3 - Видеокарта\n" +
+                                                        "4 - Оперативная память\n" +
+                                                        "5 - Постоянное запоминающее устройство\n" +
+                                                        "6 - Блок питания\n" +
+                                                        "7 - Корпус\n" +
+                                                        "8 - Кулер\n" +
+                                                        "9 - Программное обеспечение\n" +
+                                                        "10 - Монитор\n" +
+                                                        "11 - Мышь\n" +
+                                                        "12 - Клавиатура\n" +
+                                                        "0 - Выход в меню\n" +
+                                                        "Ваш выбор:");
+
+
+                                                try {
+                                                    printChoice = scanner.nextInt();
+
+                                                    switch (printChoice)
+                                                    {
+                                                        case 1:
+                                                            ProductManager.printFullInformationCPU();
+                                                            handleProductSellerMenu("Центральный процессор", scanner);
+                                                            break;
+                                                        case 2:
+                                                            ProductManager.printFullInformationMotherboard();
+                                                            handleProductSellerMenu("Материнская плата", scanner);
+                                                            break;
+                                                        case 3:
+                                                            ProductManager.printFullInformationGPU();
+                                                            handleProductSellerMenu("Видеокарта", scanner);
+                                                            break;
+                                                        case 4:
+                                                            ProductManager.printFullInformationRAM();
+                                                            handleProductSellerMenu("Оперативная память", scanner);
+                                                            break;
+                                                        case 5:
+                                                            ProductManager.printFullInformationStorage();
+                                                            handleProductSellerMenu("Постоянное запоминающее устройство", scanner);
+                                                            break;
+                                                        case 6:
+                                                            ProductManager.printFullInformationPowerSupply();
+                                                            handleProductSellerMenu("Блок питания", scanner);
+                                                            break;
+                                                        case 7:
+                                                            ProductManager.printFullInformationCase();
+                                                            handleProductSellerMenu("Корпус", scanner);
+                                                            break;
+                                                        case 8:
+                                                            ProductManager.printFullInformationCooler();
+                                                            handleProductSellerMenu("Кулер", scanner);
+                                                            break;
+                                                        case 9:
+                                                            ProductManager.printFullInformationSoftware();
+                                                            handleProductSellerMenu("Программное обеспечение", scanner);
+                                                            break;
+                                                        case 10:
+                                                            ProductManager.printFullInformationMonitor();
+                                                            handleProductSellerMenu("Монитор", scanner);
+                                                            break;
+                                                        case 11:
+                                                            ProductManager.printFullInformationMouse();
+                                                            handleProductSellerMenu("Мышь", scanner);
+                                                            break;
+                                                        case 12:
+                                                            ProductManager.printFullInformationKeyboard();
+                                                            handleProductSellerMenu("Клавиатура", scanner);
+                                                            break;
+                                                        case 0:
+                                                            print = false;
+                                                            break;
+                                                        default:
+                                                            System.out.println("Такого варианта выбора нет!\n" +
+                                                                    "Пожалуйста, введите корректное число!");
+                                                    }
+
+                                                }catch (InputMismatchException e) {
+                                                    System.out.println("Произошла ошибка!\n" +
+                                                            "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                            "В прошлый раз вы ввели букву вместо числа!");
+                                                    scanner.nextLine();
+                                                }
+                                                catch (Exception a) {
+                                                    System.out.println("Произошла неизвестная ошибка!");
+                                                    scanner.nextLine();
+                                                }
+
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            System.out.println("Продавец не авторизован!");
+                                        }
+
+                                        break;
+                                    case 5://Поиск по id
+                                        if(seller!=null)
+                                        {
+                                            int searchC;
+                                            boolean searchCCC = true;
+                                            while(searchCCC)
+                                            {
+                                                System.out.println("=+=+=+=+=+=+=+=+ Поиск товара по ID +=+=+=+=+=+=+=+=+=+=");
+                                                ProductManager.searchProductForSeller();
+
+                                                System.out.print("\nВведите 0 для возвращения к меню продавца:\n" +
+                                                        "Введите 1 - чтобы повторно выполнить поиск:\n" +
+                                                        "Ваш выбор:");
+                                                try {
+                                                    searchC = scanner.nextInt();
+
+                                                    switch (searchC)
+                                                    {
+
+                                                        case 0:
+                                                            searchCCC = false;
+                                                            break;
+                                                        case 1:
+
+                                                            break;
+                                                        default:
+                                                            System.out.println("Такого варианта выбора нет!\n" +
+                                                                    "Пожалуйста, введите корректное число!");
+                                                    }
+
+                                                }catch (InputMismatchException e) {
+                                                    System.out.println("Произошла ошибка!\n" +
+                                                            "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                            "В прошлый раз вы ввели букву вместо числа!");
+                                                    scanner.nextLine();
+                                                }
+                                                catch (Exception a) {
+                                                    System.out.println("Произошла неизвестная ошибка!");
+                                                    scanner.nextLine();
+                                                }
+
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            System.out.println("Продавец не авторизован!");
+                                        }
+
+                                        break;
+                                    case 6://Изменить товар
                                         if(seller!=null)
                                         {
 
@@ -493,16 +649,16 @@ public class ComputerShop {
                                         }
 
                                         break;
-                                    case 5:
+                                    case 7://Удалить товар
+                                        if(seller!=null)
+                                        {
 
-                                        break;
-                                    case 6:
+                                        }
 
-                                        break;
-                                    case 7:
-
-                                        break;
-                                    case 8:
+                                        else
+                                        {
+                                            System.out.println("Продавец не авторизован!");
+                                        }
 
                                         break;
                                     case 0:
@@ -884,5 +1040,58 @@ public class ComputerShop {
                 scanner.nextLine();
             }
         }
+    }
+
+
+    public static void handleProductSellerMenu(String categoryType, Scanner scanner){
+
+        int printChoice;
+        boolean print = true;
+        while(print)
+        {
+            System.out.print("\nВыберите одно из доступных действий:\n" +
+                    "1 - Добавить товар\n" +
+                    "2 - Изменить товар\n" +
+                    "3 - Удалить товар\n" +
+                    "0 - Вернуться к каталогу товаров\n" +
+                    "Ваш выбор:");
+
+
+            try {
+                printChoice = scanner.nextInt();
+
+                switch (printChoice)
+                {
+                    case 1:
+                        seller.registrationProduct();
+                        break;
+                    case 2:
+                        // логика для изменения товара
+                        break;
+                    case 3:
+                        // логика для удаления товара
+                        break;
+                    case 0:
+                        print = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+
+            }catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            }
+            catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+
+        }
+
+
     }
 }
