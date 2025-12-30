@@ -591,7 +591,7 @@ public class ProductManager {
 
     }
 
-    public static void searchProductForSeller(){
+    public static Product searchProductForSeller(){
 
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -680,6 +680,8 @@ public class ProductManager {
                 break;
 
         }
+
+        return product;
 
     }
 
@@ -1010,6 +1012,326 @@ public class ProductManager {
                                             break;
                                         case 0:
                                             System.out.println("\nУдаление было отменено!");
+                                            cycle = false;
+                                            removeRemoveCycle = false;
+                                            break;
+                                        default:
+                                            System.out.println("Такого варианта выбора нет!\n" +
+                                                    "Пожалуйста, введите корректное число!");
+                                    }
+
+                                }catch (InputMismatchException e) {
+                                    System.out.println("Произошла ошибка!\n" +
+                                            "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                            "В прошлый раз вы ввели букву вместо числа!");
+                                    scanner.nextLine();
+                                }
+                                catch (Exception a) {
+                                    System.out.println("Произошла неизвестная ошибка!");
+                                    scanner.nextLine();
+                                }
+                            }
+
+
+                        }
+                        break;
+                    case 0:
+                        removeCycle = false;
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+
+            }catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            }
+            catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+
+        }
+
+
+
+    }
+
+
+
+    public static void rewriteCPU(String id, Scanner scanner){
+
+        Map<String, CPU> MapCPU = FileManager.loadCPU();
+        CPU cpu = MapCPU.get(id);
+
+        Map<String, CPU> MapCPU2 = FileManager.loadCPU();
+        CPU  izmenCPU = MapCPU2.get(id);
+
+
+
+        int Choice;
+        boolean Cycle = true;
+        while(Cycle)
+        {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование процессора (" + cpu.getFullName() + id + ")--+-+-+-+-+-+-+-+");
+            izmenCPU.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Интерфейс подключения\n" +
+                    "3 - Сокет\n" +
+                    "4 - Количество ядер\n" +
+                    "5 - Количество потоков\n" +
+                    "6 - Базовая частота\n" +
+                    "7 - Максимальная частота\n" +
+                    "8 - Размер кэша\n" +
+                    "9 - Поддерживаемые типы памяти\n" +
+                    "10 - Наличие встроенного графического ядра\n" +
+                    "11 - Потребляемая мощность\n" +
+                    "12 - Рабочее напряжение\n" +
+                    "13 - Страна-производитель\n" +
+                    "14 - Год релиза\n" +
+                    "15 - Гарантийный срок\n" +
+                    "16 - Рейтинг\n" +
+                    "17 - Количество на складе\n" +
+                    "18 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice)
+                {
+                    case 1: izmenCPU.setPrice(scanner);
+                        break;
+                    case 2: izmenCPU.setInterfaceType(scanner, izmenCPU.getCategory());
+                        break;
+                    case 3: izmenCPU.setSocket(scanner);
+                        break;
+                    case 4: izmenCPU.setCoreCount(scanner);
+                        break;
+                    case 5: izmenCPU.setThreadCount(scanner);
+                        break;
+                    case 6: izmenCPU.setBaseFrequency(scanner);
+                        break;
+                    case 7: izmenCPU.setMaxFrequency(scanner);
+                        break;
+                    case 8: izmenCPU.setCacheSize(scanner);
+                        break;
+                    case 9: izmenCPU.setMemoryType(scanner);
+                        break;
+                    case 10: izmenCPU.setHasIntegratedGraphics(scanner);
+                        break;
+                    case 11: izmenCPU.setPowerConsumption(scanner);
+                        break;
+                    case 12: izmenCPU.setVoltage(scanner);
+                        break;
+                    case 13: izmenCPU.setCountryProduction(scanner);
+                        break;
+                    case 14: izmenCPU.setProductionDate(scanner);
+                        break;
+                    case 15: izmenCPU.setWarrantyMoths(scanner);
+                        break;
+                    case 16: izmenCPU.setRating(scanner);
+                        break;
+                    case 17: izmenCPU.setQuantityProduct(scanner);
+                        break;
+                    case 18: izmenCPU.setDescription(scanner);
+                        break;
+                    case 0:
+
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        cpu.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenCPU.getFullInfoForClient();
+                        int printChoice;
+                        boolean print = true;
+                        while(print)
+                        {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения(оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice)
+                                {
+                                    case 1:
+                                        MapCPU.put(id, izmenCPU);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenCPU);
+
+                                        FileManager.saveCPU(MapCPU);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+
+                            }catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            }
+                            catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+
+            }catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            }
+            catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+
+        }
+
+
+    }
+
+    public static void reWriteTovarAndProduct(Scanner scanner){
+
+        int removeChoice;
+        boolean removeCycle = true;
+        while(removeCycle)
+        {
+            System.out.println("\n+=+=+=+=+=+=+=+=+=+=+=+= Изменение товара =+=+=+=+=+=+=+=+=+=+=+=+");
+            System.out.print("\nВыберите одно из доступных действий:\n" +
+                    "1 - Точно изменить товар\n" +
+                    "0 - Вернуться назад\n" +
+                    "Ваш выбор:");
+
+
+            try {
+                removeChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (removeChoice)
+                {
+                    case 1:
+                        int removeRemoveChoice;
+                        boolean removeRemoveCycle = true;
+                        while(removeRemoveCycle)
+                        {
+                            Product product = searchProductForSeller();
+                            boolean cycle = true;
+                            while (cycle){
+                                System.out.print("\nВы точно хотите продолжить процесс редактирования данного товара товара?\n" +
+                                        "Введите 1 - если хотите продолжить процесс редактирования товара!\n" +
+                                        "Введите 0 - если хотите прервать процесс редактирования!\n" +
+                                        "Ваш выбор:");
+
+                                try {
+                                    removeRemoveChoice = scanner.nextInt();
+                                    scanner.nextLine();
+
+                                    switch (removeRemoveChoice)
+                                    {
+                                        case 1:
+
+                                            String ID = product.getId();
+                                            String category = product.getCategory();
+
+                                            switch (category){
+
+                                                case "Центральный процессор":
+                                                    rewriteCPU(ID,scanner);
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Материнская плата":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Видеокарта":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case"Оперативная память":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Постоянное запоминающее устройство":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Блок питания":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Корпус":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Кулер":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Программное обеспечение":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Монитор":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Мышь":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+                                                case "Клавиатура":
+
+                                                    cycle = false;
+                                                    removeRemoveCycle = false;
+                                                    break;
+
+                                            }
+
+                                            System.out.println("\nРедактирование (отмена редактирований) товара прошли успешно!");
+
+                                            break;
+                                        case 0:
+                                            System.out.println("\nРедактирование было отменено!");
                                             cycle = false;
                                             removeRemoveCycle = false;
                                             break;

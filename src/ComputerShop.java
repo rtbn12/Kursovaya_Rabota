@@ -640,7 +640,7 @@ public class ComputerShop {
                                     case 6://Изменить товар
                                         if(seller!=null)
                                         {
-
+                                            ProductManager.reWriteTovarAndProduct(scanner);
                                         }
 
                                         else
@@ -1066,7 +1066,7 @@ public class ComputerShop {
                         seller.registrationProduct();
                         break;
                     case 2:
-                        // логика для изменения товара
+                        ProductManager.reWriteTovarAndProduct(scanner);
                         break;
                     case 3:
                         ProductManager.removeTovarAndProduct(scanner);
