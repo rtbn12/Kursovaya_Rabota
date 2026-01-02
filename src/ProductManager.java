@@ -1882,6 +1882,304 @@ public class ProductManager {
         }
     }
 
+    public static void rewritePowerSupply(String id, Scanner scanner) {
+        Map<String, PowerSupply> MapPowerSupply = FileManager.loadPowerSupply();
+        PowerSupply powerSupply = MapPowerSupply.get(id);
+
+        Map<String, PowerSupply> MapPowerSupply2 = FileManager.loadPowerSupply();
+        PowerSupply izmenPowerSupply = MapPowerSupply2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование блока питания (" + powerSupply.getBrand() + " " + powerSupply.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenPowerSupply.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Сертификат эффективности\n" +
+                    "3 - Модульность кабелей\n" +
+                    "4 - Количество SATA разъемов\n" +
+                    "5 - Количество PCI-E разъемов\n" +
+                    "6 - Количество CPU разъемов\n" +
+                    "7 - Размер вентилятора\n" +
+                    "8 - Защиты\n" +
+                    "9 - Потребляемая мощность\n" +
+                    "10 - Рабочее напряжение\n" +
+                    "11 - Страна-производитель\n" +
+                    "12 - Год релиза\n" +
+                    "13 - Гарантийный срок\n" +
+                    "14 - Рейтинг\n" +
+                    "15 - Количество на складе\n" +
+                    "16 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenPowerSupply.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenPowerSupply.setEfficiency(scanner);
+                        break;
+                    case 3:
+                        izmenPowerSupply.setModularity(scanner);
+                        break;
+                    case 4:
+                        izmenPowerSupply.setSataConnectors(scanner);
+                        break;
+                    case 5:
+                        izmenPowerSupply.setPcieConnectors(scanner);
+                        break;
+                    case 6:
+                        izmenPowerSupply.setCpuConnectors(scanner);
+                        break;
+                    case 7:
+                        izmenPowerSupply.setFanSize(scanner);
+                        break;
+                    case 8:
+                        izmenPowerSupply.setProtections(scanner);
+                        break;
+                    case 9:
+                        izmenPowerSupply.setPowerConsumption(scanner);
+                        break;
+                    case 10:
+                        izmenPowerSupply.setVoltage(scanner);
+                        break;
+                    case 11:
+                        izmenPowerSupply.setCountryProduction(scanner);
+                        break;
+                    case 12:
+                        izmenPowerSupply.setProductionDate(scanner);
+                        break;
+                    case 13:
+                        izmenPowerSupply.setWarrantyMoths(scanner);
+                        break;
+                    case 14:
+                        izmenPowerSupply.setRating(scanner);
+                        break;
+                    case 15:
+                        izmenPowerSupply.setQuantityProduct(scanner);
+                        break;
+                    case 16:
+                        izmenPowerSupply.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        powerSupply.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenPowerSupply.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapPowerSupply.put(id, izmenPowerSupply);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenPowerSupply);
+
+                                        FileManager.savePowerSupply(MapPowerSupply);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static void rewriteCase(String id, Scanner scanner) {
+        Map<String, Case> MapCase = FileManager.loadCase();
+        Case caseObj = MapCase.get(id);
+
+        Map<String, Case> MapCase2 = FileManager.loadCase();
+        Case izmenCase = MapCase2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование корпуса (" + caseObj.getBrand() + " " + caseObj.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenCase.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Тип корпуса\n" +
+                    "3 - Поддерживаемые форм-факторы материнских плат\n" +
+                    "4 - Количество отсеков для 3.5\" дисков\n" +
+                    "5 - Количество отсеков для 2.5\" дисков\n" +
+                    "6 - Разъемы на передней панели\n" +
+                    "7 - Наличие бокового стекла\n" +
+                    "8 - Наличие RGB подсветки\n" +
+                    "9 - Наличие пылевых фильтров\n" +
+                    "10 - Страна-производитель\n" +
+                    "11 - Год релиза\n" +
+                    "12 - Гарантийный срок\n" +
+                    "13 - Рейтинг\n" +
+                    "14 - Количество на складе\n" +
+                    "15 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenCase.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenCase.setCaseType(scanner);
+                        break;
+                    case 3:
+                        izmenCase.setMotherboardFormFactor(scanner);
+                        break;
+                    case 4:
+                        izmenCase.setDriveBays35(scanner);
+                        break;
+                    case 5:
+                        izmenCase.setDriveBays25(scanner);
+                        break;
+                    case 6:
+                        izmenCase.setFrontPanel(scanner);
+                        break;
+                    case 7:
+                        izmenCase.setHasTemperedGlass(scanner);
+                        break;
+                    case 8:
+                        izmenCase.setHasRGB(scanner);
+                        break;
+                    case 9:
+                        izmenCase.setHasDustFilters(scanner);
+                        break;
+                    case 10:
+                        izmenCase.setCountryProduction(scanner);
+                        break;
+                    case 11:
+                        izmenCase.setProductionDate(scanner);
+                        break;
+                    case 12:
+                        izmenCase.setWarrantyMoths(scanner);
+                        break;
+                    case 13:
+                        izmenCase.setRating(scanner);
+                        break;
+                    case 14:
+                        izmenCase.setQuantityProduct(scanner);
+                        break;
+                    case 15:
+                        izmenCase.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        caseObj.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenCase.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapCase.put(id, izmenCase);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenCase);
+
+                                        FileManager.saveCase(MapCase);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
     public static void reWriteTovarAndProduct(Scanner scanner){
 
         int removeChoice;
@@ -1953,12 +2251,12 @@ public class ProductManager {
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Блок питания":
-
+                                                    rewritePowerSupply(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Корпус":
-
+                                                    rewriteCase(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
