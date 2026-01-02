@@ -2180,6 +2180,774 @@ public class ProductManager {
         }
     }
 
+    public static void rewriteCooler(String id, Scanner scanner) {
+        Map<String, Cooler> MapCooler = FileManager.loadCooler();
+        Cooler cooler = MapCooler.get(id);
+
+        Map<String, Cooler> MapCooler2 = FileManager.loadCooler();
+        Cooler izmenCooler = MapCooler2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование системы охлаждения (" + cooler.getBrand() + " " + cooler.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenCooler.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Тип кулера\n" +
+                    "3 - Совместимые сокеты\n" +
+                    "4 - Размер вентилятора\n" +
+                    "5 - Скорость вращения вентилятора\n" +
+                    "6 - Рассеиваемая мощность (TDP)\n" +
+                    "7 - Количество тепловых трубок\n" +
+                    "8 - Поддержка PWM\n" +
+                    "9 - Наличие RGB подсветки\n" +
+                    "10 - Потребляемая мощность\n" +
+                    "11 - Рабочее напряжение\n" +
+                    "12 - Страна-производитель\n" +
+                    "13 - Год релиза\n" +
+                    "14 - Гарантийный срок\n" +
+                    "15 - Рейтинг\n" +
+                    "16 - Количество на складе\n" +
+                    "17 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenCooler.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenCooler.setCoolerType(scanner);
+                        break;
+                    case 3:
+                        izmenCooler.setSocketCompatibility(scanner);
+                        break;
+                    case 4:
+                        izmenCooler.setFanSize(scanner);
+                        break;
+                    case 5:
+                        izmenCooler.setFanSpeed(scanner);
+                        break;
+                    case 6:
+                        izmenCooler.setTdp(scanner);
+                        break;
+                    case 7:
+                        izmenCooler.setHeatPipes(scanner);
+                        break;
+                    case 8:
+                        izmenCooler.setHasPwm(scanner);
+                        break;
+                    case 9:
+                        izmenCooler.setHasRGB(scanner);
+                        break;
+                    case 10:
+                        izmenCooler.setPowerConsumption(scanner);
+                        break;
+                    case 11:
+                        izmenCooler.setVoltage(scanner);
+                        break;
+                    case 12:
+                        izmenCooler.setCountryProduction(scanner);
+                        break;
+                    case 13:
+                        izmenCooler.setProductionDate(scanner);
+                        break;
+                    case 14:
+                        izmenCooler.setWarrantyMoths(scanner);
+                        break;
+                    case 15:
+                        izmenCooler.setRating(scanner);
+                        break;
+                    case 16:
+                        izmenCooler.setQuantityProduct(scanner);
+                        break;
+                    case 17:
+                        izmenCooler.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        cooler.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenCooler.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapCooler.put(id, izmenCooler);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenCooler);
+
+                                        FileManager.saveCooler(MapCooler);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static void rewriteSoftware(String id, Scanner scanner) {
+        Map<String, Software> MapSoftware = FileManager.loadSoftware();
+        Software software = MapSoftware.get(id);
+
+        Map<String, Software> MapSoftware2 = FileManager.loadSoftware();
+        Software izmenSoftware = MapSoftware2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование программного обеспечения (" + software.getBrand() + " " + software.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenSoftware.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Тип программного обеспечения\n" +
+                    "3 - Срок лицензии\n" +
+                    "4 - Поддерживаемые операционные системы\n" +
+                    "5 - Системные требования\n" +
+                    "6 - Тип версии (цифровая/коробочная)\n" +
+                    "7 - Поддерживаемые языки\n" +
+                    "8 - Страна-производитель\n" +
+                    "9 - Год релиза\n" +
+                    "10 - Гарантийный срок\n" +
+                    "11 - Рейтинг\n" +
+                    "12 - Количество на складе\n" +
+                    "13 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenSoftware.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenSoftware.setSoftwareType(scanner);
+                        break;
+                    case 3:
+                        izmenSoftware.setLicenseDuration(scanner);
+                        break;
+                    case 4:
+                        izmenSoftware.setSupportedOS(scanner);
+                        break;
+                    case 5:
+                        izmenSoftware.setSystemRequirements(scanner);
+                        break;
+                    case 6:
+                        izmenSoftware.setIsDigital(scanner);
+                        break;
+                    case 7:
+                        izmenSoftware.setLanguages(scanner);
+                        break;
+                    case 8:
+                        izmenSoftware.setCountryProduction(scanner);
+                        break;
+                    case 9:
+                        izmenSoftware.setProductionDate(scanner);
+                        break;
+                    case 10:
+                        izmenSoftware.setWarrantyMoths(scanner);
+                        break;
+                    case 11:
+                        izmenSoftware.setRating(scanner);
+                        break;
+                    case 12:
+                        izmenSoftware.setQuantityProduct(scanner);
+                        break;
+                    case 13:
+                        izmenSoftware.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        software.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenSoftware.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapSoftware.put(id, izmenSoftware);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenSoftware);
+
+                                        FileManager.saveSoftware(MapSoftware);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static void rewriteMonitor(String id, Scanner scanner) {
+        Map<String, Monitor> MapMonitor = FileManager.loadMonitor();
+        Monitor monitor = MapMonitor.get(id);
+
+        Map<String, Monitor> MapMonitor2 = FileManager.loadMonitor();
+        Monitor izmenMonitor = MapMonitor2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование монитора (" + monitor.getBrand() + " " + monitor.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenMonitor.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Диагональ экрана\n" +
+                    "3 - Разрешение\n" +
+                    "4 - Частота обновления\n" +
+                    "5 - Тип матрицы\n" +
+                    "6 - Время отклика\n" +
+                    "7 - Поддержка HDR\n" +
+                    "8 - Наличие встроенных колонок\n" +
+                    "9 - Цвет устройства\n" +
+                    "10 - Типы подключения\n" +
+                    "11 - Длина кабеля\n" +
+                    "12 - Беспроводное подключение\n" +
+                    "13 - Наличие RGB подсветки\n" +
+                    "14 - Страна-производитель\n" +
+                    "15 - Год релиза\n" +
+                    "16 - Гарантийный срок\n" +
+                    "17 - Рейтинг\n" +
+                    "18 - Количество на складе\n" +
+                    "19 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenMonitor.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenMonitor.setScreenSize(scanner);
+                        break;
+                    case 3:
+                        izmenMonitor.setResolution(scanner);
+                        break;
+                    case 4:
+                        izmenMonitor.setRefreshRate(scanner);
+                        break;
+                    case 5:
+                        izmenMonitor.setPanelType(scanner);
+                        break;
+                    case 6:
+                        izmenMonitor.setResponseTime(scanner);
+                        break;
+                    case 7:
+                        izmenMonitor.setHasHDR(scanner);
+                        break;
+                    case 8:
+                        izmenMonitor.setHasBuiltInSpeakers(scanner);
+                        break;
+                    case 9:
+                        izmenMonitor.setColor(scanner);
+                        break;
+                    case 10:
+                        izmenMonitor.setConnectionType(scanner);
+                        break;
+                    case 11:
+                        izmenMonitor.setCableLength(scanner);
+                        break;
+                    case 12:
+                        izmenMonitor.setIsWireless(scanner);
+                        break;
+                    case 13:
+                        izmenMonitor.setHasRGB(scanner);
+                        break;
+                    case 14:
+                        izmenMonitor.setCountryProduction(scanner);
+                        break;
+                    case 15:
+                        izmenMonitor.setProductionDate(scanner);
+                        break;
+                    case 16:
+                        izmenMonitor.setWarrantyMoths(scanner);
+                        break;
+                    case 17:
+                        izmenMonitor.setRating(scanner);
+                        break;
+                    case 18:
+                        izmenMonitor.setQuantityProduct(scanner);
+                        break;
+                    case 19:
+                        izmenMonitor.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        monitor.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenMonitor.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapMonitor.put(id, izmenMonitor);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenMonitor);
+
+                                        FileManager.saveMonitor(MapMonitor);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static void rewriteMouse(String id, Scanner scanner) {
+        Map<String, Mouse> MapMouse = FileManager.loadMouse();
+        Mouse mouse = MapMouse.get(id);
+
+        Map<String, Mouse> MapMouse2 = FileManager.loadMouse();
+        Mouse izmenMouse = MapMouse2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование мыши (" + mouse.getBrand() + " " + mouse.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenMouse.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Чувствительность (DPI)\n" +
+                    "3 - Количество кнопок\n" +
+                    "4 - Тип сенсора\n" +
+                    "5 - Тип мыши (игровая/обычная)\n" +
+                    "6 - Цвет устройства\n" +
+                    "7 - Типы подключения\n" +
+                    "8 - Длина кабеля\n" +
+                    "9 - Беспроводное подключение\n" +
+                    "10 - Наличие RGB подсветки\n" +
+                    "11 - Страна-производитель\n" +
+                    "12 - Год релиза\n" +
+                    "13 - Гарантийный срок\n" +
+                    "14 - Рейтинг\n" +
+                    "15 - Количество на складе\n" +
+                    "16 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenMouse.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenMouse.setDpi(scanner);
+                        break;
+                    case 3:
+                        izmenMouse.setButtonsCount(scanner);
+                        break;
+                    case 4:
+                        izmenMouse.setSensorType(scanner);
+                        break;
+                    case 5:
+                        izmenMouse.setIsGaming(scanner);
+                        break;
+                    case 6:
+                        izmenMouse.setColor(scanner);
+                        break;
+                    case 7:
+                        izmenMouse.setConnectionType(scanner);
+                        break;
+                    case 8:
+                        izmenMouse.setCableLength(scanner);
+                        break;
+                    case 9:
+                        izmenMouse.setIsWireless(scanner);  // Исправлено на setIsWireless
+                        break;
+                    case 10:
+                        izmenMouse.setHasRGB(scanner);
+                        break;
+                    case 11:
+                        izmenMouse.setCountryProduction(scanner);
+                        break;
+                    case 12:
+                        izmenMouse.setProductionDate(scanner);
+                        break;
+                    case 13:
+                        izmenMouse.setWarrantyMoths(scanner);
+                        break;
+                    case 14:
+                        izmenMouse.setRating(scanner);
+                        break;
+                    case 15:
+                        izmenMouse.setQuantityProduct(scanner);
+                        break;
+                    case 16:
+                        izmenMouse.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        mouse.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenMouse.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapMouse.put(id, izmenMouse);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenMouse);
+
+                                        FileManager.saveMouse(MapMouse);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static void rewriteKeyboard(String id, Scanner scanner) {
+        Map<String, Keyboard> MapKeyboard = FileManager.loadKeyboard();
+        Keyboard keyboard = MapKeyboard.get(id);
+
+        Map<String, Keyboard> MapKeyboard2 = FileManager.loadKeyboard();
+        Keyboard izmenKeyboard = MapKeyboard2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование клавиатуры (" + keyboard.getBrand() + " " + keyboard.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenKeyboard.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Тип клавиатуры\n" +
+                    "3 - Количество клавиш\n" +
+                    "4 - Тип переключателей\n" +
+                    "5 - Раскладка клавиатуры\n" +
+                    "6 - Наличие цифрового блока\n" +
+                    "7 - Цвет устройства\n" +
+                    "8 - Типы подключения\n" +
+                    "9 - Длина кабеля\n" +
+                    "10 - Беспроводное подключение\n" +
+                    "11 - Наличие RGB подсветки\n" +
+                    "12 - Страна-производитель\n" +
+                    "13 - Год релиза\n" +
+                    "14 - Гарантийный срок\n" +
+                    "15 - Рейтинг\n" +
+                    "16 - Количество на складе\n" +
+                    "17 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenKeyboard.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenKeyboard.setKeyboardType(scanner);
+                        // После изменения типа клавиатуры может измениться доступность типа переключателей
+                        if (!"Механическая".equals(izmenKeyboard.getKeyboardType()) &&
+                                !"Нет".equals(izmenKeyboard.getSwitchType())) {
+                            izmenKeyboard.setSwitchType(scanner); // Перезапросим тип переключателей
+                        }
+                        break;
+                    case 3:
+                        izmenKeyboard.setCountKey(scanner);
+                        break;
+                    case 4:
+                        izmenKeyboard.setSwitchType(scanner);
+                        break;
+                    case 5:
+                        izmenKeyboard.setLayout(scanner);
+                        break;
+                    case 6:
+                        izmenKeyboard.setHasNumpad(scanner);
+                        break;
+                    case 7:
+                        izmenKeyboard.setColor(scanner);
+                        break;
+                    case 8:
+                        izmenKeyboard.setConnectionType(scanner);
+                        break;
+                    case 9:
+                        izmenKeyboard.setCableLength(scanner);
+                        break;
+                    case 10:
+                        izmenKeyboard.setIsWireless(scanner);
+                        break;
+                    case 11:
+                        izmenKeyboard.setHasRGB(scanner);
+                        break;
+                    case 12:
+                        izmenKeyboard.setCountryProduction(scanner);
+                        break;
+                    case 13:
+                        izmenKeyboard.setProductionDate(scanner);
+                        break;
+                    case 14:
+                        izmenKeyboard.setWarrantyMoths(scanner);
+                        break;
+                    case 15:
+                        izmenKeyboard.setRating(scanner);
+                        break;
+                    case 16:
+                        izmenKeyboard.setQuantityProduct(scanner);
+                        break;
+                    case 17:
+                        izmenKeyboard.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        keyboard.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenKeyboard.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapKeyboard.put(id, izmenKeyboard);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenKeyboard);
+
+                                        FileManager.saveKeyboard(MapKeyboard);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
     public static void reWriteTovarAndProduct(Scanner scanner){
 
         int removeChoice;
@@ -2261,27 +3029,27 @@ public class ProductManager {
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Кулер":
-
+                                                    rewriteCooler(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Программное обеспечение":
-
+                                                    rewriteSoftware(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Монитор":
-
+                                                    rewriteMonitor(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Мышь":
-
+                                                    rewriteMouse(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Клавиатура":
-
+                                                    rewriteKeyboard(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
