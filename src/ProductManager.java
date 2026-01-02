@@ -697,6 +697,7 @@ public class ProductManager {
             for(CPU cpu : cpus.values()){
                 cpu.getFullInfoForClient();
                 cpu.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         }
         else {
@@ -712,6 +713,7 @@ public class ProductManager {
             for (RAM ram : rams.values()) {
                 ram.getFullInfoForClient();
                 ram.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -726,6 +728,7 @@ public class ProductManager {
             for (MotherBoard motherboard : motherboards.values()) {
                 motherboard.getFullInfoForClient();
                 motherboard.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -740,6 +743,7 @@ public class ProductManager {
             for (GPU gpu : gpus.values()) {
                 gpu.getFullInfoForClient();
                 gpu.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -754,6 +758,7 @@ public class ProductManager {
             for (Storage storage : storages.values()) {
                 storage.getFullInfoForClient();
                 storage.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -768,6 +773,7 @@ public class ProductManager {
             for (PowerSupply powerSupply : powerSupplies.values()) {
                 powerSupply.getFullInfoForClient();
                 powerSupply.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -782,6 +788,7 @@ public class ProductManager {
             for (Case computerCase : cases.values()) {
                 computerCase.getFullInfoForClient();
                 computerCase.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -796,6 +803,7 @@ public class ProductManager {
             for (Cooler cooler : coolers.values()) {
                 cooler.getFullInfoForClient();
                 cooler.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -810,6 +818,7 @@ public class ProductManager {
             for (Software software : softwareMap.values()) {
                 software.getFullInfoForClient();
                 software.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -824,6 +833,7 @@ public class ProductManager {
             for (Monitor monitor : monitors.values()) {
                 monitor.getFullInfoForClient();
                 monitor.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -838,6 +848,7 @@ public class ProductManager {
             for (Mouse mouse : mice.values()) {
                 mouse.getFullInfoForClient();
                 mouse.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -852,6 +863,7 @@ public class ProductManager {
             for (Keyboard keyboard : keyboards.values()) {
                 keyboard.getFullInfoForClient();
                 keyboard.getFullInfoForSeller();
+                System.out.println("\n=========================================================================\n");
             }
         } else {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
@@ -1219,6 +1231,337 @@ public class ProductManager {
 
     }
 
+    public static void rewriteMotherBoard(String id, Scanner scanner) {
+
+        Map<String, MotherBoard> MapMB = FileManager.loadMotherBoard();
+        MotherBoard mb = MapMB.get(id);
+
+        Map<String, MotherBoard> MapMB2 = FileManager.loadMotherBoard();
+        MotherBoard izmenMB = MapMB2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование материнской платы (" + mb.getBrand() + " " + mb.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenMB.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Интерфейс подключения\n" +
+                    "3 - Чипсет\n" +
+                    "4 - Сокет\n" +
+                    "5 - Количество слотов RAM\n" +
+                    "6 - Максимальный объем RAM\n" +
+                    "7 - Тип памяти\n" +
+                    "8 - Количество M.2 слотов\n" +
+                    "9 - Количество SATA портов\n" +
+                    "10 - Аудиокодек\n" +
+                    "11 - Скорость сетевой карты\n" +
+                    "12 - Наличие WiFi\n" +
+                    "13 - Потребляемая мощность\n" +
+                    "14 - Рабочее напряжение\n" +
+                    "15 - Страна-производитель\n" +
+                    "16 - Год релиза\n" +
+                    "17 - Гарантийный срок\n" +
+                    "18 - Рейтинг\n" +
+                    "19 - Количество на складе\n" +
+                    "20 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenMB.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenMB.setInterfaceType(scanner, izmenMB.getCategory());
+                        break;
+                    case 3:
+                        izmenMB.setChipset(scanner);
+                        break;
+                    case 4:
+                        izmenMB.setSocket(scanner);
+                        break;
+                    case 5:
+                        izmenMB.setRamSlots(scanner);
+                        break;
+                    case 6:
+                        izmenMB.setMaxRamCapacity(scanner);
+                        break;
+                    case 7:
+                        izmenMB.setRamType(scanner);
+                        break;
+                    case 8:
+                        izmenMB.setM2Slots(scanner);
+                        break;
+                    case 9:
+                        izmenMB.setSataPorts(scanner);
+                        break;
+                    case 10:
+                        izmenMB.setAudioCodec(scanner);
+                        break;
+                    case 11:
+                        izmenMB.setLanSpeed(scanner);
+                        break;
+                    case 12:
+                        izmenMB.setHasWiFi(scanner);
+                        break;
+                    case 13:
+                        izmenMB.setPowerConsumption(scanner);
+                        break;
+                    case 14:
+                        izmenMB.setVoltage(scanner);
+                        break;
+                    case 15:
+                        izmenMB.setCountryProduction(scanner);
+                        break;
+                    case 16:
+                        izmenMB.setProductionDate(scanner);
+                        break;
+                    case 17:
+                        izmenMB.setWarrantyMoths(scanner);
+                        break;
+                    case 18:
+                        izmenMB.setRating(scanner);
+                        break;
+                    case 19:
+                        izmenMB.setQuantityProduct(scanner);
+                        break;
+                    case 20:
+                        izmenMB.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        mb.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenMB.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapMB.put(id, izmenMB);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenMB);
+
+                                        FileManager.saveMotherBoard(MapMB);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static void rewriteGPU(String id, Scanner scanner) {
+        Map<String, GPU> MapGPU = FileManager.loadGPU();
+        GPU gpu = MapGPU.get(id);
+
+        Map<String, GPU> MapGPU2 = FileManager.loadGPU();
+        GPU izmenGPU = MapGPU2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование видеокарты (" + gpu.getBrand() + " " + gpu.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenGPU.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Объем видеопамяти\n" +
+                    "3 - Тип памяти\n" +
+                    "4 - Количество CUDA ядер\n" +
+                    "5 - Базовая частота\n" +
+                    "6 - Турбо частота\n" +
+                    "7 - Ширина шины памяти\n" +
+                    "8 - Тип охлаждения\n" +
+                    "9 - Количество разъемов питания\n" +
+                    "10 - Версия PCIe\n" +
+                    "11 - Видеовыходы\n" +
+                    "12 - Потребляемая мощность\n" +
+                    "13 - Рабочее напряжение\n" +
+                    "14 - Страна-производитель\n" +
+                    "15 - Год релиза\n" +
+                    "16 - Гарантийный срок\n" +
+                    "17 - Рейтинг\n" +
+                    "18 - Количество на складе\n" +
+                    "19 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenGPU.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenGPU.setVramSize(scanner);
+                        break;
+                    case 3:
+                        izmenGPU.setMemoryType(scanner);
+                        break;
+                    case 4:
+                        izmenGPU.setCudaCores(scanner);
+                        break;
+                    case 5:
+                        izmenGPU.setBaseFrequency(scanner);
+                        break;
+                    case 6:
+                        izmenGPU.setBoostFrequency(scanner);
+                        break;
+                    case 7:
+                        izmenGPU.setMemoryBusWidth(scanner);
+                        break;
+                    case 8:
+                        izmenGPU.setCoolingType(scanner);
+                        break;
+                    case 9:
+                        izmenGPU.setPowerConnectors(scanner);
+                        break;
+                    case 10:
+                        izmenGPU.setTypePCIe(scanner);
+                        break;
+                    case 11:
+                        izmenGPU.setVideoOutput(scanner);
+                        break;
+                    case 12:
+                        izmenGPU.setPowerConsumption(scanner);
+                        break;
+                    case 13:
+                        izmenGPU.setVoltage(scanner);
+                        break;
+                    case 14:
+                        izmenGPU.setCountryProduction(scanner);
+                        break;
+                    case 15:
+                        izmenGPU.setProductionDate(scanner);
+                        break;
+                    case 16:
+                        izmenGPU.setWarrantyMoths(scanner);
+                        break;
+                    case 17:
+                        izmenGPU.setRating(scanner);
+                        break;
+                    case 18:
+                        izmenGPU.setQuantityProduct(scanner);
+                        break;
+                    case 19:
+                        izmenGPU.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        gpu.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenGPU.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapGPU.put(id, izmenGPU);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenGPU);
+
+                                        FileManager.saveGPU(MapGPU);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
     public static void reWriteTovarAndProduct(Scanner scanner){
 
         int removeChoice;
@@ -1270,12 +1613,12 @@ public class ProductManager {
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Материнская плата":
-
+                                                    rewriteMotherBoard(ID,scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Видеокарта":
-
+                                                    rewriteGPU(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
