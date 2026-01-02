@@ -3148,7 +3148,158 @@ public class ProductManager {
                             {
                                 case 1:
 
+                                    String category = product.getCategory();
+                                    String id = product.getId();
+                                    int quantity = product.getQuantityProduct();
+                                    Map<String, Product> products = FileManager.loadProduct0();
+
+                                    switch (category)
+                                    {
+                                        case "Центральный процессор":
+                                            Map<String, CPU> cpuMap= FileManager.loadCPU();
+                                            CPU cpu = cpuMap.get(id);
+                                            cpu.setPayDate(new Date());
+                                            cpu.setQuantityProduct(quantity-1);
+                                            products.put(id, cpu);
+                                            cpuMap.put(id,cpu);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveCPU(cpuMap);
+                                            client.addShoppingList(cpu);
+                                            break;
+                                        case "Материнская плата":
+                                            Map<String, MotherBoard> MotherBoardMap= FileManager.loadMotherBoard();
+                                            MotherBoard MotherBoard = MotherBoardMap.get(id);
+                                            MotherBoard.setPayDate(new Date());
+                                            MotherBoard.setQuantityProduct(quantity-1);
+                                            products.put(id, MotherBoard);
+                                            MotherBoardMap.put(id,MotherBoard);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveMotherBoard(MotherBoardMap);
+                                            client.addShoppingList(MotherBoard);
+                                            break;
+                                        case "Видеокарта":
+                                            Map<String, GPU> GPUMap= FileManager.loadGPU();
+                                            GPU GPU = GPUMap.get(id);
+                                            GPU.setPayDate(new Date());
+                                            GPU.setQuantityProduct(quantity-1);
+                                            products.put(id,GPU);
+                                            GPUMap.put(id,GPU);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveGPU(GPUMap);
+                                            client.addShoppingList(GPU);
+                                            break;
+                                        case"Оперативная память":
+                                            Map<String, RAM> RAMMap= FileManager.loadRAM();
+                                            RAM RAM = RAMMap.get(id);
+                                            RAM.setPayDate(new Date());
+                                            RAM.setQuantityProduct(quantity-1);
+                                            products.put(id, RAM);
+                                            RAMMap.put(id,RAM);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveRAM(RAMMap);
+                                            client.addShoppingList(RAM);
+                                            break;
+                                        case "Постоянное запоминающее устройство":
+                                            Map<String, Storage> StorageMap= FileManager.loadStorage();
+                                            Storage Storage = StorageMap.get(id);
+                                            Storage.setPayDate(new Date());
+                                            Storage.setQuantityProduct(quantity-1);
+                                            products.put(id, Storage);
+                                            StorageMap.put(id,Storage);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveStorage(StorageMap);
+                                            client.addShoppingList(Storage);
+                                            break;
+                                        case "Блок питания":
+                                            Map<String, PowerSupply> PowerSupplyMap= FileManager.loadPowerSupply();
+                                            PowerSupply PowerSupply = PowerSupplyMap.get(id);
+                                            PowerSupply.setPayDate(new Date());
+                                            PowerSupply.setQuantityProduct(quantity-1);
+                                            products.put(id, PowerSupply);
+                                            PowerSupplyMap.put(id,PowerSupply);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.savePowerSupply(PowerSupplyMap);
+                                            client.addShoppingList(PowerSupply);
+                                            break;
+                                        case "Корпус":
+                                            Map<String, Case> CaseMap= FileManager.loadCase();
+                                            Case Case = CaseMap.get(id);
+                                            Case.setPayDate(new Date());
+                                            Case.setQuantityProduct(quantity-1);
+                                            products.put(id, Case);
+                                            CaseMap.put(id,Case);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveCase(CaseMap);
+                                            client.addShoppingList(Case);
+                                            break;
+                                        case "Кулер":
+                                            Map<String, Cooler> CoolerMap= FileManager.loadCooler();
+                                            Cooler Cooler = CoolerMap.get(id);
+                                            Cooler.setPayDate(new Date());
+                                            Cooler.setQuantityProduct(quantity-1);
+                                            products.put(id, Cooler);
+                                            CoolerMap.put(id,Cooler);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveCooler(CoolerMap);
+                                            client.addShoppingList(Cooler);
+                                            break;
+                                        case "Программное обеспечение":
+                                            Map<String, Software> SoftwareMap= FileManager.loadSoftware();
+                                            Software Software = SoftwareMap.get(id);
+                                            Software.setPayDate(new Date());
+                                            Software.setQuantityProduct(quantity-1);
+                                            products.put(id, Software);
+                                            SoftwareMap.put(id,Software);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveSoftware(SoftwareMap);
+                                            client.addShoppingList(Software);
+                                            break;
+                                        case "Монитор":
+                                            Map<String, Monitor> MonitorMap= FileManager.loadMonitor();
+                                            Monitor Monitor = MonitorMap.get(id);
+                                            Monitor.setPayDate(new Date());
+                                            Monitor.setQuantityProduct(quantity-1);
+                                            products.put(id, Monitor);
+                                            MonitorMap.put(id,Monitor);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveMonitor(MonitorMap);
+                                            client.addShoppingList(Monitor);
+                                            break;
+                                        case "Мышь":
+                                            Map<String, Mouse> MouseMap= FileManager.loadMouse();
+                                            Mouse Mouse = MouseMap.get(id);
+                                            Mouse.setPayDate(new Date());
+                                            Mouse.setQuantityProduct(quantity-1);
+                                            products.put(id, Mouse);
+                                            MouseMap.put(id,Mouse);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveMouse(MouseMap);
+                                            client.addShoppingList(Mouse);
+                                            break;
+                                        case "Клавиатура":
+                                            Map<String, Keyboard> KeyboardMap= FileManager.loadKeyboard();
+                                            Keyboard Keyboard = KeyboardMap.get(id);
+                                            Keyboard.setPayDate(new Date());
+                                            Keyboard.setQuantityProduct(quantity-1);
+                                            products.put(id, Keyboard);
+                                            KeyboardMap.put(id,Keyboard);
+                                            FileManager.saveProduct0(products);
+                                            FileManager.saveKeyboard(KeyboardMap);
+                                            client.addShoppingList(Keyboard);
+
+                                            break;
+                                    }
+
+                                    client.deductBalance(product.getPrice());
+                                    FileManager.rewriteClient(client);
+
+                                    System.out.println("\nПокупка товара прошла успешна!");
+                                    replayCycle = false;
+                                    cycle = false;
+
+
                                     break;
+
                                 case 0:
                                     replayCycle = false;
                                     cycle = false;
@@ -3157,6 +3308,7 @@ public class ProductManager {
                                     System.out.println("Такого варианта выбора нет!\n" +
                                             "Пожалуйста, введите корректное число!");
                             }
+
 
                         }catch (InputMismatchException e) {
                             System.out.println("Произошла ошибка!\n" +

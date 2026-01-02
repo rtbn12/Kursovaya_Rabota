@@ -332,6 +332,13 @@ public  class Product implements Serializable {
         }
     }
 
+    public void setQuantityProduct(int quantityProduct) {
+        if (quantityProduct < 0) {
+            throw new IllegalArgumentException("Количество не может быть отрицательным");
+        }
+        this.quantityProduct = quantityProduct;
+    }
+
 
 
 

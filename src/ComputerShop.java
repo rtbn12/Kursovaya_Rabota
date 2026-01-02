@@ -14,6 +14,8 @@ public class ComputerShop {
    public static  void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+//        Migrator();// применяется при изменении методов классов
+
         boolean cycle = true;
         while (cycle)
         {
@@ -334,10 +336,6 @@ public class ComputerShop {
 
                                        if(client != null)
                                        {
-//                                           String login = client.getLogin();
-//                                           Map<String,ShoppingList> shoppingListMap = FileManager.loadShoppingLists();
-//                                           ShoppingList shoppingListClient = shoppingListMap.get(login);
-                                           // раздел списка покупок
                                            int shoppingListChoice;
                                            boolean shoppingList = true;
                                            while(shoppingList)
@@ -1093,5 +1091,79 @@ public class ComputerShop {
         }
 
 
+    }
+
+    public static void Migrator(){
+        System.out.println("=== Начало миграции товаров ===");
+
+        // Просто загружаем и сразу сохраняем каждый тип товаров
+        // Это перезапишет объекты как "новые"
+
+        // 1. Процессоры
+        Map<String, CPU> cpuMap = FileManager.loadCPU();
+        FileManager.saveCPU(cpuMap);
+        System.out.println("CPU мигрированы: " + cpuMap.size());
+
+        // 2. RAM
+        Map<String, RAM> ramMap = FileManager.loadRAM();
+        FileManager.saveRAM(ramMap);
+        System.out.println("RAM мигрированы: " + ramMap.size());
+
+        // 3. Материнские платы
+        Map<String, MotherBoard> mbMap = FileManager.loadMotherBoard();
+        FileManager.saveMotherBoard(mbMap);
+        System.out.println("MotherBoard мигрированы: " + mbMap.size());
+
+        // 4. Видеокарты
+        Map<String, GPU> gpuMap = FileManager.loadGPU();
+        FileManager.saveGPU(gpuMap);
+        System.out.println("GPU мигрированы: " + gpuMap.size());
+
+        // 5. Накопители
+        Map<String, Storage> storageMap = FileManager.loadStorage();
+        FileManager.saveStorage(storageMap);
+        System.out.println("Storage мигрированы: " + storageMap.size());
+
+        // 6. Блоки питания
+        Map<String, PowerSupply> psMap = FileManager.loadPowerSupply();
+        FileManager.savePowerSupply(psMap);
+        System.out.println("PowerSupply мигрированы: " + psMap.size());
+
+        // 7. Корпуса
+        Map<String, Case> caseMap = FileManager.loadCase();
+        FileManager.saveCase(caseMap);
+        System.out.println("Case мигрированы: " + caseMap.size());
+
+        // 8. Кулеры
+        Map<String, Cooler> coolerMap = FileManager.loadCooler();
+        FileManager.saveCooler(coolerMap);
+        System.out.println("Cooler мигрированы: " + coolerMap.size());
+
+        // 9. ПО
+        Map<String, Software> softwareMap = FileManager.loadSoftware();
+        FileManager.saveSoftware(softwareMap);
+        System.out.println("Software мигрированы: " + softwareMap.size());
+
+        // 10. Мониторы
+        Map<String, Monitor> monitorMap = FileManager.loadMonitor();
+        FileManager.saveMonitor(monitorMap);
+        System.out.println("Monitor мигрированы: " + monitorMap.size());
+
+        // 11. Мыши
+        Map<String, Mouse> mouseMap = FileManager.loadMouse();
+        FileManager.saveMouse(mouseMap);
+        System.out.println("Mouse мигрированы: " + mouseMap.size());
+
+        // 12. Клавиатуры
+        Map<String, Keyboard> keyboardMap = FileManager.loadKeyboard();
+        FileManager.saveKeyboard(keyboardMap);
+        System.out.println("Keyboard мигрированы: " + keyboardMap.size());
+
+        // 13. Общая карта продуктов
+        Map<String, Product> productMap = FileManager.loadProduct0();
+        FileManager.saveProduct0(productMap);
+        System.out.println("Общая карта продуктов мигрирована: " + productMap.size());
+
+        System.out.println("=== Миграция завершена ===");
     }
 }

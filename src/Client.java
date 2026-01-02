@@ -54,8 +54,7 @@ public class Client extends User{
 
                 product.getMiniInfo();
                 product.getFullInformationForShoppingList();
-                //как доработаю класс продукт сделать дополнительно вывод времени покупок
-                System.out.println("\n\n");
+                System.out.println("\n===================================================\n");
             }
         }
         else {
