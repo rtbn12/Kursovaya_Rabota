@@ -510,7 +510,7 @@ public class ProductManager {
 
     }
 
-    public static void searchProductForClient(){
+    public static Product searchProductForClient(){
 
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -587,6 +587,8 @@ public class ProductManager {
                 break;
 
         }
+
+        return product;
 
 
     }
@@ -3105,6 +3107,124 @@ public class ProductManager {
 
         }
 
+
+
+    }
+
+
+
+    public static void buyProductTovar(Product product,Client client, Scanner scanner){
+
+        boolean cycle = true;
+        while(cycle){
+            if(product.getPrice()<=client.getBalance()){
+
+                if(product.getQuantityProduct()==0){
+                    System.out.println("\nВы временно не можете купить данный товар!\n" +
+                            "Данный товар на данный момент отсутствует на складе!");
+                    cycle = false;
+
+                }else{
+
+                    int replayChoice;
+                    boolean replayCycle = true;
+                    while(replayCycle)
+                    {
+                        System.out.print("\nВы подтверждаете покупку товара?\n" +
+                                "(Подтверждаете, что совершаете покупку товара осознано, без внешнего принуждающего воздействия)\n" +
+                                "В случае успешной покупки, купленный вами товар отобразится в вашем списке покупок,\n" +
+                                "а с вашего счёта спишется " + product.getPrice()+" рублей(ля)\n" +
+                                "Выберите одно из доступных действий:\n" +
+                                "1 - Подтвердить и завершить процесс покупки\n" +
+                                "0 - Прервать процесс покупки\n" +
+                                "Ваш выбор:");
+
+
+                        try {
+                            replayChoice = scanner.nextInt();
+                            scanner.nextLine();
+
+                            switch (replayChoice)
+                            {
+                                case 1:
+
+                                    break;
+                                case 0:
+                                    replayCycle = false;
+                                    cycle = false;
+                                    break;
+                                default:
+                                    System.out.println("Такого варианта выбора нет!\n" +
+                                            "Пожалуйста, введите корректное число!");
+                            }
+
+                        }catch (InputMismatchException e) {
+                            System.out.println("Произошла ошибка!\n" +
+                                    "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                    "В прошлый раз вы ввели букву вместо числа!");
+                            scanner.nextLine();
+                        }
+                        catch (Exception a) {
+                            System.out.println("Произошла неизвестная ошибка!");
+                            scanner.nextLine();
+                        }
+
+                    }
+                }
+
+
+            }else{
+
+                int dodepChoice;
+                double difference = product.getPrice()- client.getBalance();
+                boolean dodepCycle = true;
+                while(dodepCycle)
+                {
+                    System.out.print("\nНа вашем балансе недостаточно средств!\n" +
+                            "Ваш текущий баланс составляет: " + client.getBalance()+ " рублей(ля)!\n\n" +
+                            "Для продолжения процесса покупки необходимо пополнить баланс минимум на " + difference+ " рублей(ля)!\n" +
+                            "Выберите одно из доступных действий:\n" +
+                            "1 - пополнить баланс на "+ difference+ " рублей(ля)\n" +
+                            "0 - Прервать процесс покупки\n" +
+                            "Ваш выбор:");
+
+
+                    try {
+                        dodepChoice = scanner.nextInt();
+                        scanner.nextLine();
+
+                        switch (dodepChoice)
+                        {
+                            case 1:
+                                client.addBalance(difference);
+                                FileManager.rewriteClient(client);
+                                dodepCycle = false;
+                                break;
+                            case 0:
+                                dodepCycle = false;
+                                cycle = false;
+                                break;
+                            default:
+                                System.out.println("Такого варианта выбора нет!\n" +
+                                        "Пожалуйста, введите корректное число!");
+                        }
+
+                    }catch (InputMismatchException e) {
+                        System.out.println("Произошла ошибка!\n" +
+                                "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                "В прошлый раз вы ввели букву вместо числа!");
+                        scanner.nextLine();
+                    }
+                    catch (Exception a) {
+                        System.out.println("Произошла неизвестная ошибка!");
+                        scanner.nextLine();
+                    }
+
+                }
+
+
+            }
+        }
 
 
     }

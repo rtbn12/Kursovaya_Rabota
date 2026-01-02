@@ -985,7 +985,7 @@ public class ComputerShop {
 
 
     private static void productActionsMenu( Scanner scanner) {
-        ProductManager.searchProductForClient();
+        Product product = ProductManager.searchProductForClient();
         int choice;
         boolean cycle = true;
 
@@ -1003,7 +1003,7 @@ public class ComputerShop {
                 switch (choice) {
                     case 1:
                         if(client != null) {
-                            // здесь будет логика для покупки товара
+                            ProductManager.buyProductTovar(product,client,scanner);
                         } else {
                             System.out.println("\nДля выполнения этого действия сначала надо пройти процесс авторизации!");
                         }
