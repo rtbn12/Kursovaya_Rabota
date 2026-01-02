@@ -1562,6 +1562,326 @@ public class ProductManager {
         }
     }
 
+    public static void rewriteRAM(String id, Scanner scanner) {
+        Map<String, RAM> MapRAM = FileManager.loadRAM();
+        RAM ram = MapRAM.get(id);
+
+        Map<String, RAM> MapRAM2 = FileManager.loadRAM();
+        RAM izmenRAM = MapRAM2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование оперативной памяти (" + ram.getBrand() + " " + ram.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenRAM.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Интерфейс подключения\n" +
+                    "3 - Объем одного модуля\n" +
+                    "4 - Частота\n" +
+                    "5 - Тайминги (CL)\n" +
+                    "6 - Тип памяти\n" +
+                    "7 - Количество модулей в комплекте\n" +
+                    "8 - RGB подсветка\n" +
+                    "9 - Радиатор охлаждения\n" +
+                    "10 - Потребляемая мощность\n" +
+                    "11 - Рабочее напряжение\n" +
+                    "12 - Страна-производитель\n" +
+                    "13 - Год релиза\n" +
+                    "14 - Гарантийный срок\n" +
+                    "15 - Рейтинг\n" +
+                    "16 - Количество на складе\n" +
+                    "17 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenRAM.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenRAM.setInterfaceType(scanner, izmenRAM.getCategory());
+                        break;
+                    case 3:
+                        izmenRAM.setCapacity(scanner);
+                        break;
+                    case 4:
+                        izmenRAM.setFrequency(scanner);
+                        break;
+                    case 5:
+                        izmenRAM.setLatency(scanner);
+                        break;
+                    case 6:
+                        izmenRAM.setMemoryType(scanner);
+                        break;
+                    case 7:
+                        izmenRAM.setModulesCount(scanner);
+                        break;
+                    case 8:
+                        izmenRAM.setHasRGB(scanner);
+                        break;
+                    case 9:
+                        izmenRAM.setHasHeatSpreader(scanner);
+                        break;
+                    case 10:
+                        izmenRAM.setPowerConsumption(scanner);
+                        break;
+                    case 11:
+                        izmenRAM.setVoltage(scanner);
+                        break;
+                    case 12:
+                        izmenRAM.setCountryProduction(scanner);
+                        break;
+                    case 13:
+                        izmenRAM.setProductionDate(scanner);
+                        break;
+                    case 14:
+                        izmenRAM.setWarrantyMoths(scanner);
+                        break;
+                    case 15:
+                        izmenRAM.setRating(scanner);
+                        break;
+                    case 16:
+                        izmenRAM.setQuantityProduct(scanner);
+                        break;
+                    case 17:
+                        izmenRAM.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        ram.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenRAM.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapRAM.put(id, izmenRAM);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenRAM);
+
+                                        FileManager.saveRAM(MapRAM);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static void rewriteStorage(String id, Scanner scanner) {
+        Map<String, Storage> MapStorage = FileManager.loadStorage();
+        Storage storage = MapStorage.get(id);
+
+        Map<String, Storage> MapStorage2 = FileManager.loadStorage();
+        Storage izmenStorage = MapStorage2.get(id);
+
+        int Choice;
+        boolean Cycle = true;
+        while (Cycle) {
+            System.out.println("\n\n+-+-+-+-+-+-+-+--Редактирование накопителя (" + storage.getBrand() + " " + storage.getModel() + " ID: " + id + ")--+-+-+-+-+-+-+-+");
+            izmenStorage.getFullInfoForClient();
+            System.out.print("\nВыберите номер поля, которое собрались редактировать:\n" +
+                    "(Или введите 0, если вы уже отредактировали всё, что нужно):\n" +
+                    "1 - Цена\n" +
+                    "2 - Интерфейс подключения\n" +
+                    "3 - Тип накопителя\n" +
+                    "4 - Емкость\n" +
+                    "5 - Форм-фактор\n" +
+                    "6 - Скорость чтения\n" +
+                    "7 - Скорость записи\n" +
+                    "8 - Ресурс записи (TBW)\n" +
+                    "9 - Размер кэша\n" +
+                    "10 - Тип памяти NAND\n" +
+                    "11 - Потребляемая мощность\n" +
+                    "12 - Рабочее напряжение\n" +
+                    "13 - Страна-производитель\n" +
+                    "14 - Год релиза\n" +
+                    "15 - Гарантийный срок\n" +
+                    "16 - Рейтинг\n" +
+                    "17 - Количество на складе\n" +
+                    "18 - Описание\n" +
+                    "0 - Прекратить редактирование\n" +
+                    "Ваш выбор:");
+
+            try {
+                Choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (Choice) {
+                    case 1:
+                        izmenStorage.setPrice(scanner);
+                        break;
+                    case 2:
+                        izmenStorage.setInterfaceType(scanner, izmenStorage.getCategory());
+                        break;
+                    case 3:
+                        izmenStorage.setStorageType(scanner);
+                        break;
+                    case 4:
+                        izmenStorage.setCapacity(scanner);
+                        break;
+                    case 5:
+                        izmenStorage.setFormFactor(scanner);
+                        break;
+                    case 6:
+                        izmenStorage.setReadSpeed(scanner);
+                        // После изменения скорости чтения нужно проверить скорость записи
+                        if (izmenStorage.getWriteSpeed() > izmenStorage.getReadSpeed()) {
+                            System.out.println("\nВнимание! Скорость записи (" + izmenStorage.getWriteSpeed() +
+                                    " МБ/с) больше скорости чтения (" + izmenStorage.getReadSpeed() +
+                                    " МБ/с). Рекомендуется изменить скорость записи.");
+                        }
+                        break;
+                    case 7:
+                        izmenStorage.setWriteSpeed(scanner);
+                        break;
+                    case 8:
+                        izmenStorage.setTbw(scanner);
+                        break;
+                    case 9:
+                        izmenStorage.setCacheSize(scanner);
+                        break;
+                    case 10:
+                        izmenStorage.setNandType(scanner);
+                        break;
+                    case 11:
+                        izmenStorage.setPowerConsumption(scanner);
+                        break;
+                    case 12:
+                        izmenStorage.setVoltage(scanner);
+                        break;
+                    case 13:
+                        izmenStorage.setCountryProduction(scanner);
+                        break;
+                    case 14:
+                        izmenStorage.setProductionDate(scanner);
+                        break;
+                    case 15:
+                        izmenStorage.setWarrantyMoths(scanner);
+                        break;
+                    case 16:
+                        izmenStorage.setRating(scanner);
+                        break;
+                    case 17:
+                        izmenStorage.setQuantityProduct(scanner);
+                        break;
+                    case 18:
+                        izmenStorage.setDescription(scanner);
+                        break;
+                    case 0:
+                        System.out.println("\n======================== Исходный вариант =========================");
+                        storage.getFullInfoForClient();
+                        System.out.println("\n======================== Конечный вариант =========================");
+                        izmenStorage.getFullInfoForClient();
+
+                        int printChoice;
+                        boolean print = true;
+                        while (print) {
+                            System.out.print("\nВыберите одно из доступных действий:\n" +
+                                    "1 - Сохранить все изменения\n" +
+                                    "0 - Отменить изменения (оставить оригинал)\n" +
+                                    "Ваш выбор:");
+
+                            try {
+                                printChoice = scanner.nextInt();
+
+                                switch (printChoice) {
+                                    case 1:
+                                        MapStorage.put(id, izmenStorage);
+                                        Map<String, Product> ProductMap = FileManager.loadProduct0();
+                                        ProductMap.put(id, izmenStorage);
+
+                                        FileManager.saveStorage(MapStorage);
+                                        FileManager.saveProduct0(ProductMap);
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nВаши изменения были сохранены!");
+                                        break;
+                                    case 0:
+                                        print = false;
+                                        Cycle = false;
+                                        System.out.println("\nИзменения были отменены!");
+                                        break;
+                                    default:
+                                        System.out.println("Такого варианта выбора нет!\n" +
+                                                "Пожалуйста, введите корректное число!");
+                                }
+                            } catch (InputMismatchException e) {
+                                System.out.println("Произошла ошибка!\n" +
+                                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                        "В прошлый раз вы ввели букву вместо числа!");
+                                scanner.nextLine();
+                            } catch (Exception a) {
+                                System.out.println("Произошла неизвестная ошибка!");
+                                scanner.nextLine();
+                            }
+                        }
+                        break;
+                    default:
+                        System.out.println("Такого варианта выбора нет!\n" +
+                                "Пожалуйста, введите корректное число!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Произошла ошибка!\n" +
+                        "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                        "В прошлый раз вы ввели букву вместо числа!");
+                scanner.nextLine();
+            } catch (Exception a) {
+                System.out.println("Произошла неизвестная ошибка!");
+                scanner.nextLine();
+            }
+        }
+    }
+
     public static void reWriteTovarAndProduct(Scanner scanner){
 
         int removeChoice;
@@ -1623,12 +1943,12 @@ public class ProductManager {
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case"Оперативная память":
-
+                                                    rewriteRAM(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
                                                 case "Постоянное запоминающее устройство":
-
+                                                    rewriteStorage(ID, scanner);
                                                     cycle = false;
                                                     removeRemoveCycle = false;
                                                     break;
