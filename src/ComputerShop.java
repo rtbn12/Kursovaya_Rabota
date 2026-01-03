@@ -344,6 +344,7 @@ public class ComputerShop {
                                                                    {
                                                                        case 1:
                                                                            client.buyALLShoppingCard(scanner);
+                                                                           FileManager.rewriteClient(client);
                                                                            buyALLCycle = false;
                                                                            break;
 
@@ -366,6 +367,7 @@ public class ComputerShop {
                                                                    System.out.println("Произошла неизвестная ошибка!");
                                                                    scanner.nextLine();
                                                                }
+
 
                                                            }
                                                            break;
@@ -390,6 +392,7 @@ public class ComputerShop {
                                                                            System.out.print("\nВведите id товара, который хотите купить:");
                                                                            String idToBye = scanner.nextLine();
                                                                            client.buyProductInShoppingCartById(idToBye,scanner);
+                                                                           FileManager.rewriteClient(client);
                                                                            byeToIDCycle = false;
                                                                            break;
 
@@ -436,6 +439,7 @@ public class ComputerShop {
                                                                        case 1:
                                                                            client.clearShoppingCart();
                                                                            clearCycle = false;
+                                                                           FileManager.rewriteClient(client);
                                                                            break;
 
                                                                        case 0:
@@ -481,6 +485,7 @@ public class ComputerShop {
                                                                            System.out.print("\nВведите id товара, который хотите удалить из корзины:");
                                                                            String idToRemove = scanner.nextLine();
                                                                            client.removeProductInShoppingCartById(idToRemove);
+                                                                           FileManager.rewriteClient(client);
                                                                            removeToIDCycle = false;
                                                                            break;
 
@@ -1215,6 +1220,7 @@ public class ComputerShop {
                     case 2:
                         if(client != null) {
                             client.addShoppingCart(product);
+                            FileManager.rewriteClient(client);
                         } else {
                             System.out.println("\nДля выполнения этого действия сначала надо пройти процесс авторизации!");
                         }

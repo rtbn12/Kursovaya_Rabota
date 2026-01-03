@@ -4,7 +4,7 @@ public class Client extends User{
 
     private double balance;
     private List<Product> shoppingList;
-    private LinkedList<Product> shoppingCart;
+    private  LinkedList<Product> shoppingCart;
 
     public Client(String name, String password, String login, int Role) {
         super(name, password, login, Role);
@@ -71,7 +71,10 @@ public class Client extends User{
 
     public void printShoppingCart(){
 
+        this.reFresh();
+
         if(!shoppingCart.isEmpty()){
+
 
             for(Product product : shoppingCart){
 
@@ -144,6 +147,8 @@ public class Client extends User{
 
     public void buyProductInShoppingCartById(String id, Scanner scanner){
 
+        this.reFresh();
+
         if (shoppingCart.isEmpty()) {
             System.out.println("\nВаша корзина пуста!");
 
@@ -181,8 +186,10 @@ public class Client extends User{
     }
 
     public void buyALLShoppingCard(Scanner scanner){
+        this.reFresh();
 
         if(!shoppingCart.isEmpty()){
+
 
             List<Product> cartCopy = new ArrayList<>(shoppingCart);
 
@@ -203,5 +210,33 @@ public class Client extends User{
             System.out.println("\nВаша корзина пуста!");
         }
 
+    }
+
+    public void reFresh() {
+        if (shoppingCart.isEmpty()) return;
+
+        Map<String, Product> products = FileManager.loadProduct0();
+        LinkedList<Product> newCart = new LinkedList<>();
+
+        for (Product product : shoppingCart) {
+            Product freshProduct = products.get(product.getId());
+
+            if (freshProduct != null && freshProduct.getQuantityProduct() > 0) {
+
+                newCart.add(freshProduct);
+            } else {
+
+                System.out.println("\nТовар \"" + product.getBrand() + " " +
+                        product.getModel() + "\" " +
+                        (freshProduct == null ? "удален из каталога" : "закончился") +
+                        " и удален из корзины!");
+            }
+        }
+
+
+        shoppingCart.clear();
+        shoppingCart.addAll(newCart);
+
+        System.out.println("\nКорзина обновлена!");
     }
 }
