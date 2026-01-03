@@ -276,12 +276,13 @@ public class ComputerShop {
                                            while(bascet)
                                            {
                                                System.out.println("\n\n+-+-+-+-+-+-+-+--Ваша корзина--+-+-+-+-+-+-+-+");
-                                               // тут будет метод для вывода содержимого корзины
+                                               client.printShoppingCart();
                                                System.out.print("\nВыберите одно из доступных действий:\n" +
-                                                       "1 - Купить все товары\n" +
-                                                       "2 - Купить товар по его id\n" +
-                                                       "3 - Очистить козину\n" +
-                                                       "4 - Удалить товар из корзины по его id\n" +
+                                                       "1 - Подробнее о каком-либо товаре\n" +
+                                                       "2 - Купить все товары\n" +
+                                                       "3 - Купить товар по его id\n" +
+                                                       "4 - Очистить козину\n" +
+                                                       "5 - Удалить товар из корзины по его id\n" +
                                                        "0 - Выход в меню покупателя\n" +
                                                        "Ваш выбор:");
                                                try {
@@ -290,16 +291,220 @@ public class ComputerShop {
                                                    switch (basketChoice)
                                                    {
                                                        case 1:
-                                                          // логика для покупки всех товаров
+                                                           ProductManager.searchProductForClient();
+                                                           int searchC;
+                                                           boolean searchCCC = true;
+                                                           while(searchCCC)
+                                                           {
+
+                                                               System.out.print("\nВведите 0 для возвращения к корзине:");
+                                                               try {
+                                                                   searchC = scanner.nextInt();
+
+                                                                   switch (searchC)
+                                                                   {
+
+                                                                       case 0:
+                                                                           searchCCC = false;
+                                                                           break;
+                                                                       default:
+                                                                           System.out.println("Такого варианта выбора нет!\n" +
+                                                                                   "Пожалуйста, введите корректное число!");
+                                                                   }
+
+                                                               }catch (InputMismatchException e) {
+                                                                   System.out.println("Произошла ошибка!\n" +
+                                                                           "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                                   scanner.nextLine();
+                                                               }
+                                                               catch (Exception a) {
+                                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                                   scanner.nextLine();
+                                                               }
+
+                                                           }
                                                            break;
                                                        case 2:
-                                                           // логика для покупки товара по id
+                                                           int buyALLChoice;
+                                                           boolean buyALLCycle = true;
+                                                           while(buyALLCycle)
+                                                           {
+
+                                                               System.out.print("\nВы точно уверены в том, что хотите купить все товары из вашей корзины?\n" +
+                                                                       "Выберите одно из доступных действий:\n" +
+                                                                       "1 - Подтвердить покупку всех товаров\n" +
+                                                                       "0 - Отменить процесс покупки всех товаров\n" +
+                                                                       "Ваш выбор:");
+                                                               try {
+                                                                   buyALLChoice = scanner.nextInt();
+                                                                   scanner.nextLine();
+
+                                                                   switch (buyALLChoice)
+                                                                   {
+                                                                       case 1:
+                                                                           client.buyALLShoppingCard(scanner);
+                                                                           buyALLCycle = false;
+                                                                           break;
+
+                                                                       case 0:
+                                                                           buyALLCycle = false;
+                                                                           System.out.println("\nПроцесс покупки всех товаров был отменён!");
+                                                                           break;
+                                                                       default:
+                                                                           System.out.println("Такого варианта выбора нет!\n" +
+                                                                                   "Пожалуйста, введите корректное число!");
+                                                                   }
+
+                                                               }catch (InputMismatchException e) {
+                                                                   System.out.println("Произошла ошибка!\n" +
+                                                                           "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                                   scanner.nextLine();
+                                                               }
+                                                               catch (Exception a) {
+                                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                                   scanner.nextLine();
+                                                               }
+
+                                                           }
                                                            break;
                                                        case 3:
-                                                           // логика для очистки корзины
+                                                           int byeToIDChoice;
+                                                           boolean byeToIDCycle = true;
+                                                           while(byeToIDCycle)
+                                                           {
+
+                                                               System.out.print("\nВы точно уверены в том, что хотите купить товар?\n" +
+                                                                       "Выберите одно из доступных действий:\n" +
+                                                                       "1 - Подтвердить покупку товара\n" +
+                                                                       "0 - Отменить процесс покупки товара\n" +
+                                                                       "Ваш выбор:");
+                                                               try {
+                                                                   byeToIDChoice = scanner.nextInt();
+                                                                   scanner.nextLine();
+
+                                                                   switch (byeToIDChoice)
+                                                                   {
+                                                                       case 1:
+                                                                           System.out.print("\nВведите id товара, который хотите купить:");
+                                                                           String idToBye = scanner.nextLine();
+                                                                           client.buyProductInShoppingCartById(idToBye,scanner);
+                                                                           byeToIDCycle = false;
+                                                                           break;
+
+                                                                       case 0:
+                                                                           byeToIDCycle = false;
+                                                                           System.out.println("\nПроцесс покупки товара был отменён!");
+                                                                           break;
+                                                                       default:
+                                                                           System.out.println("Такого варианта выбора нет!\n" +
+                                                                                   "Пожалуйста, введите корректное число!");
+                                                                   }
+
+                                                               }catch (InputMismatchException e) {
+                                                                   System.out.println("Произошла ошибка!\n" +
+                                                                           "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                                   scanner.nextLine();
+                                                               }
+                                                               catch (Exception a) {
+                                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                                   scanner.nextLine();
+                                                               }
+
+                                                           }
+
                                                            break;
                                                        case 4:
-                                                           // логика для удаления товара по его id
+                                                           int clearChoice;
+                                                           boolean clearCycle = true;
+                                                           while(clearCycle)
+                                                           {
+
+                                                               System.out.print("\nВы точно уверены в том, что хотите удалить всё содержимое вашей корзины?\n" +
+                                                                       "Выберите одно из доступных действий:\n" +
+                                                                       "1 - Подтвердить очистку корзины\n" +
+                                                                       "0 - Отменить процесс очистки корзины\n" +
+                                                                       "Ваш выбор:");
+                                                               try {
+                                                                   clearChoice = scanner.nextInt();
+                                                                   scanner.nextLine();
+
+                                                                   switch (clearChoice)
+                                                                   {
+                                                                       case 1:
+                                                                           client.clearShoppingCart();
+                                                                           clearCycle = false;
+                                                                           break;
+
+                                                                       case 0:
+                                                                           clearCycle = false;
+                                                                           System.out.println("\nПроцесс очистки корзины был отменён!");
+                                                                           break;
+                                                                       default:
+                                                                           System.out.println("Такого варианта выбора нет!\n" +
+                                                                                   "Пожалуйста, введите корректное число!");
+                                                                   }
+
+                                                               }catch (InputMismatchException e) {
+                                                                   System.out.println("Произошла ошибка!\n" +
+                                                                           "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                                   scanner.nextLine();
+                                                               }
+                                                               catch (Exception a) {
+                                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                                   scanner.nextLine();
+                                                               }
+
+                                                           }
+                                                           break;
+                                                       case 5:
+                                                           int removeToIDChoice;
+                                                           boolean removeToIDCycle = true;
+                                                           while(removeToIDCycle)
+                                                           {
+
+                                                               System.out.print("\nВы точно уверены в том, что хотите удалить товар из вашей корзины?\n" +
+                                                                       "Выберите одно из доступных действий:\n" +
+                                                                       "1 - Подтвердить удаление товара из корзины\n" +
+                                                                       "0 - Отменить процесс удаления товара из корзины\n" +
+                                                                       "Ваш выбор:");
+                                                               try {
+                                                                   removeToIDChoice = scanner.nextInt();
+                                                                   scanner.nextLine();
+
+                                                                   switch (removeToIDChoice)
+                                                                   {
+                                                                       case 1:
+                                                                           System.out.print("\nВведите id товара, который хотите удалить из корзины:");
+                                                                           String idToRemove = scanner.nextLine();
+                                                                           client.removeProductInShoppingCartById(idToRemove);
+                                                                           removeToIDCycle = false;
+                                                                           break;
+
+                                                                       case 0:
+                                                                           removeToIDCycle = false;
+                                                                           System.out.println("\nПроцесс удаления товара из корзины был отменён!");
+                                                                           break;
+                                                                       default:
+                                                                           System.out.println("Такого варианта выбора нет!\n" +
+                                                                                   "Пожалуйста, введите корректное число!");
+                                                                   }
+
+                                                               }catch (InputMismatchException e) {
+                                                                   System.out.println("Произошла ошибка!\n" +
+                                                                           "Пожалуйста, введите корректное целочисленное значение выбранного варианта!\n" +
+                                                                           "В прошлый раз вы ввели букву вместо числа!");
+                                                                   scanner.nextLine();
+                                                               }
+                                                               catch (Exception a) {
+                                                                   System.out.println("Произошла неизвестная ошибка!");
+                                                                   scanner.nextLine();
+                                                               }
+
+                                                           }
                                                            break;
                                                        case 0:
                                                            bascet = false;
@@ -1009,7 +1214,7 @@ public class ComputerShop {
 
                     case 2:
                         if(client != null) {
-                            // здесь логика для того, чтобы положить товар в корзину
+                            client.addShoppingCart(product);
                         } else {
                             System.out.println("\nДля выполнения этого действия сначала надо пройти процесс авторизации!");
                         }

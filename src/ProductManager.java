@@ -3113,9 +3113,10 @@ public class ProductManager {
 
 
 
-    public static void buyProductTovar(Product product,Client client, Scanner scanner){
+    public static boolean buyProductTovar(Product product,Client client, Scanner scanner){
 
         boolean cycle = true;
+        boolean buy = true;
         while(cycle){
             if(product.getPrice()<=client.getBalance()){
 
@@ -3123,7 +3124,7 @@ public class ProductManager {
                     System.out.println("\nВы временно не можете купить данный товар!\n" +
                             "Данный товар на данный момент отсутствует на складе!");
                     cycle = false;
-
+                    buy = false;
                 }else{
 
                     int replayChoice;
@@ -3303,6 +3304,7 @@ public class ProductManager {
                                 case 0:
                                     replayCycle = false;
                                     cycle = false;
+                                    buy = false;
                                     break;
                                 default:
                                     System.out.println("Такого варианта выбора нет!\n" +
@@ -3355,6 +3357,7 @@ public class ProductManager {
                             case 0:
                                 dodepCycle = false;
                                 cycle = false;
+                                buy = false;
                                 break;
                             default:
                                 System.out.println("Такого варианта выбора нет!\n" +
@@ -3377,6 +3380,8 @@ public class ProductManager {
 
             }
         }
+
+        return buy;
 
 
     }
