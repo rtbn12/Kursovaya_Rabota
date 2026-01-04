@@ -685,7 +685,7 @@ public class ComputerShop {
 
                                         else
                                         {
-                                            System.out.println("Продавец не авторизован!");
+                                            System.out.println("\nПродавец не авторизован!");
                                         }
                                         break;
                                     case 4://Каталог товаров
@@ -790,7 +790,7 @@ public class ComputerShop {
 
                                         else
                                         {
-                                            System.out.println("Продавец не авторизован!");
+                                            System.out.println("\nПродавец не авторизован!");
                                         }
 
                                         break;
@@ -841,7 +841,7 @@ public class ComputerShop {
 
                                         else
                                         {
-                                            System.out.println("Продавец не авторизован!");
+                                            System.out.println("\nПродавец не авторизован!");
                                         }
 
                                         break;
@@ -853,7 +853,7 @@ public class ComputerShop {
 
                                         else
                                         {
-                                            System.out.println("Продавец не авторизован!");
+                                            System.out.println("\nПродавец не авторизован!");
                                         }
 
                                         break;
@@ -865,7 +865,7 @@ public class ComputerShop {
 
                                         else
                                         {
-                                            System.out.println("Продавец не авторизован!");
+                                            System.out.println("\nПродавец не авторизован!");
                                         }
 
                                         break;
