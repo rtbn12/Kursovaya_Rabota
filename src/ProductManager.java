@@ -69,7 +69,6 @@ public class ProductManager {
     }
 
 
-
     public static void registrationGPU(String choiceCategory){
 
         Scanner scanner = new Scanner(System.in);
@@ -102,7 +101,6 @@ public class ProductManager {
             System.out.println("\nОшибка при регистрации видеокарты: " + e.getMessage());
         }
     }
-
 
 
     public static void registrationRAM(String choiceCategory) {
