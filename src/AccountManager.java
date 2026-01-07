@@ -79,10 +79,7 @@ public class AccountManager {
                 "Спасибо за регистрацию!");
 
         clients.put(login,new Client(name,password,login,1));
-//        shoppingLists.put(login,new ShoppingList());
-//
         FileManager.saveClient(clients);
-//        FileManager.saveShoppingLists(shoppingLists);
 
 
     }
