@@ -5,8 +5,6 @@ public class AccountManager {
 
      private static final String sellerKey = "BSU";
 
-
-
     public static Client authorizationClient(){
         Scanner scanner = new Scanner(System.in);
         Map<String,Client> clients = FileManager.loadClient();
@@ -37,9 +35,6 @@ public class AccountManager {
                 "\n Доброго времени суток, " + client.getName() + "!");
         return client;
     }
-
-
-
 
     public static void registrationClient() {
         Scanner scanner = new Scanner(System.in);
@@ -92,9 +87,6 @@ public class AccountManager {
 
     }
 
-
-
-
     public static Seller authorizationSeller(){
         Scanner scanner = new Scanner(System.in);
         Map<String,Seller> sellers = FileManager.loadSeller();
@@ -129,8 +121,6 @@ public class AccountManager {
         return seller;
 
     }
-
-
 
     public static void registrationSeller(){
         Scanner scanner = new Scanner(System.in);
