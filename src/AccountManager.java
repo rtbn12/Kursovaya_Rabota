@@ -40,7 +40,6 @@ public class AccountManager {
         Scanner scanner = new Scanner(System.in);
 
         Map<String, Client> clients = FileManager.loadClient();
-//        Map<String, ShoppingList> shoppingLists = FileManager.loadShoppingLists();
 
         System.out.print("Приветствую Вас, новый пользователь!\n" +
                 "Для успешного прохождения процесса регистрации вам предстоит ввести своё НАСТОЯЩЕЕ имя,\n" +
