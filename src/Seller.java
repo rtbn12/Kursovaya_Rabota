@@ -127,12 +127,6 @@ public class Seller extends User implements Serializable {
 
     }
 
-
-
-
-
-
-
     }
 
 
