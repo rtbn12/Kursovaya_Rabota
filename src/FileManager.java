@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 public class FileManager {
-
     private static final String CLIENTFILE = "src/Clients.dat";
     private static final String SELLERSFILE = "src/Sellers.dat";
     private static final String PRODUCTFILE = "src/Products.dat";
@@ -75,9 +74,7 @@ public class FileManager {
             return new HashMap<String, T>(); // ← return ВНУТРИ catch!
         }
     }
-
     //Классы обёртки
-
     public static void saveClient(Map<String,Client> clients)
     {
         saveUser(clients,CLIENTFILE);
@@ -207,5 +204,4 @@ public class FileManager {
     {
         return loadProduct(KEYBOARDFILE);
     }
-
 }
