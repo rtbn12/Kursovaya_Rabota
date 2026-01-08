@@ -29,7 +29,6 @@ public class ComputerShop {
             int choice;
 
 
-
             try {
                 choice = scanner.nextInt();
                 switch (choice)
@@ -917,7 +916,6 @@ public class ComputerShop {
 
         }
         scanner.close();
-
 
     }
 
