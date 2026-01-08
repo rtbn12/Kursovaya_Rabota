@@ -936,15 +936,10 @@ public class ProductManager {
     }
 
     public static void rewriteCPU(String id, Scanner scanner){
-
         Map<String, CPU> MapCPU = FileManager.loadCPU();
         CPU cpu = MapCPU.get(id);
-
         Map<String, CPU> MapCPU2 = FileManager.loadCPU();
         CPU  izmenCPU = MapCPU2.get(id);
-
-
-
         int Choice;
         boolean Cycle = true;
         while(Cycle)
@@ -976,7 +971,6 @@ public class ProductManager {
             try {
                 Choice = scanner.nextInt();
                 scanner.nextLine();
-
                 switch (Choice)
                 {
                     case 1: izmenCPU.setPrice(scanner);
@@ -1016,7 +1010,6 @@ public class ProductManager {
                     case 18: izmenCPU.setDescription(scanner);
                         break;
                     case 0:
-
                         System.out.println("\n======================== Исходный вариант =========================");
                         cpu.getFullInfoForClient();
                         System.out.println("\n======================== Конечный вариант =========================");
@@ -1029,8 +1022,6 @@ public class ProductManager {
                                     "1 - Сохранить все изменения\n" +
                                     "0 - Отменить изменения(оставить оригинал)\n" +
                                     "Ваш выбор:");
-
-
                             try {
                                 printChoice = scanner.nextInt();
 
@@ -1088,8 +1079,6 @@ public class ProductManager {
             }
 
         }
-
-
     }
     public static void rewriteMotherBoard(String id, Scanner scanner) {
 
