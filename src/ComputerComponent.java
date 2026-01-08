@@ -6,7 +6,6 @@ public class ComputerComponent extends Product{
     private int powerConsumption;
     private double voltage;
 
-
     public ComputerComponent(String id, String category, Scanner scanner) {
         super(id, category, scanner);
         setInterfaceType(scanner, category);
@@ -17,18 +16,12 @@ public class ComputerComponent extends Product{
     public String getInterfaceType() {
         return interfaceType;
     }
-
     public int getPowerConsumption() {
         return powerConsumption;
     }
-
     public double getVoltage() {
         return voltage;
     }
-
-
-
-
     public void setInterfaceType(Scanner scanner, String category) {
         this.setCategory(category);
 
@@ -291,7 +284,6 @@ public class ComputerComponent extends Product{
                     usbPorts, audioPorts, displayPorts, hdmiPorts, rj45Ports);
         }
     }
-
     public void setPowerConsumption(Scanner scanner) {
         int powerConsumption = 0;
         boolean cyclePower = true;
@@ -321,7 +313,6 @@ public class ComputerComponent extends Product{
             }
         }
     }
-
     public void setVoltage(Scanner scanner) {
         double voltage = 0;
         boolean cycleVoltage = true;
@@ -351,11 +342,4 @@ public class ComputerComponent extends Product{
             }
         }
     }
-
-
-
-
-
-
-
 }
