@@ -1307,9 +1307,6 @@ public class ComputerShop {
     public static void Migrator(){
         System.out.println("=== Начало миграции товаров ===");
 
-        // Просто загружаем и сразу сохраняем каждый тип товаров
-        // Это перезапишет объекты как "новые"
-
         // 1. Процессоры
         Map<String, CPU> cpuMap = FileManager.loadCPU();
         FileManager.saveCPU(cpuMap);
