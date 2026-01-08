@@ -749,8 +749,6 @@ public class ProductManager {
     }
 
     public static void removeTovarAndProduct(Scanner scanner){
-
-
         int removeChoice;
         boolean removeCycle = true;
         while(removeCycle)
@@ -760,12 +758,9 @@ public class ProductManager {
                     "1 - Точно удалить товар\n" +
                     "0 - Вернуться назад\n" +
                     "Ваш выбор:");
-
-
             try {
                 removeChoice = scanner.nextInt();
                 scanner.nextLine();
-
                 switch (removeChoice)
                 {
                     case 1:
@@ -782,7 +777,6 @@ public class ProductManager {
                                         "Пожалуйста, попробуйте ввести id товара ещё раз:");
                                 id = scanner.nextLine();
                             }
-
                             boolean cycle = true;
                             while (cycle){
                                 System.out.print("\nВы точно хотите продолжить удаление товара?\n" +
@@ -790,23 +784,17 @@ public class ProductManager {
                                         "Введите 1 - если хотите продолжить процесс удаления товара!\n" +
                                         "Введите 0 - если хотите прервать процесс удаления!\n" +
                                         "Ваш выбор:");
-
                                 try {
                                     removeRemoveChoice = scanner.nextInt();
                                     scanner.nextLine();
-
                                     switch (removeRemoveChoice)
                                     {
                                         case 1:
-
                                             Product product = products.get(id);
                                             String category = product.getCategory();
-
                                             products.remove(id);
                                             FileManager.saveProduct0(products);
-
                                             switch (category){
-
                                                 case "Центральный процессор":
                                                     Map<String, CPU> CPUMap = FileManager.loadCPU();
                                                     CPUMap.remove(id);
