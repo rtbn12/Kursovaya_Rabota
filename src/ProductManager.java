@@ -2,7 +2,6 @@ import java.util.*;
 
 public class ProductManager {
 
-
     public static void registrationCPU(String choiceCategory) {
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -34,8 +33,6 @@ public class ProductManager {
             System.out.println("\nОшибка при регистрации процессора: " + e.getMessage());
         }
     }
-
-
     public static void registrationMotherBoard(String choiceCategory) {
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -67,8 +64,6 @@ public class ProductManager {
             System.out.println("\nОшибка при регистрации материнской платы: " + e.getMessage());
         }
     }
-
-
     public static void registrationGPU(String choiceCategory){
 
         Scanner scanner = new Scanner(System.in);
@@ -101,8 +96,6 @@ public class ProductManager {
             System.out.println("\nОшибка при регистрации видеокарты: " + e.getMessage());
         }
     }
-
-
     public static void registrationRAM(String choiceCategory) {
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -134,8 +127,6 @@ public class ProductManager {
             System.out.println("\nОшибка при регистрации оперативной памяти: " + e.getMessage());
         }
     }
-
-
     public static void registrationStorage(String choiceCategory) {
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -167,8 +158,6 @@ public class ProductManager {
             System.out.println("\nОшибка при регистрации накопителя: " + e.getMessage());
         }
     }
-
-
     public static void registrationPowerSupply(String choiceCategory){
 
         Scanner scanner = new Scanner(System.in);
@@ -201,8 +190,6 @@ public class ProductManager {
             System.out.println("\nОшибка при регистрации блока питания: " + e.getMessage());
         }
     }
-
-
     public static void registrationCase(String choiceCategory){
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -234,8 +221,6 @@ public class ProductManager {
             System.out.println("\nОшибка при регистрации корпуса: " + e.getMessage());
         }
     }
-
-
     public static void registrationCooler(String choiceCategory){
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -269,8 +254,6 @@ public class ProductManager {
 
 
     }
-
-
     public static void registrationSoftware(String choiceCategory){
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -303,8 +286,6 @@ public class ProductManager {
         }
 
     }
-
-
     public static void registrationMonitor(String choiceCategory){
 
         Scanner scanner = new Scanner(System.in);
@@ -337,8 +318,6 @@ public class ProductManager {
             System.out.println("\nОшибка при регистрации монитора: " + e.getMessage());
         }
     }
-
-
     public static void registrationMouse(String choiceCategory){
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -371,8 +350,6 @@ public class ProductManager {
         }
 
     }
-
-
     public static void registrationKeyBoard(String choiceCategory){
         Scanner scanner = new Scanner(System.in);
         Map<String, Product> products = FileManager.loadProduct0();
@@ -406,12 +383,6 @@ public class ProductManager {
 
     }
 
-
-
-
-
-
-
     public static  Map<String,Product> printMiniInfo(String category){
 
         Map<String,Product> products = FileManager.loadProduct0();
@@ -429,7 +400,6 @@ public class ProductManager {
 
 
     }
-
     public static Product searchProductForClient(){
 
         Scanner scanner = new Scanner(System.in);
@@ -512,7 +482,6 @@ public class ProductManager {
 
 
     }
-
     public static Product searchProductForSeller(){
 
         Scanner scanner = new Scanner(System.in);
@@ -607,8 +576,6 @@ public class ProductManager {
 
     }
 
-
-
     public static void printFullInformationCPU(){
 
         Map<String, CPU> cpus = FileManager.loadCPU();
@@ -626,7 +593,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationRAM() {
         Map<String, RAM> rams = FileManager.loadRAM();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог ОЗУ =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -641,7 +607,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationMotherboard() {
         Map<String, MotherBoard> motherboards = FileManager.loadMotherBoard();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог материнских плат =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -656,7 +621,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationGPU() {
         Map<String, GPU> gpus = FileManager.loadGPU();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог видеокарт =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -671,7 +635,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationStorage() {
         Map<String, Storage> storages = FileManager.loadStorage();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог ПЗУ =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -686,7 +649,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationPowerSupply() {
         Map<String, PowerSupply> powerSupplies = FileManager.loadPowerSupply();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог блоков питания =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -701,7 +663,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationCase() {
         Map<String, Case> cases = FileManager.loadCase();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог компьютерных корпусов =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -716,7 +677,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationCooler() {
         Map<String, Cooler> coolers = FileManager.loadCooler();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог кулеров =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -731,7 +691,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationSoftware() {
         Map<String, Software> softwareMap = FileManager.loadSoftware();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог ПО =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -746,7 +705,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationMonitor() {
         Map<String, Monitor> monitors = FileManager.loadMonitor();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог мониторов =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -761,7 +719,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationMouse() {
         Map<String, Mouse> mice = FileManager.loadMouse();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог мышей =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -776,7 +733,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
     public static void printFullInformationKeyboard() {
         Map<String, Keyboard> keyboards = FileManager.loadKeyboard();
         System.out.println("\n=+=+=+=+=+=+=+=+=+=+= Каталог клавиатур =+=+=+=+=+=+=+=+=+=+=+=+=+=");
@@ -791,9 +747,6 @@ public class ProductManager {
             System.out.println("\nТоваров данной категории пока что нет в магазине!");
         }
     }
-
-
-
 
     public static void removeTovarAndProduct(Scanner scanner){
 
@@ -994,8 +947,6 @@ public class ProductManager {
 
     }
 
-
-
     public static void rewriteCPU(String id, Scanner scanner){
 
         Map<String, CPU> MapCPU = FileManager.loadCPU();
@@ -1152,7 +1103,6 @@ public class ProductManager {
 
 
     }
-
     public static void rewriteMotherBoard(String id, Scanner scanner) {
 
         Map<String, MotherBoard> MapMB = FileManager.loadMotherBoard();
@@ -1320,7 +1270,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewriteGPU(String id, Scanner scanner) {
         Map<String, GPU> MapGPU = FileManager.loadGPU();
         GPU gpu = MapGPU.get(id);
@@ -1483,7 +1432,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewriteRAM(String id, Scanner scanner) {
         Map<String, RAM> MapRAM = FileManager.loadRAM();
         RAM ram = MapRAM.get(id);
@@ -1638,7 +1586,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewriteStorage(String id, Scanner scanner) {
         Map<String, Storage> MapStorage = FileManager.loadStorage();
         Storage storage = MapStorage.get(id);
@@ -1803,7 +1750,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewritePowerSupply(String id, Scanner scanner) {
         Map<String, PowerSupply> MapPowerSupply = FileManager.loadPowerSupply();
         PowerSupply powerSupply = MapPowerSupply.get(id);
@@ -1954,7 +1900,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewriteCase(String id, Scanner scanner) {
         Map<String, Case> MapCase = FileManager.loadCase();
         Case caseObj = MapCase.get(id);
@@ -2101,7 +2046,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewriteCooler(String id, Scanner scanner) {
         Map<String, Cooler> MapCooler = FileManager.loadCooler();
         Cooler cooler = MapCooler.get(id);
@@ -2256,7 +2200,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewriteSoftware(String id, Scanner scanner) {
         Map<String, Software> MapSoftware = FileManager.loadSoftware();
         Software software = MapSoftware.get(id);
@@ -2395,7 +2338,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewriteMonitor(String id, Scanner scanner) {
         Map<String, Monitor> MapMonitor = FileManager.loadMonitor();
         Monitor monitor = MapMonitor.get(id);
@@ -2558,7 +2500,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewriteMouse(String id, Scanner scanner) {
         Map<String, Mouse> MapMouse = FileManager.loadMouse();
         Mouse mouse = MapMouse.get(id);
@@ -2709,7 +2650,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void rewriteKeyboard(String id, Scanner scanner) {
         Map<String, Keyboard> MapKeyboard = FileManager.loadKeyboard();
         Keyboard keyboard = MapKeyboard.get(id);
@@ -2869,7 +2809,6 @@ public class ProductManager {
             }
         }
     }
-
     public static void reWriteTovarAndProduct(Scanner scanner){
 
         int removeChoice;
@@ -3030,8 +2969,6 @@ public class ProductManager {
 
 
     }
-
-
 
     public static boolean buyProductTovar(Product product,Client client, Scanner scanner){
 
@@ -3330,9 +3267,5 @@ public class ProductManager {
 
 
     }
-
-
-
-
 
 }
