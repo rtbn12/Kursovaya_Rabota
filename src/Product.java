@@ -6,7 +6,6 @@ public  class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
     private final String id;
     private String brand;
     private String model;
@@ -36,7 +35,6 @@ public  class Product implements Serializable {
         setQuantityProduct(scanner);
         setRating(scanner);
     }
-
     public Product(String id, String brand, String model,
                    String countryProduction, int productionDate,
                    int price, String category, String description,
@@ -60,55 +58,42 @@ public  class Product implements Serializable {
     public String getId() {
         return id;
     }
-
     public String getModel() {
         return model;
     }
-
     public String getBrand() {
         return brand;
     }
-
     public String getCountryProduction() {
         return countryProduction;
     }
-
     public int getProductionDate() {
         return productionDate;
     }
-
     public int getPrice() {
         return price;
     }
-
     public String getCategory() {
         return category;
     }
-
     public String getDescription() {
         return description;
     }
-
     public Date getAddedDate() {
         return addedDate;
     }
-
     public double getRating() {
         return rating;
     }
-
     public int getWarrantyMoths() {
         return warrantyMoths;
     }
-
     public String getFullName() {
         return brand + model;
     }
-
     public int getQuantityProduct() {
         return quantityProduct;
     }
-
     public void setQuantityProduct(Scanner scanner) {
         boolean valid = false;
         while (!valid) {
@@ -134,15 +119,12 @@ public  class Product implements Serializable {
             }
         }
     }
-
     public Date getPayDate() {
         return payDate;
     }
-
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
     }
-
     public void setBrand(Scanner scanner) {
         boolean valid = false;
         while (!valid) {
@@ -160,7 +142,6 @@ public  class Product implements Serializable {
             }
         }
     }
-
     public void setModel(Scanner scanner) {
         boolean valid = false;
         while (!valid) {
@@ -178,7 +159,6 @@ public  class Product implements Serializable {
             }
         }
     }
-
     public void setCountryProduction(Scanner scanner) {
         boolean valid = false;
         while (!valid) {
@@ -196,7 +176,6 @@ public  class Product implements Serializable {
             }
         }
     }
-
     public void setProductionDate(Scanner scanner) {
         boolean valid = false;
         while (!valid) {
@@ -223,7 +202,6 @@ public  class Product implements Serializable {
             }
         }
     }
-
     public void setPrice(Scanner scanner) {
         boolean valid = false;
         while (!valid) {
@@ -249,11 +227,9 @@ public  class Product implements Serializable {
             }
         }
     }
-
     public void setCategory(String category) {
         this.category = category;
     }
-
     public void setDescription(Scanner scanner) {
         boolean valid = false;
         while (!valid) {
@@ -275,11 +251,9 @@ public  class Product implements Serializable {
             }
         }
     }
-
     public void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
     }
-
     public void setRating(Scanner scanner) {
         boolean valid = false;
         while (!valid) {
@@ -305,7 +279,6 @@ public  class Product implements Serializable {
             }
         }
     }
-
     public void setWarrantyMoths(Scanner scanner) {
         boolean valid = false;
         while (!valid) {
@@ -331,17 +304,12 @@ public  class Product implements Serializable {
             }
         }
     }
-
     public void setQuantityProduct(int quantityProduct) {
         if (quantityProduct < 0) {
             throw new IllegalArgumentException("Количество не может быть отрицательным");
         }
         this.quantityProduct = quantityProduct;
     }
-
-
-
-
 
     public void getMiniInfo()
     {
@@ -353,19 +321,16 @@ public  class Product implements Serializable {
         System.out.println("Рейтинг: " + getRating());
         System.out.println("Количество на складе: " + getQuantityProduct() + " шт.");
     }
-
     public void getFullInfoForClient()
     {
 
     }
-
     public void getFullInfoForSeller()
     {
 
         System.out.println("Дата добавления товара: " + getAddedDate());
 
     }
-
     public void getFullInformationForShoppingList(){
         System.out.println("Дата покупки товара: " + getPayDate());
     }
