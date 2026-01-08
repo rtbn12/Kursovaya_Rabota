@@ -8,8 +8,6 @@ public class Peripheral extends Product{
     private boolean hasRGB;           // RGB подсветка
     private String color;             // цвет устройства
 
-
-
     public Peripheral(String id, String category, Scanner scanner) {
         super(id, category, scanner);
         setConnectionType(scanner);
@@ -22,7 +20,6 @@ public class Peripheral extends Product{
     public String getConnectionType() {
         return connectionType;
     }
-
     public void setConnectionType(Scanner scanner) {
         boolean cycleConnectionType = true;
         while (cycleConnectionType) {
@@ -84,11 +81,9 @@ public class Peripheral extends Product{
             }
         }
     }
-
     public double getCableLength() {
         return cableLength;
     }
-
     public void setCableLength(Scanner scanner) {
         // Если устройство беспроводное, кабель = 0
         if (this.isWireless) {
@@ -125,11 +120,9 @@ public class Peripheral extends Product{
             }
         }
     }
-
     public boolean isWireless() {
         return isWireless;
     }
-
     public void setIsWireless(Scanner scanner) {
         boolean cycleIsWireless = true;
         while (cycleIsWireless) {
@@ -166,11 +159,9 @@ public class Peripheral extends Product{
             }
         }
     }
-
     public boolean isHasRGB() {
         return hasRGB;
     }
-
     public void setHasRGB(Scanner scanner) {
         boolean cycleHasRGB = true;
         while (cycleHasRGB) {
@@ -207,11 +198,9 @@ public class Peripheral extends Product{
             }
         }
     }
-
     public String getColor() {
         return color;
     }
-
     public void setColor(Scanner scanner) {
         boolean cycleColor = true;
         while (cycleColor) {
@@ -279,6 +268,5 @@ public class Peripheral extends Product{
             }
         }
     }
-
 
 }
