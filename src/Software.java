@@ -23,7 +23,6 @@ public class Software extends Product{
     public String getSoftwareType() {
         return softwareType;
     }
-
     public void setSoftwareType(Scanner scanner) {
         boolean cycleSoftwareType = true;
         while (cycleSoftwareType) {
@@ -85,11 +84,9 @@ public class Software extends Product{
             }
         }
     }
-
     public int getLicenseDuration() {
         return licenseDuration;
     }
-
     public void setLicenseDuration(Scanner scanner) {
         boolean cycleLicenseDuration = true;
         while (cycleLicenseDuration) {
@@ -120,11 +117,9 @@ public class Software extends Product{
             }
         }
     }
-
     public String getSupportedOS() {
         return supportedOS;
     }
-
     public void setSupportedOS(Scanner scanner) {
         boolean cycleSupportedOS = true;
         while (cycleSupportedOS) {
@@ -211,11 +206,9 @@ public class Software extends Product{
             }
         }
     }
-
     public String getSystemRequirements() {
         return systemRequirements;
     }
-
     public void setSystemRequirements(Scanner scanner) {
         boolean cycleSystemRequirements = true;
         while (cycleSystemRequirements) {
@@ -237,11 +230,9 @@ public class Software extends Product{
             }
         }
     }
-
     public boolean isDigital() {
         return isDigital;
     }
-
     public void setIsDigital(Scanner scanner) {
         boolean cycleIsDigital = true;
         while (cycleIsDigital) {
@@ -278,11 +269,9 @@ public class Software extends Product{
             }
         }
     }
-
     public String getLanguages() {
         return languages;
     }
-
     public void setLanguages(Scanner scanner) {
         boolean cycleLanguages = true;
         while (cycleLanguages) {
@@ -359,7 +348,6 @@ public class Software extends Product{
             }
         }
     }
-
     @Override
     public void getFullInfoForClient() {
         System.out.println("\nId: " + getId());
