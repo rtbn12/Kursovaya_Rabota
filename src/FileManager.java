@@ -60,8 +60,7 @@ public class FileManager {
         }
 
     }
-    public static <T extends Product> Map<String, T> loadProduct(String filename)
-    {
+    public static <T extends Product> Map<String, T> loadProduct(String filename){
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
             Map<String,T> products =  (Map<String,T>)ois.readObject();
