@@ -1,7 +1,5 @@
 import java.util.Scanner;
-
 public class CPU extends ComputerComponent{
-
     private String socket;          // AM4, LGA1700, AM5
     private int coreCount;          // Количество ядер (6, 8, 12)
     private int threadCount;        // Количество потоков (12, 16, 24)
@@ -23,20 +21,16 @@ public class CPU extends ComputerComponent{
         setHasIntegratedGraphics(scanner);
     }
 
-
     public String getSocket() {
         return socket;
     }
-
     public void setSocket(Scanner scanner) {
         System.out.print("\nВведите сокет процессора: ");
         this.socket = scanner.nextLine();
     }
-
     public int getCoreCount() {
         return coreCount;
     }
-
     public void setCoreCount(Scanner scanner) {
         boolean cyclecoreCount = true;
         while (cyclecoreCount) {
@@ -65,11 +59,9 @@ public class CPU extends ComputerComponent{
             }
         }
     }
-
     public int getThreadCount() {
         return threadCount;
     }
-
     public void setThreadCount(Scanner scanner) {
         boolean cyclethreadCount = true;
         while (cyclethreadCount) {
@@ -98,11 +90,9 @@ public class CPU extends ComputerComponent{
             }
         }
     }
-
     public double getBaseFrequency() {
         return baseFrequency;
     }
-
     public void setBaseFrequency(Scanner scanner) {
         boolean cyclebaseFrequency = true;
         while (cyclebaseFrequency) {
@@ -131,11 +121,9 @@ public class CPU extends ComputerComponent{
             }
         }
     }
-
     public double getMaxFrequency() {
         return maxFrequency;
     }
-
     public void setMaxFrequency(Scanner scanner) {
         boolean cyclemaxFrequency = true;
         while (cyclemaxFrequency) {
@@ -164,11 +152,9 @@ public class CPU extends ComputerComponent{
             }
         }
     }
-
     public int getCacheSize() {
         return cacheSize;
     }
-
     public void setCacheSize(Scanner scanner) {
         boolean cyclecacheSize = true;
         while (cyclecacheSize) {
@@ -197,20 +183,16 @@ public class CPU extends ComputerComponent{
             }
         }
     }
-
     public String getMemoryType() {
         return memoryType;
     }
-
     public void setMemoryType(Scanner scanner) {
         System.out.print("\nВведите поддерживаемые процессором типы памяти: ");
         this.memoryType = scanner.nextLine();
     }
-
     public boolean isHasIntegratedGraphics() {
         return hasIntegratedGraphics;
     }
-
     public void setHasIntegratedGraphics(Scanner scanner) {
         boolean cyclehasIntegratedGraphics = true;
         while (cyclehasIntegratedGraphics) {
@@ -248,9 +230,6 @@ public class CPU extends ComputerComponent{
             }
         }
     }
-
-
-
     @Override
     public void getFullInfoForClient() {
         System.out.println("\nId: " + getId());
